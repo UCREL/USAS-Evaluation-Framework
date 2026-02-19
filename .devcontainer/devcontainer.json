@@ -13,18 +13,19 @@
 		// Configure properties specific to VS Code.
 		"vscode": {
 		// Add the IDs of extensions you want installed when the container is created.
-		"extensions": ["streetsidesoftware.code-spell-checker",
-	                   "ms-toolsai.jupyter",
+		"extensions": ["ms-toolsai.jupyter",
 					   "ms-toolsai.jupyter-renderers",
+					   "streetsidesoftware.code-spell-checker",
 					   "ms-python.python",
-					   "ms-python.vscode-pylance",
+					   "astral-sh.ty",
 					   "ms-python.vscode-python-envs",
 					   "ms-vscode.makefile-tools",
 					   "redhat.vscode-yaml",
 					   "tamasfe.even-better-toml",
 					   "github.vscode-github-actions",
 					   "mechatroner.rainbow-csv",
-					   "ms-azuretools.vscode-docker"],
+					   "ms-azuretools.vscode-docker",
+                       "ms-azuretools.vscode-containers"],
 		"settings": {
 			"python-envs.defaultEnvManager": "ms-python.python:venv"
 		}
