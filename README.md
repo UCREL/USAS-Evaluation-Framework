@@ -56,3 +56,10 @@ To run the tests (uses pytest and coverage) and generate a coverage report:
 ``` bash
 make test
 ```
+
+## License
+
+The code is licensed under [Apache License Version 2.0](./LICENSE).
+
+The following data files, that we use for testing, are licensed under [Creative Commons Attribution Non Commercial Share Alike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en); 
+* [./tests/data/parsers/benedict/english/benedict_english_corpus.txt](./tests/data/parsers/benedict/english/benedict_english_corpus.txt)
