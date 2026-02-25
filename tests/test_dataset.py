@@ -1,4 +1,5 @@
 """Tests for the dataset module."""
+import copy
 from typing import Literal, TypedDict
 
 import pytest
@@ -82,6 +83,30 @@ def test_evaluation_texts_valid_initialization(evaluation_texts_data: Evaluation
     assert texts.pos_tags == evaluation_texts_data["pos_tags"]
     assert texts.semantic_tags == evaluation_texts_data["semantic_tags"]
     assert texts.mwe_indexes == evaluation_texts_data["mwe_indexes"]
+
+def test_evaluation_texts__eq__(evaluation_texts_data: EvaluationTextsData) -> None:
+    expected_evaluation_texts = EvaluationTexts(**evaluation_texts_data)
+    assert expected_evaluation_texts == expected_evaluation_texts
+    incorrect_key_values = [
+        ("text", "Different text"),
+        ("tokens", ["Different tokens"] * len(evaluation_texts_data["tokens"])),
+        ("lemmas", ["Different lemmas"]* len(evaluation_texts_data["tokens"])),
+        ("pos_tags", ["Different pos tags"]* len(evaluation_texts_data["tokens"])),
+        ("semantic_tags", ["Different semantic tags"]* len(evaluation_texts_data["tokens"])),
+        ("mwe_indexes", [frozenset({})]* len(evaluation_texts_data["tokens"]))
+    ]
+    for incorrect_key, incorrect_value in incorrect_key_values:
+        temp_evaluation_texts_data = copy.deepcopy(evaluation_texts_data)
+        temp_evaluation_texts_data[incorrect_key] = incorrect_value
+        assert expected_evaluation_texts != EvaluationTexts(**temp_evaluation_texts_data)
+
+    alt_evaluation_texts_data = dict(copy.deepcopy(evaluation_texts_data))
+    alt_evaluation_texts_data["lemmas"] = None
+    alt_evaluation_texts_data["pos_tags"] = None
+    alt_evaluation_texts = EvaluationTexts(**alt_evaluation_texts_data)
+    assert alt_evaluation_texts == alt_evaluation_texts
+
+    assert alt_evaluation_texts != expected_evaluation_texts
 
 @pytest.mark.parametrize("list_attribute_testing", ["lemmas", "pos_tags", "semantic_tags", "mwe_indexes"])
 def test_evaluation_texts_mismatched_lengths(list_attribute_testing: Literal["lemmas", "pos_tags", "semantic_tags", "mwe_indexes"],

@@ -29,6 +29,20 @@ class MWEData(TypedDict):
 
 
 class EnglishBenedict(BaseParser):
+    """
+    Parser for the Benedict English corpus that contains human-annotated USAS semantic tags.
+
+    This parser handles the English version of the Benedict corpus, which uses a specific
+    token format: '<Token>_<USAS-Label><MWE>?' where:
+    - Token: The actual word/token text
+    - USAS-Label: Semantic tag(s) in USAS format (e.g., 'F2/O4.5', 'A1.1.1')
+    - MWE: Optional Multi-Word Expression identifier in format '[i<ID>.<TOTAL>.<INDEX>]'
+
+    The parser provides comprehensive validation, normalization, and parsing capabilities
+    for evaluating USAS Word Sense Disambiguation models.
+
+    The main parsing method is `parse`
+    """
 
 
     @staticmethod
@@ -336,6 +350,267 @@ class EnglishBenedict(BaseParser):
                                                   pos_tags=None,
                                                   semantic_tags=usas_tags,
                                                   mwe_indexes=mwe_indexes)
+                evaluation_texts.append(evaluation_text)
+                
+
+        logger.info(f"Finished parsing the {dataset_name} dataset")
+        return EvaluationDataset(
+            name=dataset_name,
+            text_level=text_level,
+            labels_removed=label_filter,
+            texts=evaluation_texts
+        )
+
+class FinnishBenedict(BaseParser):
+    """
+    Parser for the Benedict Finnish corpus that contains human-annotated USAS semantic tags.
+
+    This parser handles the Finnish version of the Benedict corpus, which uses a specific
+    token format: '<Token>_<USAS-Label>(_i)?' where:
+    - Token: The actual word/token text
+    - USAS-Label: Semantic tag(s) in USAS format (e.g., 'F2/O2', 'A3+')
+    - i: Optional marker indicating the token is part of a Multi-Word Expression
+
+    The parser provides comprehensive validation, normalization, and parsing capabilities
+    for evaluating USAS Word Sense Disambiguation models.
+
+    The main parsing method is `parse`
+    """
+
+    @staticmethod
+    def validate_text_string_format(text: str) -> EvaluationTexts:
+        """
+        Given a text whereby when split by whitespace each text element
+        has the following format '<Token>_<USAS-Label>(_i)?' whereby the USAS-Label
+        should be validated by `parse_usas_token_group`, the optional `_i`
+        indicates if the token is part of a Multi Word Expression.
+        The whole text string is validated to ensure it is in this
+        '<Token>_<USAS-Label>(_i)?' format.
+        It returns the following information within the data structure `EvaluationTexts`:
+        * the text string
+        * the tokens.
+        * the USAS labels.
+        * the MWE indexes.
+
+        This validation also handles edge cases with punctuation;
+        * If the text element only contains the following it will have the
+            USAS label `PUNCT`:
+            * `-`
+            * `.`
+            * `,`
+            * `!`
+            * `:`
+            * `(`
+            * `)`
+            * `?`
+            * `"`
+
+        Args:
+            text: The text to validate, e.g. `Vac_F2/O2_i pot_F2/O2_i on_A3+`
+
+        Returns:
+            EvaluationTexts: Format validated text string, tokens, USAS labels, and MWE indexes.
+        Raises:
+            ValueError: If the text string is not valid.
+            ValueError: If the USAS label is not valid.
+        Examples:
+            >>> FinnishBenedict.validate_text_string('Vac_F2/O2_i pot_F2/O2_i on_A3+')
+            EvaluationTexts(text='Vac_F2/O2_i pot_F2/O2_i on_A3+',
+                            tokens=['Vac', 'pot', 'on'],
+                            lemmas=None,
+                            pos_tags=None,
+                            semantic_tags=['F2/O2', 'F2/O2', 'A3'],
+                            mwe_indexes=[frozenset({2})])
+        """
+        special_punctuation = set({"-", ".", ",", "!", ":", "(", ")", '"', "?"})
+        text = text.strip()
+        if not text:
+            raise ValueError(f"Error the text string is empty: `{text}`")
+        all_token_usas_mwe = text.split()
+        
+        all_tokens: list[str] = []
+        all_usas_tags: list[str] = []
+        all_mwe_indexes: list[frozenset[int]] = []
+        mwe_index = 0
+        is_mwe = False
+        for token_usas_mwe in all_token_usas_mwe:
+            segmented_token_usas_mwe = token_usas_mwe.split("_")
+            token = ""
+            usas_tag_string = ""
+            match len(segmented_token_usas_mwe):
+                case 1:
+                    token = segmented_token_usas_mwe[0]
+                    if token in special_punctuation:
+                        usas_tag_string = "PUNCT"
+                    else:
+                        raise ValueError(
+                            f"Error the text string is not valid: `{text}` "
+                            f"contains a single token {token} that is not punctuation {special_punctuation}."
+                        )
+                    is_mwe = False
+                case 2:
+                    token = segmented_token_usas_mwe[0]
+                    usas_tag_string = segmented_token_usas_mwe[1]
+                    is_mwe = False
+                case 3:
+                    token = segmented_token_usas_mwe[0]
+                    usas_tag_string = segmented_token_usas_mwe[1]
+                    mwe_token = segmented_token_usas_mwe[2]
+                    if mwe_token != "i":
+                        raise ValueError(
+                            f"Error the text string is not valid: `{text}` "
+                            f"as the MWE index token should be `i` and not "
+                            f"{mwe_token} for the token {token}."
+                        )
+                    if not is_mwe:
+                        mwe_index += 1
+                    is_mwe = True
+                case _:
+                    raise ValueError(
+                            f"Error the text string is not valid: `{text}` "
+                            f"as the token {token} contains more than two underscores."
+                        )
+
+            if token.strip() == "":
+                raise ValueError(
+                    f"Error the text string is not valid: `{text}` "
+                    f"as the token {token} is empty."
+                )
+            try:
+                usas_tag = usas_tag_string
+                if usas_tag_string != "PUNCT":
+                    usas_tag_groups = parse_usas_token_group(usas_tag_string)
+                    # We only want the first USAS tag group as there should only be one USAS tag
+                    # group by definition. We then want each tag from that first group.
+                    # There can be multiple tags because of multi tag membership, e.g.
+                    # F2/O2
+                    usas_tag = "/".join([usas_tag.tag for usas_tag in usas_tag_groups[0].tags])
+                all_usas_tags.append(usas_tag)
+            except ValueError as e:
+                raise ValueError(f"Invalid USAS tag '{usas_tag_string}' in token: {token} for text: {text}") from e
+            
+            all_tokens.append(token)
+            if is_mwe:
+                all_mwe_indexes.append(frozenset({mwe_index}))
+            else:
+                all_mwe_indexes.append(frozenset({}))
+
+        return EvaluationTexts(
+            text=text,
+            tokens=all_tokens,
+            lemmas=None,
+            pos_tags=None,
+            semantic_tags=all_usas_tags,
+            mwe_indexes=all_mwe_indexes
+        )
+
+
+    @staticmethod
+    def parse(dataset_path: Path,
+              label_validation: set[str] | None = None,
+              label_filter: set[str] | None = None) -> EvaluationDataset:
+        """
+        Parses the Benedict Finnish corpus into the Evaluation Dataset format, for
+        easy evaluation of USAS WSD models.
+
+        All tokens that are "-", ".", ",", "!", ":", "(", ")", '"', "?" will be
+        kept as the tokens and given the USAS tag `PUNCT`.
+
+        The label validation does not need to include the `PUNCT` label as this is
+        always validated and is expected to be a valid semantic tag.
+        
+        If the label filter is used then the semantic label for that token will be
+        an empty string, this empty string will not be raised as a validation error
+        through label validation if this is not None.
+
+        For multi-tag labels, e.g. `F2/O2`, the full multi-tag label must be in
+        the label filter for it to be filtered out, e.g. if `F2` is in the label
+        filter then it will not affect the multi-tag label `F2/O2` only `F2`
+        labels will be filtered out.
+        
+        Args:
+            dataset_path: Path to the Benedict Finnish corpus.
+            label_validation: A set of labels that the semantic/dataset labels should
+                be validated against. Defaults to `None` in which case no validation
+                is performed.
+            label_filter: A set of labels from the dataset that should be filtered out.
+                Defaults to `None` in which case no filtering is performed.
+        Returns:
+            EvaluationDataset: The parsed and formatted dataset. The name of the
+                dataset is set to `Benedict Finnish` and the text level is set to
+                `sentence`.
+        Raises:
+            ValueError: If it cannot parse the data due to formatting or a
+                label cannot be validated when label validation is used.
+        """
+        dataset_name = "Benedict Finnish"
+        text_level = TextLevel.sentence
+
+        logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
+        
+        using_label_validation = True if label_validation is not None else False
+        logger.info(f"Using label valdation: {using_label_validation}")
+    
+        using_label_filtering = True if label_filter is not None else False
+        logger.info(f"Using label filtering: {using_label_filtering}")
+
+        evaluation_texts: list[EvaluationTexts] = []
+
+        with dataset_path.open("r", encoding="utf-8") as dataset_fp:
+            for line_index, line in enumerate(dataset_fp):
+                line = line.strip()
+                if not line:
+                    continue
+                logger.debug(f"Line index: {line_index}")
+                
+                validated_evaluation_text =  FinnishBenedict.validate_text_string_format(line)
+                tokens = validated_evaluation_text.tokens
+
+                logger.debug(f"Number of tokens in line: {len(tokens)}")
+
+                tmp_usas_tags: list[str] = []
+                usas_tags = validated_evaluation_text.semantic_tags
+                assert isinstance(usas_tags, list)
+                for index, token in enumerate(tokens):
+                    usas_tag = usas_tags[index]
+
+                    # Validate token is not a USAS tag
+                    token_is_a_tag = True
+                    try:
+                        parse_usas_token_group(token)
+                    except ValueError:
+                        token_is_a_tag = False
+                    if token_is_a_tag:
+                        raise ValueError(
+                            f"Error expected token is a tag: {line_index}/{token} (line_index/token): `{line}`"
+                        )
+                    
+                    # label filtering
+                    if label_filter is not None and usas_tag in label_filter:
+                        usas_tag = ""
+                    
+                    # label validation
+                    if label_validation is not None:
+                        match usas_tag:
+                            case "PUNCT" | "":
+                                pass
+                            case _:
+                                for usas_sub_tag in usas_tag.split("/"):
+                                    if usas_sub_tag not in label_validation:
+                                        raise ValueError(
+                                            f"Error semantic tag is not in the label validation: {line_index}-{usas_sub_tag}"
+                                            f" (line_index/semantic_tag): `{line}`"
+                                        )
+                    tmp_usas_tags.append(usas_tag)
+                
+                
+
+                evaluation_text = EvaluationTexts(text=validated_evaluation_text.text,
+                                                  tokens=tokens,
+                                                  lemmas=None,
+                                                  pos_tags=None,
+                                                  semantic_tags=tmp_usas_tags,
+                                                  mwe_indexes=validated_evaluation_text.mwe_indexes)
                 evaluation_texts.append(evaluation_text)
                 
 
