@@ -1,0 +1,5 @@
+Token,Corrected-USAS,sentence-break
+新华社,Z3+,False
+。,PUNCT,True
+18日,T1,False
+记者,I1.1/I3.1； I3.2,False

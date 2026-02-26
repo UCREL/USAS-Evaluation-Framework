@@ -38,6 +38,8 @@ class EnglishBenedict(BaseParser):
     - USAS-Label: Semantic tag(s) in USAS format (e.g., 'F2/O4.5', 'A1.1.1')
     - MWE: Optional Multi-Word Expression identifier in format '[i<ID>.<TOTAL>.<INDEX>]'
 
+    This corpus does contain / support MWEs.
+
     The parser provides comprehensive validation, normalization, and parsing capabilities
     for evaluating USAS Word Sense Disambiguation models.
 
@@ -281,7 +283,8 @@ class EnglishBenedict(BaseParser):
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `Benedict English` and the text level is set to
-                `sentence`.
+                `sentence`. The text returned for this corpus is the original text
+                for the given sentence, which includes USAS tags and MWE index information.
         Raises:
             ValueError: If it cannot parse the data due to formatting or a
                 label cannot be validated when label validation is used.
@@ -370,6 +373,8 @@ class FinnishBenedict(BaseParser):
     - Token: The actual word/token text
     - USAS-Label: Semantic tag(s) in USAS format (e.g., 'F2/O2', 'A3+')
     - i: Optional marker indicating the token is part of a Multi-Word Expression
+
+    This corpus does contain / support MWEs.
 
     The parser provides comprehensive validation, normalization, and parsing capabilities
     for evaluating USAS Word Sense Disambiguation models.
@@ -538,7 +543,8 @@ class FinnishBenedict(BaseParser):
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `Benedict Finnish` and the text level is set to
-                `sentence`.
+                `sentence`. The text returned for this corpus is the original text
+                for the given sentence, which includes USAS tags and MWE index information.
         Raises:
             ValueError: If it cannot parse the data due to formatting or a
                 label cannot be validated when label validation is used.

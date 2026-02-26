@@ -1,0 +1,2313 @@
+Token,POS,Predicted-USAS,Corrected-USAS,Errors,Notes,sentence-break
+新华社,PROPN,Z99,Z3,WRONG-USAS,部分专有名词无法识别,False
+武汉,PROPN,Z2,Z2,,,False
+10月,NOUN,Z99,T1,WRONG-USAS,日期无法识别,False
+18日,NOUN,Z99,T1,WRONG-USAS,日期无法识别,False
+电,NOUN,O3; O2; Q1.3; Q4.3; S7.1+; S1.2.5+; N2@,Q4.3,,,False
+（,PUNCT,PUNCT,,,,False
+记者,NOUN,Q4.2/I3.2/S2mf,Q4.2；I3.2,,,False
+李学勇,PROPN,Z99,Z1,WRONG-USAS,人名无法识别,False
+、,PUNCT,PUNCT,,,,False
+李宣良,PROPN,Z99,Z1,WRONG-USAS,人名无法识别,False
+、,PUNCT,PUNCT,,,,False
+李劲峰,PROPN,Z99,Z1,WRONG-USAS,人名无法识别,False
+）,PUNCT,PUNCT,,,,False
+创军人,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为： 创 军人,False
+荣耀,VERB,E2+++,"S7.2, E4.1",WRONG-USAS,S7.2 Respect  ,False
+，,PUNCT,PUNCT,,,,False
+筑,VERB,B1/O4.4; H1; A1.1.1; A5.1+/A2.1; N3.2+/A2.1,A1.1.1,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+和平,NOUN,E3+,E3+,,,False
+。,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,WRONG-USAS,量词似乎无法识别准确,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3；S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+18日,NOUN,Z99,T1,WRONG-USAS,日期无法识别,False
+晚,NOUN,T1.3; T4-,T1.3,,,False
+在,ADP,Z5,Z5,,,False
+湖北省,PROPN,Z99,Z2,WRONG-USAS,部分地名无法识别,False
+武汉市,PROPN,Z99,Z2,WRONG-USAS,部分地名无法识别,False
+隆重,ADV,I1.1+; N1; I1; O4.2; A5.2+; O4.2+; A11.1+; A5.1+; N3.2+; S1.2.3+; S1.2.1-,A11.1,,,False
+开幕,VERB,T2+,T2,,,False
+。,PUNCT,PUNCT,,,,False
+中共,PROPN,Z99,G1.2,WRONG-USAS,部分专有名词无法识别,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1;G1.2,WRONG-USAS,,False
+总书记,NOUN,Z99,"G1.2, I3.2",WRONG-USAS,,False
+、,PUNCT,PUNCT,,,,False
+国家主席,NOUN,Z99,"G1.2, I3.2",WRONG-USAS,,False
+、,PUNCT,PUNCT,,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1;G1.2,WRONG-USAS,,False
+军委,NOUN,Z99,G3;S7.1,WRONG-USAS,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,"G1.2, I3.2",,,False
+习近平,PROPN,Z99,Z1,WRONG-USAS,,False
+出席,VERB,A8; A10+; A3+; G2.1; K4; Q4; M6; S1.1.3+; S1.2; S9; S7.4-; S8+,S1.1.3,,,False
+开幕式,NOUN,Z99,S1.1.1,WRONG-USAS,,False
+并,CCONJ,Z5,Z5,,,False
+宣布,VERB,Q2.2; K5.1%; Q4,Q2.2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+开幕,VERB,T2+,T2,,,False
+。,PUNCT,PUNCT,,,,True
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,WRONG-USAS,量词似乎无法识别准确,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+是,VERB,A3; Z5,A3,,,False
+我国,NOUN,Z99,G1.2,WRONG-TOKEN,第一次 N1,False
+第一,NUM,N4+; A13.2++; N4; P1@,N4,WRONG-TOKEN,第一次 N1,False
+次,NUM,N6; N3.1,N6,,,False
+承办,VERB,Z99,A1.1.1,WRONG-USAS,,False
+的,PART,Z5,Z5,,,False
+综合性,ADJ,A1.8+; Y1/O1,A1.8;A13.3,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2;M7,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+赛事,NOUN,Z99,K5.1,WRONG-USAS,,False
+，,PUNCT,PUNCT,,,,False
+也,ADV,N5++; N5.2+,Z5,WRONG-USAS,表并列或补充的语法功能词,False
+是,VERB,A3; Z5,A3,,,False
+继,ADP,N4; Z5; T1.2,Z5,WRONG-USAS,,False
+北京,PROPN,Z2,Z2,,,False
+奥运会,PROPN,Z99,Z3,WRONG-USAS,专有名词无法识别,False
+后,PART,M6-; T4--; T1.1.1; N4-; Z5,T1.1.1,,,False
+我国,NOUN,Z99,G1.2,WRONG-USAS,,False
+举办,VERB,A1.1.1; S1.1.1; K2; O4.1; M2; A9+; X2.1; S7.1+/A1.7+,S1.1.1;A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+规模,NOUN,A1.7-; A4.1; M1; F1; B3; N3.2; N4; K2; L2; O2; I1.1/I3.1; O1.1; N3.1; N5; N3.6; O4.1,A1,,,False
+最,ADV,A11.1+; N5+++; N3.2+++; A11.1+++; N5.1+; O2/M4; O3,A13,,,False
+大,VERB,A11.1+; N5+++; N3.2+++; A11.1+++; N5.1+; O2/M4; O3,A13.2,,,False
+的,PART,Z5,Z5,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+盛会,NOUN,S1.1.1; A1.1.1,A1.1.1,,,False
+。,PUNCT,PUNCT,,,,False
+来自,VERB,A2.2,M6,,,False
+109,NUM,N1,N1,,,False
+个,NUM,S2mf,N,WRONG-USAS,量词标注问题,False
+国家,NOUN,G1.1c; W3,M7,WRONG-USAS,,False
+的,PART,Z5,Z5,,,False
+9300余,NUM,N1,N1,,,False
+名,NUM,Q2.2,N,WRONG-USAS,量词标注问题,False
+军体,NOUN,Z99,G3;K5.1,WRONG-USAS,,False
+健儿,NOUN,Z99,S2;K5.1,WRONG-USAS,,False
+将,ADV,T1.1.3,T1.1.3,,,False
+在,ADP,Z5,Z5,,,False
+江城,PROPN,Z99,Z3,WRONG-USAS,,False
+武汉,PROPN,Z2,Z2,,,False
+同场,NOUN,Z99,S1.1.1,WRONG-USAS,,False
+竞技,VERB,S7.3,S7.3,,,False
+、,PUNCT,PUNCT,,,,False
+增进,VERB,A5.1+/A2.1; A9+; N5+/A2.1; S7.1+/A2.1; I2.2/Q2.2; S8+,A2.1;A2.2,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S1.2.1,,,False
+。,PUNCT,PUNCT,,,,True
+18日,NOUN,Z99,T1,,,False
+晚,NOUN,T1.3; T4-,T1.3,,,False
+，,PUNCT,PUNCT,,,,False
+容纳,VERB,A1.8+; A1.7+; A9+; S5+; X2.5+; S1.2.1+; S7.4+; H2; S1.1.1; Q4.3; S1.1.3+; T3-; H4; S8+; A1.2+; I2.2/H1c; A9+/H1,A1.8,,,False
+近,ADV,A13.4; M6; N3.3-,A13.4,,,False
+6万,NUM,N1,N1,,,False
+名,NUM,Q2.2,N,,量词标注问题,False
+观众,NOUN,K1/S2mfc; S2mfc; S1.1.3+; X3.4/S2mf,S2,,,False
+的,PART,Z5,Z5,,,False
+武汉,PROPN,Z2,Z2,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+中心,NOUN,A11.1+; B1; M6; E1; X5.2+; O1; F1; H1c; M7c; G1.2c; K5.1mfn; O2; A11.1+/M7; Y2%; W3; M7/A11.1+,A11.1;M7,,,False
+主,ADJ,A11.1+; N5+++; P1; A11.1+++; G1.2; B2-; O2/M4; O3; S7.1+/S2mf,A11.1,,,False
+体育场,NOUN,K5.1/H1,H1;5.1,,,False
+人声鼎沸,VERB,Z99,Z99,,成语标注问题,False
+、,PUNCT,PUNCT,,,,False
+气氛,NOUN,E1; E3-; X3; O4.1; W3; W1; N3.5; X2.1,E1,,,False
+热烈,VERB,E3-; X5.2+; S3.2; E2+; S9@,X5.2;A13.3,,,False
+。,PUNCT,PUNCT,,,,True
+20时,NOUN,Z99,T1,,时间标注问题,False
+整,NOUN,A4.2+; A5.3+; N3.8-; X2.5-; E5-; N5.1+; T2-; N3.2+; O4.2+; G2.2+; S7.1-/S2mf; T1.3; Q1.2,A5.3,,,False
+，,PUNCT,PUNCT,,,,False
+礼宾号,NOUN,Z99,K2,,,False
+响起,VERB,X3.2; Q2.2; A8; N3.1%,X3.2,,,False
+，,PUNCT,PUNCT,,,,False
+习近,PROPN,Z99,Z99,,分词,False
+平同,NOUN,Z99,Z99,,分词,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,S2;I3.2,,,False
+皮奇里洛,PROPN,Z99,Z1,,,False
+等,PART,T1.3; A3+; S1.1.1,Z5,,,False
+步入,VERB,Z99,M1,,,False
+会场,NOUN,K4/H1; K4; B3/H2; M7,M7;H1,,,False
+，,PUNCT,PUNCT,,,,False
+全场,ADV,Z99,S2,,,False
+响起,VERB,X3.2; Q2.2; A8; N3.1%,X3.2,,,False
+热烈,ADJ,F2; O4.6+; E2+; O4.2+; S1.2.1+; X5.2+; L1+%,X5.2;A13.3,,,False
+掌声,NOUN,E2+/X3.2+,X3.2,,,False
+。,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词标注问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+开幕式,NOUN,Z99,S1.1.1,,,False
+正式,ADV,A6.2+; G1.1; S7.4+; G1.1/S2mf; S7.1+/S2mf; S1.2.1-; O4.2,A6.2,,,False
+开始,VERB,T2+,T2,,,False
+。,PUNCT,PUNCT,,,,True
+《,PUNCT,PUNCT,,,,False
+红旗,NOUN,Z99,C1;O4.3,,,False
+飘飘,NOUN,Z99,A1.1.1,,,False
+》,PUNCT,PUNCT,,,,False
+的,PART,Z5,Z5,,,False
+音乐声,NOUN,Z99,K2,,,False
+中,PART,Z5,Z5,,,False
+，,PUNCT,PUNCT,,,,False
+一,NUM,N1,N1,,,False
+幅,NUM,M1; M2; A1.1.1,N,,量词标注问题,False
+巨大,VERB,A11.1+; X5.2+; N3.2; N5+; N3.2+; A5.1+; N3.2++; N3.2+++,N3.2;N3.6,,,False
+的,PART,Z5,Z5,,,False
+五星,NOUN,Z99,O4.1,,是否存在分词问题,False
+红旗,NOUN,Z99,C1;O4.3,,,False
+图案,NOUN,A4.1; A6.2+; S1.2; Q1.2; C1; X7+; B5; O4.3; X4.2; O4.1; B5/Q1.2,C1,,,False
+铺满,VERB,Z99,M2,,,False
+体育场,NOUN,K5.1/H1,H1;K5.1,,,False
+，,PUNCT,PUNCT,,,,False
+随即,ADV,N4; T1.1.2,N4,,,False
+又,ADV,N6+; Z4,Z5,,,False
+变换,VERB,A2.1+; N2%; S1.1.2+; S9; K5.1; A6.1-; A6.3+,A2.1,,,False
+组合成,VERB,Z99,A1.1.1,,,False
+“,PUNCT,PUNCT,,,,False
+中国,PROPN,Z8,Z2;M7,,,False
+”,PUNCT,PUNCT,,,,False
+字样,NOUN,Z99,Q3,,,False
+。,PUNCT,PUNCT,,,,False
+随着,ADP,Z99,N4,,,False
+灯光,NOUN,N3.5-; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; N5-; N3.2-; A12+; X3.2-; F1; A11.1-; O4.2+,W2,,,False
+、,PUNCT,PUNCT,,,,False
+音乐,NOUN,K2; K4/K2,K2,,,False
+的,PART,Z5,Z5,,,False
+变换,NOUN,A2.1+; N2%; S9; K5.1,A2.1,,,False
+，,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+会徽,NOUN,Z99,C1,,,False
+“,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.1,,,False
+纽带,NOUN,B1,S3.1,,,False
+”,PUNCT,PUNCT,,,,False
+被,X,A3+; Z5,Z5,,,False
+点亮,VERB,T2+; W2; A7+,W2,,,False
+，,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+鸽图案,NOUN,Z99,Z99,,分词,False
+出现,VERB,A1.1.1; M1; A10+; O4.1; A3+; G2.1; K5; Q4; A8; K4; L2; X9.2+/A12+; T2; M6; S1.1.3+; S1.2; S9; O2; M7; E6-; M1/N6+; S9/T1.3; X3.4; X3.2+,A1.1.1,,,False
+在,ADP,Z5,Z5,,,False
+场地,NOUN,Z99,M7,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,M6,,,False
+。,PUNCT,PUNCT,,,,True
+各,DET,N5.1+; S1.1.2+,N5.1,,,False
+参赛,ADJ,Z99,S1.1.3;K5.2,,,False
+国,NOUN,G1.1c; O4.1; S5+c; W3; F4/M7; K2; M7; A4.1; O1.1/W3; F4; O4.2-; Q2.1,G1.1,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S5,,,False
+按照,ADP,Z99,Z5,,,False
+国家,NOUN,G1.1c; W3,W3,,,False
+法语,NOUN,Z99,Q3,,,False
+名称,NOUN,Q2.2; S7.1+/A9-; Q2.2/A9-; S9; I1,Q2.2,,,False
+的,PART,Z5,Z5,,,False
+首,DET,S7.1+; K5.1; M1; N5; A2.1+; A11.1+; Q1.2; T1.1.3,N4,,,False
+字母,NOUN,A12+; S5+; Q3; Q1.2,Q3,,,False
+顺序,ADV,A5.1; N4; K2; Y1%; S7.1+/Q2.2; I2.2/Q2.2,N4,,,False
+依次,ADV,Z99,N4,,,False
+入场,VERB,M7; M1; T2+; O4.2+; S7.4+/M1; P1; I1.3; Q2.2,M1,,,False
+。,PUNCT,PUNCT,,,,False
+当,ADP,A1.2+; A13.3; A13.2; A2.1+; M2; A5.3+; A4.2+; G2.2+; M6; N3.2+; A5.3+/A2.1; A5.4+; S1.2.4+; A6.1+++; N3.2/A5.1+; N3.2; B5; O2; B2-; N5+; A5.1+; Q1.1; A6.2+; S1.1.3; A5.4-; K4; S1.2.5+; S6+; A7+; S7.1+; A1.1.1; X9.2+; S7.4+; G1.2; S8-; S9; T1.3; Z4; Z5,T1.3;Z5,,,False
+一面面,NOUN,Z99,N5,,,False
+不同,ADJ,A6.1-; A11.2+; A4.2+,A6.1,,,False
+国家,NOUN,G1.1c; W3,G1.1,,,False
+的,PART,Z5,Z5,,,False
+国旗,NOUN,Q1.1; G3,C1;G1.2,,,False
+通过,VERB,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; A7+; A10+; I1.1; B4; O4.1; T1.1.3; N3.2+; E2+; G1.1,Z5；M1,,,False
+主席台,NOUN,H2; M3/M7; M4/H1; H5; X7+; Y2,H2,,,False
+时,PART,F1; T1.3; X7+/T1; N3.1/T1,T1.3;Z5,,,False
+，,PUNCT,PUNCT,,,,False
+现场,NOUN,A14; K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; M6; O4.4; O2; B2-; N5-; Q4.3; X3.4,M7,,,False
+观众,NOUN,K1/S2mfc; S2mfc; S1.1.3+; X3.4/S2mf,S2,,,False
+热烈,ADV,E3-; X5.2+; S3.2; E2+; S9@,E4.1;A13.2,,,False
+鼓掌,VERB,E2+; X3.2+,E1;A1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+对,ADP,Z5,Z5,,,False
+远道而来,VERB,Z99,M7;M1,,成语标注问题,False
+的,PART,Z5,Z5,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,K5.1;S2,,,False
+表示,VERB,A10+; M6; Q1.1/M3; Q1.1; Y2; A2.2; A9-; F2; S7.4-; G2.2-; I1.1/I3.1; I1.2; O2/A10+; A11.1+; A6.2+; S1.1.3; A5.4-; K4; Q1.1/B1; M1; A1.1.1; Q1.2; Q1.2/G1.1; Q2.1; Q2.1/A6.1-; Q2.1/E3-; Q2.1/A2.2; Q3; X3.2+; X2.5+; P1; B1%,A10,,,False
+欢迎,NOUN,H2; S1.1.1; Q4.3; S1.1.3+; T3-; O1.1; Q2.2; S3.2; S8+,S1.1.1,,,False
+。,PUNCT,PUNCT,,,,False
+东道主,NOUN,Z99,Z3,,,False
+中国,PROPN,Z8,Z2,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S5,,,False
+最后,ADV,N4,N4,,,False
+一个,NUM,N1,N,,量词问题,False
+入场,VERB,M7; M1; T2+; O4.2+; S7.4+/M1; P1; I1.3; Q2.2,M1,,,False
+，,PUNCT,PUNCT,,,,False
+运动员们,NOUN,K5.1/S2.2m,S2,,,False
+军容,NOUN,Z99,O4.1,,,False
+严整,VERB,Z99,O4.2,,,False
+、,PUNCT,PUNCT,,,,False
+精神,NOUN,A1.1.1; E5+/S1.2; E6+; E2-; S8+; A1.3; F1; Z1mf; F2; O1.2; K2; L1+; A3+; T1.3; S1.1.1; X5.2+; Q4.1; A11.1+++; A5.4+/C1; M2; M3; S7.1+; X8+; M3/H3; Y2; O1.1; W3; O4.3; S9; E1; S2mf; E4.1+; S6+; X7+; X1; Y1; X9.1; X9.1+/S2mf; X9.1+; A11.1+; O1; S1.2.5+; O4.1,X4.1,,,False
+抖擞,VERB,A10+; A15-; G2.2-/S3.2; N5.2+; X9.2-; N3.2-/A2.1,O4.2,,,False
+，,PUNCT,PUNCT,,,,False
+高举,ADJ,Z99,A1.1.1,,,False
+五星,NOUN,Z99,O4.1,,,False
+红旗,NOUN,Z99,C1;O4.3,,,False
+通过,VERB,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; A7+; A10+; I1.1; B4; O4.1; T1.1.3; N3.2+; E2+; G1.1,Z5；M1,,,False
+主席台,NOUN,H2; M3/M7; M4/H1; H5; X7+; Y2,H2,,,False
+。,PUNCT,PUNCT,,,,False
+习近,VERB,Z99,Z99,,分词有误,False
+平起,ADV,Z99,Z99,,分词有误,False
+身挥,VERB,Z99,Z99,,分词有误,False
+手,NOUN,B1,B1,,,False
+致意,VERB,I2.2; Q2.2; S1.1.1; S1.2.4+; S7.2+; X2.1; X2.2+; X2.2+/S7.2+,Q2.2,,,False
+，,PUNCT,PUNCT,,,,False
+全场,NOUN,Z99,S2,,,False
+掌声,NOUN,E2+/X3.2+,X3.2,,,False
+欢呼,VERB,E4.1+; E4.1+++; Q2.2; W4; M6; S7.2+/Q2.2; X3.2,Z99,,分词有误,False
+声此,NOUN,Z99,Z99,,分词有误,False
+起,VERB,M1; N5+/A2.1,Z99,,分词有误,False
+彼伏,NOUN,Z99,Z99,,分词有误,False
+。,PUNCT,PUNCT,,,,False
+中国,PROPN,Z8,Z2,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S5,,,False
+共,ADV,A6.2+; N5++; S5+; O4.2-; G3/S7.1+/S2mf; B3/H1; M7; N5+; A4.2-; S1.2.6+; T1.1.2; M6,Z5,,,False
+553,NUM,N1,N1,,,False
+人,NOUN,S2mfc,N,,量词问题,False
+，,PUNCT,PUNCT,,,,False
+是,VERB,A3; Z5,A3;Z5,,,False
+本届,NOUN,T1.1.2; W3/M4; W3/M5; O3; E1,T1.1.2,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.2,,,False
+参赛,VERB,Z99,S1.1.3;K5.1,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,K5.1;S2,,,False
+最多,VERB,N5.1+,N5.1,,,False
+的,PART,Z5,Z5,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S5,,,False
+。,PUNCT,PUNCT,,,,True
+“,PUNCT,PUNCT,,,,False
+五星,NOUN,Z99,O4.1,,,False
+红旗,NOUN,Z99,Q4.3;O1,,,False
+迎风,VERB,Z99,M6,,,False
+飘扬,VERB,A10+; S1.2.3+; M1; N5-; N5+; P1; B2-; W3/M4; N5; S5+c; P1c,M1,,,False
+，,PUNCT,PUNCT,,,,False
+胜利,NOUN,L3; T1.3; X8+; G3; E3-; O2; X9.2+; X9.2+/S7.3; X9.2+/G3; A9+; O4.2+; S7.1+,X9.2+,,,False
+歌声,NOUN,K2; Q2.1; X2.1; S7.1+; Q3,X3.2,,,False
+多么,ADV,A13.1; Z4; Z5; A13.3; Z8,A13.1,,,False
+响亮,VERB,Z99,X3.2,,,False
+……,PUNCT,PUNCT,,,,False
+”,PUNCT,PUNCT,,,,False
+伴随,VERB,M1; N4; S7.1-; X2.4; X2.5+; A6.1+; A1.1.1; A2.2; K5.1; X3.4; S3.1; K2; T1.1.2,S3.1,,,False
+着,PART,Z2; T1.1.2,Z5,,,False
+《,PUNCT,PUNCT,,,,False
+歌唱,VERB,K2,K2,,,False
+祖国,NOUN,M7,G1.1,,,False
+》,PUNCT,PUNCT,,,,False
+的,PART,Z5,Z5,,,False
+嘹亮,ADJ,Z99,X3.2,,,False
+歌声,NOUN,K2; Q2.1; X2.1; S7.1+; Q3,K2,,,False
+，,PUNCT,PUNCT,,,,False
+16,NUM,N1,N1,,,False
+名,NUM,Q2.2,N,,量词问题,False
+仪仗,NOUN,Z99,Z99,,分词,False
+兵迈,VERB,Z99,Z99,,分词,False
+着,PART,Z2; T1.1.2,Z5,,分词,False
+有力,VERB,A11.1+; E6+; S1.2.5+; N3.2+; A5.1+; S7.1+; N3; X5.2+; X9.2+,A13.3,,,False
+的,PART,Z5,Z5,,,False
+步伐,NOUN,M1; G3; G1.2; N3.8; N3.3; T1.3; T1.2; H5; O2; A2.1+; A1.1.1; K1@; K5.1@,M1,,,False
+，,PUNCT,PUNCT,,,,False
+分别,ADV,A10+; B4; S3.1-; A6.1-; A5.1+; S7.2+; N3.3+; A1.8-; S1.1.3-; X3,A4.1,,,False
+护拥,VERB,Z99,A1.1.1,,,False
+着,PART,Z2; T1.1.2,Z5,,,False
+中华,PROPN,Z99,G1.2,,分词问题？,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+共和国,NOUN,G1.2; S5+/M7,G1.2,,,False
+国旗,NOUN,Q1.1; G3,G1.2,,,False
+、,PUNCT,PUNCT,,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+会旗,NOUN,Z99,C1,,,False
+走进,VERB,Z99,M1,,,False
+现场,NOUN,A14; K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; M6; O4.4; O2; B2-; N5-; Q4.3; X3.4,M7,,,False
+。,PUNCT,PUNCT,,,,False
+经过,VERB,A1.1.1; P1; Y2; M1; A1.1.1/O1.2; W4; M1/N5+; A10-; N3.6; S8+; I1.1; A1.8+; N5; Q2.1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; T2+; S9,A1.1.1;M1,,,False
+主席台,NOUN,H2; M3/M7; M4/H1; H5; X7+; Y2,H2,,,False
+时,PART,F1; T1.3; X7+/T1; N3.1/T1,T1.3;Z5,,,False
+，,PUNCT,PUNCT,,,,False
+仪仗,NOUN,Z99,Z99,,分词问题,False
+兵,NOUN,B1; S5+; G3; O2; B5; G3/S2mf,G3;S2,,分词问题,False
+高举,VERB,Z99,A1.1.1,,,False
+旗帜,NOUN,G1.2/I3.1/S5+c; S5+c; Q1.1; G3; N5-/A2.1; B2-/A2.1; H1; O2/H1; O2,O2,,,False
+，,PUNCT,PUNCT,,,,False
+正步,ADV,Z99,A1.1.1,,,False
+前行,VERB,X7-,M1,,,False
+。,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+雄壮,VERB,S6+; S1.2.5+; S8+/S2mf,A13.3,,,False
+的,PART,Z5,Z5,,,False
+中华,PROPN,Z99,G1.2,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2,,,False
+共和国,NOUN,G1.2; S5+/M7,G1.2,,,False
+国歌声,NOUN,Z99,X3.2,,分词有误,False
+中,PART,Z5,Z5,,,False
+，,PUNCT,PUNCT,,,,False
+鲜艳,VERB,Z99,O4.3,,,False
+的,PART,Z5,Z5,,,False
+五星,NOUN,Z99,O4.1,,,False
+红旗,NOUN,Z99,O4.3;O1,,,False
+冉冉升起,VERB,Z99,M1,,成语识别问题,False
+。,PUNCT,PUNCT,,,,False
+随后,ADV,Z99,Z5,,,False
+，,PUNCT,PUNCT,,,,False
+奏,VERB,K2; A1.1.1; Q4.3; A2.1+; I1.3@; Q2.1; Q1.2,K2,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+会歌,NOUN,Z99,K2,,,False
+，,PUNCT,PUNCT,,,,False
+升,VERB,E3+; M1; M6/N3.7+; X9.2+/A2.1; N3.4; F2; S8+; I2.2/Q2.2; S7.1+/A2.1; N5+/A2.1; N3.2+/A2.1; N3.7+/A2.1; M2; A5.1+/A2.1; X3.2++; A9+; A1.1.1; A2.2; S1.1.1; F4; Q2.2; S4,M1,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+会旗,NOUN,Z99,O1,,,False
+。,PUNCT,PUNCT,,,,True
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词标注问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+组委会,NOUN,Z99,S7.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,"G1.2, I3.2",,,False
+、,PUNCT,PUNCT,,,,False
+中共,PROPN,Z99,G1.2,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1,,,False
+政治局,NOUN,G1.1/S7.1+,G1.1,,,False
+委员,NOUN,G1.1/S2mf; G2.1/S2mf; G1.1c; S7.1+/S5+c,I3.2,,,False
+、,PUNCT,PUNCT,,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1,,分词,False
+军委,NOUN,Z99,G3;S7.1,,分词,False
+副主席,NOUN,S7.1+/S2mf,I3.2,,,False
+许其亮,PROPN,Z99,Z1,,,False
+致辞,VERB,H4; Q2.2; Q1.2; A1.1.1,Q2.2,,,False
+，,PUNCT,PUNCT,,,,False
+代表,VERB,A4.2+; A6.2+; G1.1; A4.1; S1.1.3; C1; Q1.1; G2.1; K4; G1.1/S2mf; A5.4-; Q2.1/S2mf; I2.2/S2mf; S5+c; S7.4+; A9-,A1.1.1,,,False
+组委会,NOUN,Z99,S7.1,,,False
+向,ADP,Z5,Z5;M6,,,False
+来自,VERB,A2.2,M6,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+各个,DET,A6.3+; N5.1+; S1.1.2+,N5.1,,,False
+国家,NOUN,G1.1c; W3,W3；M7,,,False
+的,PART,Z5,Z5,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,K5.1;S2,,,False
+、,PUNCT,PUNCT,,,,False
+教练员,NOUN,Z99,K5.1;S2,,,False
+和,CCONJ,Z5,Z5,,,False
+来宾,NOUN,H4/S2mf; S1.2.2-/S2mf,S2,,,False
+表示,VERB,A10+; M6; Q1.1/M3; Q1.1; Y2; A2.2; A9-; F2; S7.4-; G2.2-; I1.1/I3.1; I1.2; O2/A10+; A11.1+; A6.2+; S1.1.3; A5.4-; K4; Q1.1/B1; M1; A1.1.1; Q1.2; Q1.2/G1.1; Q2.1; Q2.1/A6.1-; Q2.1/E3-; Q2.1/A2.2; Q3; X3.2+; X2.5+; P1; B1%,A10,,,False
+热烈,ADJ,F2; O4.6+; E2+; O4.2+; S1.2.1+; X5.2+; L1+%,X5.2,,,False
+欢迎,NOUN,H2; S1.1.1; Q4.3; S1.1.3+; T3-; O1.1; Q2.2; S3.2; S8+,S1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,"G1.2, I3.2",,,False
+皮奇里洛致辞,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+对,ADP,Z5,Z5,,,False
+中国,PROPN,Z8,Z2;M7,,,False
+政府,NOUN,G1.1; S7.1+; B3; G1.1c,G1.1,,,False
+、,PUNCT,PUNCT,,,,False
+中国,PROPN,Z8,Z2;M7,,,False
+军队,NOUN,A5.1; S7.1++; G3/S5; G3/S5+; S5+; G3/S5+c; G3/S2mf; S5+c; G3c; N5+; M1; N5.2+; O4.2-; N5++%; S7.1+; M3,G3,,,False
+和,CCONJ,Z5,Z5,,,False
+湖北省,PROPN,Z99,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+武汉市,PROPN,Z99,Z2,,,False
+为,ADP,Z5,Z5,,,False
+本届,NOUN,T1.1.2; W3/M4; W3/M5; O3; E1,T1.1.2,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+所,PART,M7; H1,Z5,,,False
+作,VERB,A1.1.1; G2.2-; X9.2+; E3-; N5+; G2.1%; Z5; Q1.2; Q1.2/O2; F4/H1; G2.1/H1,A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+精心,ADJ,A1.3+; A4.2+,A4.2,,,False
+准备,NOUN,A1.1.1; A1.4; A4.1; A9-; A9+; N4; G2.1; B2-; N3.2/A5.1+; E6-; B4; O4.1; B5; I1; O2; Q2.2; S7.1+; X7+; X5.2+; S8+,A1.1.1,,,False
+表示,VERB,A10+; M6; Q1.1/M3; Q1.1; Y2; A2.2; A9-; F2; S7.4-; G2.2-; I1.1/I3.1; I1.2; O2/A10+; A11.1+; A6.2+; S1.1.3; A5.4-; K4; Q1.1/B1; M1; A1.1.1; Q1.2; Q1.2/G1.1; Q2.1; Q2.1/A6.1-; Q2.1/E3-; Q2.1/A2.2; Q3; X3.2+; X2.5+; P1; B1%,A10,,,False
+感谢,NOUN,G2.2+; S8+; Q2.2; S1.2.4+; E4.2+,S1.2.4,,,False
+，,PUNCT,PUNCT,,,,False
+祝愿,VERB,X7+,X7,,,False
+运动员们,NOUN,K5.1/S2.2m,K5.1;S2,,,False
+取得,VERB,A7+; A15+; A1.7+; E6+; A9+; S5+; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; I1.3; T2+/S7.1+; A1.8+; X9.2+; N3.3; Q2.1,A9,,,False
+好,ADJ,A5.1+; G2.2+; O4.2+; A1.5.2+,A5.1,,,False
+成绩,NOUN,A2.2; X9.2; N2; A5.1; K5; Q1.1/A2.2; A4.1; S7.1; P1c%; I1; I2.2/H5; H5; H1; S8-; K4; A1.1.1; A12-; N3.1; O2; K2; X4.1; N5%; X9.2+; M6; M2; M8; M1; T2++; N3; A3+; X2.1; A7; G1.2; S8+; S7.4+; I2.2; S1.2.5+; N5.2+; O4.2-; Q1.2; A5/P1; Q1.1; P1; K3; T1.1.1; A5.1+++; A9+,X9.2+,,,False
+。,PUNCT,PUNCT,,,,True
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+奥林匹克,PROPN,Z3c,Z3,,,False
+委员会,NOUN,A1.1.1; I1.1/I2.2; G1.1; G3/S7.1+; G2.1; H3; M7/K5.2; I2.2; S3.2; X7+; S7.1+/S5+c,S7.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,"G1.2, I3.2",,,False
+巴赫,PROPN,Z99,Z1,,,False
+在,ADP,Z5,Z5,,,False
+视频,VERB,Q4.3,Q4.3,,,False
+致辞,VERB,H4; Q2.2; Q1.2; A1.1.1,Q2.2,,,False
+时,PART,F1; T1.3; X7+/T1; N3.1/T1,T1.3;Z5,,,False
+表示,VERB,A10+; M6; Q1.1/M3; Q1.1; Y2; A2.2; A9-; F2; S7.4-; G2.2-; I1.1/I3.1; I1.2; O2/A10+; A11.1+; A6.2+; S1.1.3; A5.4-; K4; Q1.1/B1; M1; A1.1.1; Q1.2; Q1.2/G1.1; Q2.1; Q2.1/A6.1-; Q2.1/E3-; Q2.1/A2.2; Q3; X3.2+; X2.5+; P1; B1%,A10,,,False
+，,PUNCT,PUNCT,,,,False
+此,DET,Z8,Z8,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,T1.3,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+正值,VERB,A5.2+; M6/O2; O4.4; G2.2+,T1.3,,,False
+中华,PROPN,Z99,G1.2,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+共和国,NOUN,G1.2; S5+/M7,G1.1,,,False
+成立,NOUN,O2; I1; M3; F2; M4,A1.1.1,,,False
+70,NUM,N1,N1,,,False
+周年,NOUN,N6+; Q4.1; L3; T1.2,N6;T1.1,,,False
+，,PUNCT,PUNCT,,,,False
+借此机会,VERB,Z99,Z99,,分词有误,False
+向,ADP,Z5,Z5,,,False
+中国,PROPN,Z8,Z2;M7,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+表示,VERB,A10+; M6; Q1.1/M3; Q1.1; Y2; A2.2; A9-; F2; S7.4-; G2.2-; I1.1/I3.1; I1.2; O2/A10+; A11.1+; A6.2+; S1.1.3; A5.4-; K4; Q1.1/B1; M1; A1.1.1; Q1.2; Q1.2/G1.1; Q2.1; Q2.1/A6.1-; Q2.1/E3-; Q2.1/A2.2; Q3; X3.2+; X2.5+; P1; B1%,A10,,,False
+热烈,ADJ,F2; O4.6+; E2+; O4.2+; S1.2.1+; X5.2+; L1+%,X5.2,,,False
+祝贺,NOUN,Q2.2,Q2.2,,,False
+，,PUNCT,PUNCT,,,,False
+祝愿,VERB,X7+,X7,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+圆满,ADV,S3.2,A5.1,,,False
+成功,VERB,S3.2,X9.2,,,False
+。,PUNCT,PUNCT,,,,True
+在,ADP,Z5,Z5,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+会,NOUN,S1.1.3+; K5.1; S9; A1.1.1,Z99,,分词有误,False
+旗前,NOUN,Z99,Z99,,分词有误,False
+，,PUNCT,PUNCT,,,,False
+中国,PROPN,Z8,Z2;M7,,,False
+女子,NOUN,L2mf; S2.1; S2.1f; L2f@,S2.1,,,False
+排球,NOUN,K5.2,K5.1,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,K5.1;S2,,,False
+袁心玥,PROPN,Z99,Z1,,,False
+、,PUNCT,PUNCT,,,,False
+国际级,ADJ,Z99,A13,,,False
+篮球,NOUN,K5.2,K5.2,,,False
+裁判,NOUN,G2.1; X2.4; E6-; A12-; K5.1; X6; G2.1+; G2.2+; G2.1/I3.2/S2mf; X6/S2mf; G2.1/T1.3; S5+/G2.1/S2mf; K5.1/S2mf; Q2.2/S2mf; S1.1.3+c; M7; X2.1,I3.2,,,False
+温克明,PROPN,Z99,Z1,,,False
+分别,ADV,A10+; B4; S3.1-; A6.1-; A5.1+; S7.2+; N3.3+; A1.8-; S1.1.3-; X3,A6.1,,,False
+代表,VERB,A4.2+; A6.2+; G1.1; A4.1; S1.1.3; C1; Q1.1; G2.1; K4; G1.1/S2mf; A5.4-; Q2.1/S2mf; I2.2/S2mf; S5+c; S7.4+; A9-,A1.1.1,,,False
+参加,VERB,A2.2; S5+; A1.8+; A1.1.1; K1; K5.1; K5.2; K2; K3; K6; K4; M1; Q1.2; T2+; Y2; M7; S7.3; O2; S1.1.3+; A2.1+; T2+/S7.1+,S1.1.3,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.2,,,False
+的,PART,Z5,Z5,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,K5.1;S2,,,False
+、,PUNCT,PUNCT,,,,False
+裁判员,NOUN,K5.1; K5.1/S2mf; Q2.2/S2mf,I3.2,,,False
+宣誓,VERB,Q2.2; A10+; G1.2; Q2.2/A5.2+; A10+/A5.2+,Q2.2,,,False
+。,PUNCT,PUNCT,,,,True
+21,NOUN,Z99,Z99,,分词有误,False
+时许,NOUN,Z99,Z99,,分词有误,False
+，,PUNCT,PUNCT,,,,False
+习近平,PROPN,Z99,Z1,,,False
+宣布,VERB,Q2.2; K5.1%; Q4,Q2.2,,,False
+：,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+开幕,VERB,T2+,T2,,,False
+！,PUNCT,PUNCT,,,,False
+”,PUNCT,PUNCT,,,,False
+全场,NOUN,Z99,S2,,,False
+掌声,NOUN,E2+/X3.2+,X3.2,,,False
+雷动,VERB,Z99,A13,,,False
+，,PUNCT,PUNCT,,,,False
+欢呼,NOUN,E4.1+; E4.1+++; Q2.2; S7.2+/Q2.2; X3.2; W4,X3.2,,,False
+不断,VERB,A2.1-; N2; M1; A2.1+; A1.1.1; A9-; A1.8+; Q2.1; N6+; I2.2; A1.1.2; T2-; S3.2; A6.3+; B2-/X1%; B1%; M6; A1.1.1%; T2++; S6+,A1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+共享,VERB,S1.1.2+; I1.1; S1.1.3+; S9; S5+@,S1.1.2,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.1;S1.2.1,,,False
+，,PUNCT,PUNCT,,,,False
+同筑,VERB,Z99,A1.1.1,,,False
+和平,NOUN,E3+,E3+,,,False
+。,PUNCT,PUNCT,,,,False
+现场,NOUN,A14; K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; M6; O4.4; O2; B2-; N5-; Q4.3; X3.4,M7,,,False
+播放,VERB,O4.3; M2; Q2.1; Q4.3,Q4.3,,,False
+的,PART,Z5,Z5,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+宣传片,NOUN,Z99,Q4.3,,,False
+，,PUNCT,PUNCT,,,,False
+回顾,VERB,T1.1.1; X2.2+; X2.4; Q4; X2.4/A5; P1; G3,T1.1.1;X2.4,,,False
+了,PART,Z5,Z5,,,False
+历届,NOUN,Z99,Z8,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+情况,NOUN,A3; O4.1; S1.1.1,S1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+介绍,VERB,A9+; F2; S7.4-; Q1.2; Q2.2; I3.1/Q2.2; G2.1/Q1.2; Q2.2/S2mf; S1.1.1; T2+; Q4; X3.4+; A11.2+; X2.2+; S1.2.4+; G2.1,Q2.2,,,False
+了,PART,Z5,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+军队,NOUN,A5.1; S7.1++; G3/S5; G3/S5+; S5+; G3/S5+c; G3/S2mf; S5+c; G3c; N5+; M1; N5.2+; O4.2-; N5++%; S7.1+; M3,G3;S7.1,,,False
+参加,VERB,A2.2; S5+; A1.8+; A1.1.1; K1; K5.1; K5.2; K2; K3; K6; K4; M1; Q1.2; T2+; Y2; M7; S7.3; O2; S1.1.3+; A2.1+; T2+/S7.1+,S1.1.3,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+历程,NOUN,A1.1.1; X4.2; M6; X7+; P1; B3; F1; M7/K5.1; T1.3,S1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+随后,ADV,Z99,N4,,,False
+，,PUNCT,PUNCT,,,,False
+开幕式,ADJ,Z99,S1.1.1,,,False
+文艺,NOUN,Q4.1; Q1.2,K4,,,False
+表演,NOUN,A1.1.1; K4; A5.4-; G2.1; P1%; X9.2+; T1.1.2; A8; A10+; G1.2; S1.1.1; A10+/S1.1.3+; I1%; A2.2; A9-; I2.2/S1.1.1; K1; K5.1; K5.2; K2; K3; K6; X9.2; A12-,K4,,,False
+《,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+的,PART,Z5,Z5,,,False
+薪火,NOUN,Z99,O1,,,False
+》,PUNCT,PUNCT,,,,False
+拉开,VERB,B5,M2,,,False
+序幕,NOUN,Q2.1/N4; Q4.1/N4; N4,T2,,,False
+。,PUNCT,PUNCT,,,,False
+文艺,NOUN,Q4.1; Q1.2,K4,,,False
+表演,VERB,A1.1.1; K4; X9.2+; T1.1.2; A8; A10+; G1.2; S1.1.1; A2.2; A9-; K1; K5.1; K5.2; K2; K3; K6,K4,,,False
+上篇,NOUN,Z99,A4.1,,,False
+“,PUNCT,PUNCT,,,,False
+泱泱,ADV,Z99,A5.1;A13.2,,,False
+华夏,NOUN,Z99,Z2,,,False
+・,PUNCT,PUNCT,,,,False
+生生不息,VERB,Z99,A1.1.1,,成语识别,False
+”,PUNCT,PUNCT,,,,False
+，,PUNCT,PUNCT,,,,False
+分,VERB,A6.1-; S3.1-; A9-/N5.1-; N2,A6.1,,,False
+文明,NOUN,C1; S1.1.1; S5+; L1; A5.1+++; O4.2+++,S1.1.1,,分词问题,False
+之,PART,Z8,Z5,,,False
+光,NOUN,G2.2+; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; X2.2+; S7.2+; O4.2+; O2/W2; O2/O4.6+; B4; Y1,W2,,,False
+、,PUNCT,PUNCT,,,,False
+和,CCONJ,Z5,Z99,,分词问题,False
+合之道,NOUN,Z99,Z99,,,False
+、,PUNCT,PUNCT,,,,False
+江山如画,NOUN,Z99,W3,,,False
+、,PUNCT,PUNCT,,,,False
+丝绸之路,NOUN,Z99,Z3,,,False
+、,PUNCT,PUNCT,,,,False
+星星之火,PROPN,Z99,Z99,,成语标注问题,False
+5,NUM,N1,N1,,,False
+个,NUM,S2mf,N,,,False
+节目,NOUN,X7+; Q4.3; Q1.2; Y2; P1,Q4.3；K4,,,False
+，,PUNCT,PUNCT,,,,False
+通过,ADP,A7+; A10+; O4.3; O4.1; N5.1+; W4; H2; Q3; M1; I1.2/M1@; K5.1; X9.2+; Q1.2; W3; S3.2; K5.1/X9.2+; A9-; M2; T1.3; T2-; N5.2+; S7.4+; A5.4+/A8; I1.1; B4; M3fn; M6; O2; T1.1.1; T1.1.3; N3.2+; T1.2; Z5,Z5；M1,,,False
+回溯,VERB,T1.1.1,T1.1.1;X2.4,,,False
+历史,NOUN,T1.1.1; P1/T1.1.1; Q2.1; B2,T1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+展现,VERB,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; M2; A1.1.1,A10,,,False
+源远流长,VERB,Z99,Z99,,,False
+的,PART,Z5,Z5,,,False
+华夏,ADJ,Z99,Z2,,,False
+文明,NOUN,C1; S1.1.1; S5+; L1; A5.1+++; O4.2+++,S1.1.1,,,False
+和,CCONJ,Z5,Z5,,,False
+博大,VERB,Z99,Z99,,分词问题,False
+精深,VERB,Z99,Z99,,,False
+的,PART,Z5,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+古代,NOUN,T3++; T3+++,T3,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+文化,NOUN,C1; S1.1.1; S5+; L1; A5.1+++; O4.2+++,S1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+及其,CCONJ,Z5,Z5,,,False
+为,ADP,Z5,Z5,,,False
+推动,VERB,A2.2; X5.2+; M1; M2; S7.1+; X8+; I2.2; F3; I3.1-; S8+; I2.2/Q2.2; S7.1+/A2.1,A2.2;M2,,,False
+人类,NOUN,A4.1; E6+; E2-; S8+; A1.3; I3.1; L1-; N5-; Q2.2; S1.2.1+; S2; P1%; S2.2m; S2mf; X1,S2;A4.1,,,False
+社会,NOUN,S5+,S1.1.1,,,False
+进步,NOUN,A5.1+/A2.1; T2++; A2.1+; M1%; A5.1+/A2.1+; S8+; I1.1; M1/G3; S3.2,A2.1,,,False
+作出,VERB,A1.1.1; A9+; A2.2; S6+; A3+; A9-; X9.2+; X6+; Q2.1; G2.1/A5.2-; O2; K5.1@,A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+重要,ADJ,A11.1+; N3.2+; N5+; S1.2.2+; S1.2.1-; N2; X5.2+,A11.1+,,,False
+贡献,NOUN,A9-; A2.2; S1.1.3+; Q2.2; I1.3-; S7.1+; G1.1/S2mf; S9/S2mf; I1.2; A1.5.1; T1.3; S1.1.2+; I1.1; S7.2+,S1.1.1,,,False
+。,PUNCT,PUNCT,,,,False
+下篇,NOUN,Z99,A4.1,,,False
+“,PUNCT,PUNCT,,,,False
+路路,NOUN,Z99,O2,,分词问题,False
+相连,VERB,A2.2; S5+; A1.1.1; M3; O3; Q1.3; F1; K5.1/M7%,A1.1.1,,,False
+・,PUNCT,PUNCT,,,,False
+美美,VERB,Z99,A5.1,,分词问题,False
+与共,CCONJ,Z99,S3.1,,,False
+”,PUNCT,PUNCT,,,,False
+，,PUNCT,PUNCT,,,,False
+分,VERB,A6.1-; S3.1-; A9-/N5.1-; N2,A6.1,,,False
+和平,NOUN,E3+,E3+,,,False
+之师,NOUN,Z99,,,分词问题,False
+、,PUNCT,PUNCT,,,,False
+新,VERB,T3-; O4.2+; B1; W4; S1.2.3+++,T3,,,False
+的,PART,Z5,Z5,,,False
+天地,NOUN,W1; S5+c; A4.1; N5+,W1,,,False
+、,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+一带,NOUN,M7; A4.1; N3.6; B1; N5.1-; O2; I3.1; S1.1.3+; K4,Z3,,分词问题,False
+一路,NOUN,Z99,Z3,,,False
+”,PUNCT,PUNCT,,,,False
+、,PUNCT,PUNCT,,,,False
+命运,NOUN,A1.1.1; A1.4; A7+; A5.1-/A2.1; A6.2-; A7+++/S7.1-; A3+/S7.1-; E4.1--; I1.1+++; X9.2; T1.1.3/S9; I1.3/M3; M3/S2mf; F1; N5; O2; S7.3+; A5.1+/O2; O4.4; A4.1; Q1.3; X4.2; Q3; Q1.2; Q2.1/K4; S4; S7.1; A1.7+; A6.1-; I3.1; M4@c; G3@; K5.1@; S1.1.2+; S5+; S9,L1,,分词问题,False
+与共,VERB,Z99,S3.2,,,False
+、,PUNCT,PUNCT,,,,False
+梦想,NOUN,X2; X2.1; X7++; X4.1; X3.4; X7+; S9@; A5.2-; X5.1-,X2;X4.1,,,False
+腾飞,VERB,Z99,A1.1.1,,,False
+5,NUM,N1,N1,,,False
+个,NUM,S2mf,N,,量词问题,False
+节目,NOUN,X7+; Q4.3; Q1.2; Y2; P1,Q4.3;K4,,,False
+，,PUNCT,PUNCT,,,,False
+通过,ADP,A7+; A10+; O4.3; O4.1; N5.1+; W4; H2; Q3; M1; I1.2/M1@; K5.1; X9.2+; Q1.2; W3; S3.2; K5.1/X9.2+; A9-; M2; T1.3; T2-; N5.2+; S7.4+; A5.4+/A8; I1.1; B4; M3fn; M6; O2; T1.1.1; T1.1.3; N3.2+; T1.2; Z5,Z5；M1,,,False
+展望,VERB,X2.1; T1.1.3; Q1.1; X3.4; Q2.1/X2.4,T1.1.3;X2.6,,,False
+未来,NOUN,M1; A1.1.1; Q2.2; N3.1; A2.2; A3+; X2.1; A9+; S4; N4; S3.2; T1.1.3; S9; X4.2,T1.1.3,,,False
+，,PUNCT,PUNCT,,,,False
+展示,VERB,A10+; G1.2; S1.1.1; A10+/S1.1.3+; I1%; Q4.3,A10,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+军队,NOUN,A5.1; S7.1++; G3/S5; G3/S5+; S5+; G3/S5+c; G3/S2mf; S5+c; G3c; N5+; M1; N5.2+; O4.2-; N5++%; S7.1+; M3,G3;S7.1,,,False
+强军,NOUN,Z99,A13.3; G3,,,False
+兴军,VERB,Z99,A13.3; G3,,,False
+崭新,ADJ,T3-; T3---,T3,,,False
+风貌,NOUN,Z99,O4.1,,,False
+，,PUNCT,PUNCT,,,,False
+展现,VERB,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; M2; A1.1.1,A10,,,False
+中华,PROPN,Z99,G1.2,,,False
+民族,NOUN,G1.1c; S5+c; K5.1; S7.3+; S2; S2mf; K2; S2mfc; M1/N3.8+,S2;A4.1;G1.2,,,False
+走向,VERB,A6.2+; A2.1+; A8; S8+; X5.1+,M1,,,False
+复兴,NOUN,A2.1+; C1; A9-; T1.1.1%; T1.1.1/T1.3; B3; T2+/N6+; S9; X2.1/T1.1.1; H1/N6+; S7.1+/A2.1; A1.1.1; X5.2+,A1.1.1;A2.1,,,False
+磅礴,ADJ,Z99,A13.2,,,False
+气象,NOUN,K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; W4; Y1/W4; W3; W1; E1; N3.5,S1.1.1;A1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+传递,VERB,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; O4.3; Q2.1; Q1.2; Q1.3; X2.2+; A9+; Q4; B1%; B2-%,M2,,,False
+中国,PROPN,Z8,Z2;M7,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+同,ADP,A1.8+; S3.2; Z5,Z5,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+各国,DET,Z99,A4.1,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+一道,ADV,S1.2.6+; S5+; T1.1.2; M6,S3.1,,,False
+推动,VERB,A2.2; X5.2+; M1; M2; S7.1+; X8+; I2.2; F3; I3.1-; S8+; I2.2/Q2.2; S7.1+/A2.1,M2,,,False
+构建,VERB,Z99,A1.1.1,,,False
+人类,NOUN,A4.1; E6+; E2-; S8+; A1.3; I3.1; L1-; N5-; Q2.2; S1.2.1+; S2; P1%; S2.2m; S2mf; X1,S2;A4.1,,,False
+命运,NOUN,A1.1.1; A1.4; A7+; A5.1-/A2.1; A6.2-; A7+++/S7.1-; A3+/S7.1-; E4.1--; I1.1+++; X9.2; T1.1.3/S9; I1.3/M3; M3/S2mf; F1; N5; O2; S7.3+; A5.1+/O2; O4.4; A4.1; Q1.3; X4.2; Q3; Q1.2; Q2.1/K4; S4; S7.1; A1.7+; A6.1-; I3.1; M4@c; G3@; K5.1@; S1.1.2+; S5+; S9,A1.1.1;L1,,,False
+共同体,NOUN,Z99,Z3,,,False
+坚定,ADJ,A2.1-; A7+; I2.1/S5+c; O4.5; A1.7+; S6+; T2++; E3+; S1.2; O4.1,S1.2,,,False
+信念,NOUN,E6+; S9; X2.1; Q2.2; S9%,X2.1,,,False
+。,PUNCT,PUNCT,,,,False
+整场,NOUN,Z99,A4.1,,,False
+表演,NOUN,A1.1.1; K4; A5.4-; G2.1; P1%; X9.2+; T1.1.2; A8; A10+; G1.2; S1.1.1; A10+/S1.1.3+; I1%; A2.2; A9-; I2.2/S1.1.1; K1; K5.1; K5.2; K2; K3; K6; X9.2; A12-,K4,,,False
+以,ADP,Z5,Z5,,,False
+母亲河,PROPN,Z99,Z3,,,False
+和,CCONJ,Z5,Z5,,,False
+黄土地,PROPN,Z99,Z3;O4.3,,,False
+为,VERB,A3+; Z5,Z5,,,False
+笔墨,NOUN,Q1.2; I2.1; Q3,Q1.2,,,False
+，,PUNCT,PUNCT,,,,False
+以,ADP,Z5,Z5,,,False
+丰富多彩,VERB,Z99,O4.3;A5.1,,,False
+的,PART,Z5,Z5,,,False
+灯光,NOUN,N3.5-; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; N5-; N3.2-; A12+; X3.2-; F1; A11.1-; O4.2+,W2,,,False
+舞台,NOUN,A1.1.1; M4; H4; K4; A5.4-; C1; A8; M7; S1.1.1; E3-; E2+; K5.1/H1; K1/H1; X4.1; S7.1+/S5+c; O2; O1.1; P1; K5.1; T1.2; N5.1-; H2/K4; A4.1,K4,,,False
+效果,NOUN,A1.1.1; B3; G3; A2.2; A8; X9.2; N2; A5.1; K5; Q1.1/A2.2; E3-; O2; F2; S7.1+; L1-; C1; S1.2.5+; O4.1; X9.1+; N5; X7+; A1.5.1,A1.1.1;A2.2,,,False
+塑造,VERB,A2.1+; A1.1.1; C1; Q2.2; O4.4; A2.2; O2; L2; Z3,A1.1.1;A2.1,,,False
+了,PART,Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+中华,PROPN,Z99,G1.2,,,False
+母亲,NOUN,S4; S4f; A11.1+++; S4.1.2.1f,S4,,,False
+”,PUNCT,PUNCT,,,,False
+形象,NOUN,O4.1; A8; X2.1; C1,O4.1,,,False
+，,PUNCT,PUNCT,,,,False
+传递,VERB,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; O4.3; Q2.1; Q1.2; Q1.3; X2.2+; A9+; Q4; B1%; B2-%,M2,,,False
+出,VERB,M1; M2; M3; M4; M5,M2;M1,,,False
+世代,NOUN,T1.3; S5+c,T1.3,,,False
+中华,PROPN,Z99,G1.2,,,False
+儿女,NOUN,S2mf/T3-; S4mf,S4,,,False
+追求,VERB,A1.1.1; X8+; X2.4; M1; H4; Q2.2; M2; S7.1+; I2.2; F3; I3.1-; N4; Q1.2; S3.2; Z5; X7+,A1.1.1;X8,,,False
+和平,NOUN,E3+,E3+,,,False
+、,PUNCT,PUNCT,,,,False
+维护,VERB,A1.1.1/A15+; A15+; A9+; T2++; S8+; A1.1.1; Q2.2; B1; M6; A6.1-; G3; G2.1c; K5.1; S7.3+; P1; S8+/A15+; A10-; Z5,A1.1.1,,,False
+和平,NOUN,E3+,E3+,,,False
+的,PART,Z5,Z5,,,False
+美好,ADJ,A5.1+; A4.2+; O4.5; O4.1; W4; N3.2-; E4.1+; E4.2+; O4.2+; G2.2+; A1.5.2+; N3.2+,A5.1,,,False
+愿望,NOUN,E6+; E2-; S8+; A1.3; T1.1.3; X1; X7+; G2.1/Q1.2; S3.2; Z1m/S3.2; Z4,X1;X4.1; X2.6,,,False
+和,CCONJ,Z5,Z5,,,False
+不懈,ADJ,X5.2+,X5.2,,,False
+努力,NOUN,B1; E6-; A1.7+; Q3; A1.1.2; I3.1-/G1.2; E3-; G3; A10+; K5.1; X8+; A12-; O2,A1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+22,NOUN,Z99,Z99,,分词问题,False
+时许,NOUN,Z99,Z99,,分词问题,False
+，,PUNCT,PUNCT,,,,False
+火炬,NOUN,O3/W2; O2/W2; O2/O4.6+,O2,,,False
+场内,NOUN,Q1.2; M7; A1.8+; A10-,M7;M6,,,False
+传递,NOUN,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; O4.3; Q2.1; Q1.2; Q1.3; X2.2+; A9+; Q4; B1%; B2-%,M2,,,False
+和,CCONJ,Z5,Z5,,,False
+主火,NOUN,Z99,Z99,,分词问题,False
+炬,NOUN,O3/W2; O2/W2; O2/O4.6+,Z99,,,False
+点燃,NOUN,O3; W2; O3/W2; M3; O4.6+; X4.1; E1,A1.1.1,,,False
+仪式,NOUN,A1.1.1; I3.1/S5+c; A1.5.1; S1.1.3+; A2.2; N2; Y2; A4.1; O4.4; Q1.2; O4.1; P1@; H5@; K5.1@; G2.1-@; B1@; F3; G2.1; G2.1+; O4.2+; A6.2+; E4.1-; S1.1.1; T1.2; T2+; A2.1+; A1.8+; A3+,S1.1.1,,,False
+开始,VERB,T2+,T2,,,False
+。,PUNCT,PUNCT,,,,False
+自,ADP,M1; N4; S5-; Z5; Z8,Z5,,,False
+8月,NOUN,Z99,T1,,日期识别问题,False
+1日,NOUN,Z99,T1,,日期识别问题,False
+起,PART,M1; N5+/A2.1,T1.3,,,False
+，,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+人民,NOUN,A9-; A2.2; Q2.2; S1.1.3+; Q4.3; O4.1; K4; G1.1/S2mf; S5+/S2mf; S2; S2mfc; T1.1.2; A3+,S2;G1.2,,,False
+解放军,NOUN,Z99,G3;S2,,,False
+诞生,VERB,B1; T2+,B1,,,False
+地江,NOUN,Z99,Z99,,分词问题,False
+西南昌,PROPN,Z99,Z99,,分词问题,False
+采集,VERB,A9+; S5+; N5+/A2.1; X2.5+; A1.1.1%; S9/Q1.1; X7+; A1.1.1; F4,A1.1.1;A9,,,False
+的,PART,Z5,Z5,,,False
+圣火,NOUN,Z99,Z3,,,False
+，,PUNCT,PUNCT,,,,False
+先后,ADV,N4,N4,,,False
+在,ADP,Z5,Z5,,,False
+多,NUM,A13.3; N6+; N6++; A6.2-; N6-; A13.4; K5.1; N5+; I1.3+; N5++; N5.2+; A13.2; T2-; M6; Z3c; Z5,N5,,,False
+个,NUM,S2mf,N,,量词问题,False
+城市,NOUN,M7; M7c; M7/I2.1c,M7,,,False
+和,CCONJ,Z5,Z5,,,False
+军营,NOUN,G3/H4; N1; N5; T1.3; H4,G3;M7,,,False
+进行,VERB,A1.1.1,A1.1.1,,,False
+传递,NOUN,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; O4.3; Q2.1; Q1.2; Q1.3; X2.2+; A9+; Q4; B1%; B2-%,M2,,,False
+，,PUNCT,PUNCT,,,,False
+最后,ADV,N4,N4,,,False
+到达,VERB,A6.3+; O4.1; M1; M2; M5; M4; A9+; A2.2; N3.1; A3+; X2.1; S4; N4; S3.2; N3.3; Q2.1; X9.2+; T1.1.3; S9; T2-; M6; K2; N5; A4.1; M7/K5.1; M7/G3; N2; W3; F1/O2; X9.1+; O4.2+; T2+/S7.1+; A1.8+; M7; Z5,M1,,,False
+武汉,NOUN,Z2,Z2,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+中心,NOUN,A11.1+; B1; M6; E1; X5.2+; O1; F1; H1c; M7c; G1.2c; K5.1mfn; O2; A11.1+/M7; Y2%; W3; M7/A11.1+,A11.1;M7,,,False
+。,PUNCT,PUNCT,,,,True
+万众瞩目,VERB,Z99,X3.4,,成语识别问题,False
+下,PART,M6,M6,,,False
+，,PUNCT,PUNCT,,,,False
+多次,ADV,N6+,N6,,,False
+获得,VERB,A1.7+; A15+; A9+; A2.2; Q3; E1; S9%; N5+/A2.1; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; F4; I2.2; K5; A5.1; N3.1; O2; K2; X4.1; N5%; X9.2+; S7.1+; Q4.3; X9.2+/S7.3; X9.2+/G3; O4.2+,A9,,,False
+奥运,PROPN,Z99,Z3,,,False
+冠军,NOUN,K5/S7.3+; S7.1+/K5; S8+@; Q2.2; Q4; S7.1+; A9+; S8+; X9.2+/S7.3/S2mf; S8+/S2mf,K5.1;S2;X9.2,,,False
+和,CCONJ,Z5,Z5,,,False
+世乒赛,PROPN,Z99,Z3；K5.1,,,False
+男单,NOUN,Z99,K5.1,,,False
+冠军,NOUN,K5/S7.3+; S7.1+/K5; S8+@; Q2.2; Q4; S7.1+; A9+; S8+; X9.2+/S7.3/S2mf; S8+/S2mf,K5.1;S2;X9.2,,,False
+的,PART,Z5,Z5,,,False
+王皓,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+获得,VERB,A1.7+; A15+; A9+; A2.2; Q3; E1; S9%; N5+/A2.1; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; F4; I2.2; K5; A5.1; N3.1; O2; K2; X4.1; N5%; X9.2+; S7.1+; Q4.3; X9.2+/S7.3; X9.2+/G3; O4.2+,A9,,,False
+26,NUM,N1,N1,,,False
+个,NUM,S2mf,N,,量词问题,False
+射击,NOUN,F4; K5.2; L1-; G3; K5.1; M1; M2; Q4.3; Q1.2; I3.1-; A2.2; Q2.2; L3; M5; H2; O2; O1.1; I1.1; F3; O4.6+,K5.1,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+冠军,NOUN,K5/S7.3+; S7.1+/K5; S8+@; Q2.2; Q4; S7.1+; A9+; S8+; X9.2+/S7.3/S2mf; S8+/S2mf,K5.1;S2;X9.2,,,False
+的,PART,Z5,Z5,,,False
+金泳德,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+获得,VERB,A1.7+; A15+; A9+; A2.2; Q3; E1; S9%; N5+/A2.1; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; F4; I2.2; K5; A5.1; N3.1; O2; K2; X4.1; N5%; X9.2+; S7.1+; Q4.3; X9.2+/S7.3; X9.2+/G3; O4.2+,A9,,,False
+10,NUM,N1,N1,,,False
+次,NUM,N6; N3.1,N6,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.2,,,False
+军体,NOUN,Z99,G3;K5.1,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+五,NUM,N1,N1,,,False
+项,NUM,O2; Q4; X4.1; A7-; S2mf; L2mf; S5+/S2mf; B1,N,,量词问题,False
+世锦赛,PROPN,Z99,Z3;K5.1,,,False
+冠军,NOUN,K5/S7.3+; S7.1+/K5; S8+@; Q2.2; Q4; S7.1+; A9+; S8+; X9.2+/S7.3/S2mf; S8+/S2mf,K5.1;S2;X9.2,,,False
+的,PART,Z5,Z5,,,False
+王堂林,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+获得,VERB,A1.7+; A15+; A9+; A2.2; Q3; E1; S9%; N5+/A2.1; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; F4; I2.2; K5; A5.1; N3.1; O2; K2; X4.1; N5%; X9.2+; S7.1+; Q4.3; X9.2+/S7.3; X9.2+/G3; O4.2+,A9,,,False
+奥运会,PROPN,Z99,Z3,,,False
+游泳,NOUN,B4/M4; N5.1+; K5.1/M4; M4; M1; N5.2+,K5.1,,,False
+冠军,NOUN,K5/S7.3+; S7.1+/K5; S8+@; Q2.2; Q4; S7.1+; A9+; S8+; X9.2+/S7.3/S2mf; S8+/S2mf,K5.1;S2;X9.2,,,False
+并,CCONJ,Z5,Z5,,,False
+打破,VERB,A1.1.1; N5+/A2.1; E3-; G3; A1.1.2; A1.9; S5-; T2-; E4.1-/A2.2; A2.1+; T1.3; Q2.1@; B2-; E2+; E3-/A1.1.1; E4.2-; S8-; I1.1-; K1/T1.3; O2; A1.4; O1.1; X2.5-,A1.1.2,,,False
+奥运会,PROPN,Z99,Z3,,,False
+纪录,NOUN,Q1.2; K3; T1.1.1; A5.1+++,Q1.2,,,False
+的,PART,Z5,Z5,,,False
+焦刘洋,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+获得,VERB,A1.7+; A15+; A9+; A2.2; Q3; E1; S9%; N5+/A2.1; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; F4; I2.2; K5; A5.1; N3.1; O2; K2; X4.1; N5%; X9.2+; S7.1+; Q4.3; X9.2+/S7.3; X9.2+/G3; O4.2+,A9,,,False
+女排,NOUN,Z99,K5.1;S2.1,,,False
+世界杯,PROPN,Z99,Z3,,,False
+冠军,NOUN,K5/S7.3+; S7.1+/K5; S8+@; Q2.2; Q4; S7.1+; A9+; S8+; X9.2+/S7.3/S2mf; S8+/S2mf,K5.1;S2;X9.2,,,False
+的,PART,Z5,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+女排,NOUN,Z99,K5.1,,,False
+队员,NOUN,Z99,S2,,,False
+杨菁,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+获得,VERB,A1.7+; A15+; A9+; A2.2; Q3; E1; S9%; N5+/A2.1; T1.3; C1; A1.1.1; M2; S7.1-; A2.1+; X2.4; S6+; S7.4+; N3; A2.1+; P1; M1; X2.5+; F1@; F2@; Q1.2@; B3@; F4; I2.2; K5; A5.1; N3.1; O2; K2; X4.1; N5%; X9.2+; S7.1+; Q4.3; X9.2+/S7.3; X9.2+/G3; O4.2+,A9,,,False
+“,PUNCT,PUNCT,,,,False
+亚洲,PROPN,Z2; Z2/S2mf,Z2,,,False
+足球,NOUN,K5.1; K5.2,K5.1,,,False
+小姐,NOUN,A5.3-; X3.4-; A11.2-; X2.5-; X9.2-; E4.1-; T4-; S1.1.3-; S2.1f; S4f; S7.1+/S2.1f; I3.1/F1/S2.1f; S3.2+/I3.1/S2mf; G2.2-/S2mf,S2,,,False
+”,PUNCT,PUNCT,,,,False
+称号,NOUN,A13.1; N3.1; N3.2; N5; P1,Q2.2;Z1,,,False
+的,PART,Z5,Z5,,,False
+武汉籍,ADJ,Z99,Z99,,分词问题,False
+女足,NOUN,Z99,K5.1;S2.1,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,K5.1;S2,,,False
+王霜,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+两,NUM,N1; N5,N1,,,False
+次,NUM,N6; N3.1,N6,,,False
+担任,VERB,M2; A1.1.1; A9+; X2.1; S7.1+/A1.7+,A1.1.1,,,False
+奥运会,PROPN,Z99,Z3,,,False
+中国,PROPN,Z8,Z2,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S5,,,False
+旗手,NOUN,Q1.1; G3,S2,,,False
+的,PART,Z5,Z5,,,False
+刘玉栋,PROPN,Z99,Z1,,,False
+等,PART,T1.3; A3+; S1.1.1,Z5,,,False
+7,NUM,N1,N1,,,False
+位,NUM,M6,N,,量词问题,False
+火炬,NOUN,O3/W2; O2/W2; O2/O4.6+,Z99,,分词问题,False
+手高擎,NOUN,Z99,Z99,,分词问题,False
+火炬,NOUN,O3/W2; O2/W2; O2/O4.6+,O2,,,False
+，,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+全场,NOUN,Z99,S2,,,False
+观众,NOUN,K1/S2mfc; S2mfc; S1.1.3+; X3.4/S2mf,S2,,,False
+热烈,ADJ,F2; O4.6+; E2+; O4.2+; S1.2.1+; X5.2+; L1+%,X5.2,,,False
+掌声,NOUN,E2+/X3.2+,X3.2,,,False
+中,PART,Z5,Z5,,,False
+接力,ADV,Z99,A1.1.1,,,False
+传递,VERB,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; O4.3; Q2.1; Q1.2; Q1.3; X2.2+; A9+; Q4; B1%; B2-%,M2,,,False
+。,PUNCT,PUNCT,,,,True
+体育场,NOUN,K5.1/H1,K5.1;H1,,,False
+一角,NOUN,Z99,M6,,,False
+，,PUNCT,PUNCT,,,,False
+名,NOUN,Q2.2,Q2.2,,,False
+为,VERB,A3+; Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+和合,NOUN,Z99,S3,,,False
+”,PUNCT,PUNCT,,,,False
+的,PART,Z5,Z5,,,False
+火炬,NOUN,O3/W2; O2/W2; O2/O4.6+,O2,,分词问题,False
+塔巍然,NOUN,Z99,Z99,,分词问题,False
+矗立,VERB,G3; K5.1; M1; M2; Q4.3; Q1.2; L3,A1.1.1;M2,,,False
+。,PUNCT,PUNCT,,,,False
+随着,ADP,Z99,Z5,,,False
+1,NUM,N1,N1,,,False
+名,NUM,Q2.2,N,,量词问题,False
+女童,NOUN,Z99,S2.1,,,False
+将,X,T1.1.3; K5.2,T1.1.3,,,False
+镌刻,VERB,Z99,A1.1.1,,,False
+“,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+”,PUNCT,PUNCT,,,,False
+二,NUM,N1; S1.2.6--; X9.1--,N1,,,False
+字,NOUN,A6.2+; Q1.1; X4.1; M2; O4.1; Q1.2; Q3; Q2.1; S9@; S2mf; K4/S2mf; S1.2; S2mf/A6.2-; A4.1; O4.2+,Q1.2;Q3,,,False
+的,PART,Z5,Z5,,,False
+地板,NOUN,H2; S5+; H5; O2; L2; X2.1; M1; H4; G3@; X2.5-; E3-; X9.2-,H2;H5,,,False
+镶入,VERB,Z99,A1.1.1,,,False
+地面,NOUN,A1.1.1; X3.2; M2; F1; A1.1.1/O4.5; X8+; K1; A10+; H2; S5+; M3; M4; K3; K5.2; Q2.2; P1; A1.7+; A2.2; M6; O2; W3; M7; O3; X2.1; O4.1; W1; O1.1; N5++; X9.2-; E3-,H2;H5,,,False
+，,PUNCT,PUNCT,,,,False
+悠扬,VERB,Z99,K2,,,False
+的,PART,Z5,Z5,,,False
+乐曲,NOUN,Z99,K2,,分词问题,False
+声响,NOUN,Q2.1; Q3; X3.2,Z99,,分词问题,False
+起,VERB,M1; N5+/A2.1,Z99,,分词问题,False
+，,PUNCT,PUNCT,,,,False
+通往,VERB,Z99,M6;M1,,,False
+火炬塔,NOUN,Z99,M7;H1,,,False
+的,PART,Z5,Z5,,,False
+楼梯点亮,VERB,Z99,Z99,,分词问题,False
+。,PUNCT,PUNCT,,,,False
+最后,ADJ,N4,N4,,,False
+一,NUM,N1,N1,,,False
+棒,NUM,B2-; G2.1; I3.1; I3.1/S2mfc; B3/S2mf; G3/S2c; L2mfn; L3; O2; W3; A6.1-; O2/S9; O4.2+; X9.1+; S1.2.6+; S1.2.5+; N5+; A5.1+; X5.2+; S7.1+; O4.1; S1.2.3+; Z1,N,,量词问题,False
+火炬手,NOUN,Z99,S2,,,False
+刘玉栋,PROPN,Z99,Z1,,,False
+走到,VERB,Z99,M1,,,False
+火炬,NOUN,O3/W2; O2/W2; O2/O4.6+,Z99,,分词问题,False
+塔下,NOUN,Z99,Z99,,分词问题,False
+，,PUNCT,PUNCT,,,,False
+向,ADP,Z5,Z5,,,False
+全场,NOUN,Z99,S2,,,False
+观众,NOUN,K1/S2mfc; S2mfc; S1.1.3+; X3.4/S2mf,S2,,,False
+挥手,VERB,Z99,A1.1.1,,,False
+致意,VERB,I2.2; Q2.2; S1.1.1; S1.2.4+; S7.2+; X2.1; X2.2+; X2.2+/S7.2+,Q2.2,,,False
+，,PUNCT,PUNCT,,,,False
+并,CCONJ,Z5,Z5,,,False
+点燃,VERB,N3.5-; O4.3; O3; W2; O3/W2; M3; O4.6+; X4.1; E1; N5-; N3.2-; A12+; X3.2-; F1; A11.1-; O4.2+,A1.1.1,,,False
+火炬塔,NOUN,Z99,M7;H1,,,False
+。,PUNCT,PUNCT,,,,False
+圣火,NOUN,Z99,Z3,,,False
+，,PUNCT,PUNCT,,,,False
+沿着,ADP,M6; Z5,M6,,,False
+象征,VERB,A6.2+; Q1.1; A11.1+; X4.1; M2,A1.1.1,,,False
+“,PUNCT,PUNCT,,,,False
+一带,NOUN,M7; A4.1; N3.6; B1; N5.1-; O2; I3.1; S1.1.3+; K4,Z99,,分词问题,False
+一路,NOUN,Z99,Z99,,分词问题,False
+”,PUNCT,PUNCT,,,,False
+的,PART,Z5,Z5,,,False
+塔体,NOUN,Z99,H2,,,False
+向上,ADV,A1.1.1; P1; A1.1.1/O1.2; W4; M1/N5+; A5.1+/A2.2; E4.1+/A2.2; I1; N3.5; M1; A2.1; N5+/A2.1; N3.2+/A2.1; S7.1+/A2.1; N3.7+/A2.1; O4.4,A1.1.1;M6,,,False
+飞腾,VERB,Z99,A1.1.1;M5,,,False
+，,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+五,NUM,N1,N1,,,False
+大洲,NOUN,Z99,Z2,,,False
+”,PUNCT,PUNCT,,,,False
+形状,NOUN,A4.1; O4.4; Q1.2; O4.1; P1@; H5@; K5.1@; G2.1-@; B1@; T2+; A2.1+; A1.8+; A3+; A1.1.1; Z3,O4.1,,,False
+的,PART,Z5,Z5,,,False
+塔顶,NOUN,Z99,H2,,,False
+熊熊,ADV,N5+; O4.6+; O4.3; E3-; Z4,E3;A13.3,,,False
+燃烧,VERB,B2-; B2-/O4.6+; E3-/A2.1; N3.2+/A2.1; G3; O4.6+; A11.2+; E1; A1.5.1; E3-; O4.3; Z4; Q2.2%; S3.2/S2mf; T2+,A1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+“,PUNCT,PUNCT,,,,False
+为了,ADP,Z5/A2.2,Z5,,,False
+飞越,VERB,M1; L3,M5,,,False
+大海,NOUN,A11.1+; N5+++; O2/M4; O3; W3/M4,W3,,,False
+的,PART,Z5,Z5,,,False
+鸽子,NOUN,L2mfn; F1,L2,,,False
+在,ADP,Z5,Z5,,,False
+沙丘,PROPN,W3,W3,,,False
+安睡,VERB,Z99,A1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+为了,ADP,Z5/A2.2,Z5,,,False
+穿越,VERB,M1; M6; Z5,M1,,,False
+天空,NOUN,A10-/O2; O4.3; A12-; W4; O4.4; A4.1; S5+; S9; E2+; W1; N5,W3,,,False
+的,PART,Z5,Z5,,,False
+炮弹,NOUN,B3; O2/O4.4; K5.1; B1; K1; O4.4,O2;G3,,,False
+被,X,A3+; Z5,Z5,,,False
+永久,ADV,T2+++; N6+++,T2,,,False
+禁止,VERB,A1.1.1; A1.7+; E1-/E3+; A1.9; B4; E5-; F2; S7.4-; G2.1; G2.1-; K2; Q2.1/N6+@; O1.1; G3; S7.1+; O3; S1.2.5+; N2@; N3; S7.1+/Q2.2; S8+; G2.1c; Q2.2; K5.1; S7.3+; S8-; S8-/G2.1; S7.4-/G2.1,A1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+我,PRON,Z8mf,Z8,,,False
+愿,VERB,A1.1.1; A1.5; A5.4+; I1; O4.1; A1.2+; X7+; T2+; A9+/A12+; X9.1+; X2.6+; E4.1+; X9.2+; A5.1+; S3.2; X5.2+; T1.1.3,X7,,,False
+铸剑,VERB,Z99,A1.1.1;G3,,,False
+为,ADP,Z5,Z5,,,False
+犁,NOUN,B1; A1.1.1; F4; M1; I1.1; W3; O2; O2/F4,O2,,,False
+，,PUNCT,PUNCT,,,,False
+愿,VERB,A1.1.1; A1.5; A5.4+; I1; O4.1; A1.2+; X7+; T2+; A9+/A12+; X9.1+; X2.6+; E4.1+; X9.2+; A5.1+; S3.2; X5.2+; T1.1.3,X7,,,False
+枪炮,NOUN,G3; G3/S2mf,G3,,,False
+弯曲,VERB,A2.1+; O4.4; B4; B4/S2mf; A4.1; M2; M1; N3.6+/A2.1; X3.4; X9.2+; B5; G2.1-; S3.2/B1; G2.1-/S2mf; O2; I1.1; B1; M6; O4.5; O4.1; W4; A1.1.1; B3; X6+; S6+; K2; Q4.3; N5; K5.1; F2; F1; K2%; G3%; N2; K4; O3; S5+c; K5.1%; O4.1/B1; S7.2+; S1.2.4+; S7.1-; O4.1/B1/S7.2+; G3; M4; A9-; X9.1+; Z5,A2.1;O4.2,,,False
+……,PUNCT,PUNCT,,,,False
+”,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+主题歌,NOUN,Z99,K2,,,False
+《,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+的,PART,Z5,Z5,,,False
+薪火,NOUN,Z99,X2.1,,,False
+》,PUNCT,PUNCT,,,,False
+掀起,VERB,M2; A5.1+/A2.1; E4.1+/A2.1; G2.1; N5+/A2.1; X3.2++; A9+; A1.1.1; A2.2; S1.1.1; F4; Q2.2; S4; T2+; E5-; E3-,A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+热烈,ADJ,F2; O4.6+; E2+; O4.2+; S1.2.1+; X5.2+; L1+%,X5.2;A13.3,,,False
+气氛,NOUN,E1; E3-; X3; O4.1; W3; W1; N3.5; X2.1,E1,,,False
+中,PART,Z5,Z5,,,False
+，,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+开幕式,NOUN,Z99,S1.1.1,,,False
+圆满,ADV,T2-,A5.1,,,False
+结束,VERB,M6; T2-; O2; X7+; N4; X6+,T2,,,False
+。,PUNCT,PUNCT,,,,True
+来自,VERB,A2.2,M6,,,False
+42,NUM,N1,N1,,,False
+个,NUM,S2mf,N,,量词问题,False
+国家,NOUN,G1.1c; W3,G1.1,,,False
+的,PART,Z5,Z5,,,False
+防务,NOUN,Z99,G3,,,False
+部门,NOUN,A1.1.1; B3/X1; A4.1; M7; A6.1-; N2; G2.1/S5+c; G3/S5+c; G1.2; K5.2/S5+c; A6.3+; O4.1; G1.1c; S9; H2/S5+c; X2.2; M6; T2-; O2; X7+; N4; N3.3; K2; N5; M7/K5.1; M7/G3; W3; F1/O2; N5+; A2.1+; N5.1-; S5+c; B3; Y1; C1/H1@; L3,S7.1,,,False
+和,CCONJ,Z5,Z5,,,False
+军队,NOUN,A5.1; S7.1++; G3/S5; G3/S5+; S5+; G3/S5+c; G3/S2mf; S5+c; G3c; N5+; M1; N5.2+; O4.2-; N5++%; S7.1+; M3,G3;S7.1,,,False
+领导人,NOUN,S7.1+/S2mf; A5.1+++/S2mf; Q4.2; G2.1/S2mf,S7.1;S2,,,False
+应邀,VERB,Z99,S1.1.3,,,False
+出席,VERB,A8; A10+; A3+; G2.1; K4; Q4; M6; S1.1.3+; S1.2; S9; S7.4-; S8+,S1.1.3,,,False
+开幕式,NOUN,Z99,S1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+组委会,NOUN,Z99,S7.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,G1.2;I3.2,,,False
+、,PUNCT,PUNCT,,,,False
+中共,PROPN,Z99,G1.2,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1,,,False
+政治局,NOUN,G1.1/S7.1+,G1.1,,,False
+委员,NOUN,G1.1/S2mf; G2.1/S2mf; G1.1c; S7.1+/S5+c,G1.2;I3.2,,,False
+、,PUNCT,PUNCT,,,,False
+国务院,NOUN,Z99,G1.1,,,False
+副总理,NOUN,Z99,G1.1;I3.2,,,False
+孙春兰,PROPN,Z99,Z1,,,False
+，,PUNCT,PUNCT,,,,False
+中共,PROPN,Z99,G1.2,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1,,,False
+政治局,NOUN,G1.1/S7.1+,G1.1,,,False
+委员,NOUN,G1.1/S2mf; G2.1/S2mf; G1.1c; S7.1+/S5+c,G1.2;I3.2,,,False
+、,PUNCT,PUNCT,,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1,,,False
+书记处,NOUN,Z99,S7.1,,,False
+书记,NOUN,B3/P1; I2.1/S2mf; G1.1/S2mf; I3.2/S2mf; S7.1+/S2mf; Q1.2/S2mf/T1.1.1; S9/T1.1.1; S7.1+,G1.2;I3.2,,,False
+、,PUNCT,PUNCT,,,,False
+中央,NOUN,A11.1+; M6; H1c; M7c; G1.2c; K5.1mfn; N4; T1.2; N5; N3.2; N3.1; Q4; X4.2; O1; S9/S2mf,G1.1,,,False
+办公厅,NOUN,Z99,G1.1;G1.2,,,False
+主任,NOUN,B1; S7.1+/S2mf; P1/S2mf; X1; M6; A4.1; S2mf; F2; H5/M4%; S7.1+; K5.1; M1; N5; A2.1+; A11.1+; Q1.2; T1.1.3; K4/S2mf,S2,,,False
+丁薛祥,PROPN,Z99,Z1,,,False
+出席,VERB,A8; A10+; A3+; G2.1; K4; Q4; M6; S1.1.3+; S1.2; S9; S7.4-; S8+,S1.1.3,,,False
+开幕式,NOUN,Z99,S1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+是,VERB,A3; Z5,Z5,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,G1.1,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+主办,VERB,A9-; A1.1.1; A9-/I1.1; S8+; O4.5,A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+全球,NOUN,A13.2; N5.1+; N5; W3; M7; A1.8+; O4.4,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+最,ADV,A5.1+++; G2.2+++; O4.2+++; N5.1+,N5.1,,,False
+高,ADJ,N3.7+,N3.7,,,False
+规格,NOUN,A4.2+/Q2.2; A5.1; G2.2; Q1.1; O2@; A6.2+,N3,,,False
+的,PART,Z5,Z5,,,False
+大型,ADJ,N3.2+; N5+,N3.2,,,False
+综合性,ADJ,A1.8+; Y1/O1,A1.8;A13.3,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+。,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+设置,VERB,M2; M6; O4.5; O4.1; W4; A1.1.1; B3; B4; X6+; S6+; K2; Q4.3; A10+; N5; N2; K4; O3; S5+c; K5.1%; S7.1+; H1c; S1.1.1; T2+; X2.1; A8; A5.4-/A8; O4.2; O4.4,A1.1.1,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+五,NUM,N1,N1,,,False
+项,NUM,O2; Q4; X4.1; A7-; S2mf; L2mf; S5+/S2mf; B1,N,,量词问题,False
+、,PUNCT,PUNCT,,,,False
+海军,NOUN,A13.3; E4.1+; G3/M4c; O4.3,G3,,,False
+五,NUM,N1,N1,,,False
+项,NUM,O2; Q4; X4.1; A7-; S2mf; L2mf; S5+/S2mf; B1,N,,量词问题,False
+、,PUNCT,PUNCT,,,,False
+空军,NOUN,M5/G3c; M5/S2.2m,G3,,,False
+五,NUM,N1,N1,,,False
+项,NUM,O2; Q4; X4.1; A7-; S2mf; L2mf; S5+/S2mf; B1,N,,,False
+、,PUNCT,PUNCT,,,,False
+定向,VERB,M6,M6,,,False
+越野,NOUN,Z99,K5.1,,,False
+、,PUNCT,PUNCT,,,,False
+跳伞,NOUN,M5; S8+/I1.2,K5.1,,,False
+等,PART,T1.3; A3+; S1.1.1,Z5,,,False
+27,NUM,N1,N1,,,False
+个,NUM,S2mf,N,,量词问题,False
+大项,NOUN,Z99,K5.1,,分词问题,False
+、,PUNCT,PUNCT,,,,False
+329,NUM,N1,N1,,,False
+个,NUM,S2mf,N,,量词问题,False
+小,ADJ,N3.1-; N5-; A13.1-; S1.2.5-,N3,,,False
+项,NOUN,O2; Q4; X4.1; A7-; S2mf; L2mf; S5+/S2mf; B1,K5.1,,,False
+的,PART,Z5,Z5,,,False
+比赛,NOUN,A6.1+; K1; K5.1; K5.2; K2; K3; A1.1.1; K6; S7.3+; K4; O2; S5+c; S7.3; M1/N3.8+; W5; S8+; A9+/A2.1-; X7+; L2; F1,K5.1,,,False
+。,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+将,ADV,T1.1.3,T1.1.3,,,False
+于,ADP,Z5,Z5,,,False
+10月,NOUN,Z99,T1,,日期识别问题,False
+27日,NOUN,Z99,T1,,日期识别问题,False
+闭幕,VERB,Z99,T2,,,False
+。,PUNCT,PUNCT,,,,True
+新华社,PROPN,Z99,Z3,,,False
+武汉,PROPN,Z2,Z2,,,False
+10月,NOUN,Z99,T1,,日期识别问题,False
+27日,NOUN,Z99,T1,,日期识别问题,False
+电,NOUN,O3; O2; Q1.3; Q4.3; S7.1+; S1.2.5+; N2@,Q4.3,,,False
+题,NOUN,A1.1.1; S7.1+; Q1.2; Q4.1; S7.1-; X4.1; C1/S2mf; Q3; P1; S7.1-/S2mf; K2; A12-; N2; B2-; Q4; A9+; Q2.2,Q1.2,,,False
+：,PUNCT,PUNCT,,,,False
+以,ADP,Z5,Z5,,,False
+和平,NOUN,E3+,E3+,,,False
+之,PART,Z8,Z5,,,False
+名,NOUN,Q2.2,Q2.2,,,False
+拉紧,VERB,A1.1.1; K2; A1.1.1/N5.2+; X8+; B2-; A1.7+; A1.7+/A2.1; A9+/N5; E6-; O4.1; N3.5; A12-; A4.1; O1.1; N5; N4; S5+c; Q1.2; Q3,A1.1.1,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S1.2.1,,,False
+纽带,NOUN,B1,S3.1,,,True
+——,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,N,,量词问题,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+闭幕式,NOUN,Z99,S1.1.1,,,False
+侧记,NOUN,Z99,Q1.2,,,True
+新华社,NOUN,Z99,Z3,,,False
+记者,NOUN,Q4.2/I3.2/S2mf,I3.2;Q4.2,,,False
+侯文坤,PROPN,Z99,Z1,,,False
+、,PUNCT,PUNCT,,,,False
+李国利,PROPN,Z99,Z1,,,True
+10,NUM,N1,N1,,,False
+天,NUM,T1.3; W1,N,,量词,False
+前,PART,A1.1.1/O1.2; W4; M1/N5+; M6; S7.1+; Q4.3,T1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+长江,PROPN,Z99,Z2,,,False
+之,PART,Z8,Z5,,,False
+滨,NOUN,E6+; I1.1; X2.6+; M1; I1/H1; I1.1/I2.1c; W3/M4; A9+/H1; O2; M6; M4; S5-,W3,,,False
+，,PUNCT,PUNCT,,,,False
+不同,ADJ,A6.1-; A11.2+; A4.2+,A6.1,,,False
+肤色,NOUN,B1; A8; O3; A1.8+,O4.1;B1,,,False
+、,PUNCT,PUNCT,,,,False
+不同,ADJ,A6.1-; A11.2+; A4.2+,A6.1,,,False
+国别,NOUN,Z99,G1.1;A6.1,,,False
+、,PUNCT,PUNCT,,,,False
+不同,ADJ,A6.1-; A11.2+; A4.2+,A6.1,,,False
+民族,NOUN,G1.1c; S5+c; K5.1; S7.3+; S2; S2mf; K2; S2mfc; M1/N3.8+,G1.1;A4.1,,,False
+的,PART,Z5,Z5,,,False
+人们,NOUN,S2; S2.2m; S2mf; K2; S2mfc,S2,,,False
+以,ADP,Z5,Z5,,,False
+和平,NOUN,E3+,E3+,,,False
+之,PART,Z8,Z5,,,False
+名,NOUN,Q2.2,Q2.2,,,False
+，,PUNCT,PUNCT,,,,False
+共,ADV,A6.2+; N5++; S5+; O4.2-; G3/S7.1+/S2mf; B3/H1; M7; N5+; A4.2-; S1.2.6+; T1.1.2; M6,S1.1.3;N5,,,False
+赴,VERB,M1; N3.1; A2.2; A3+; X2.1; A9+; S4; N4; S3.2; T1; A1.1.1; N5,M1,,,False
+一,NUM,N1,N1,,,False
+场,NUM,K5.1; A1.1.1; M2; X2.2+; I3.1; Q2.2,N,,量词,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+盛会,NOUN,S1.1.1; A1.1.1,S1.1.1;K4,,,False
+之,PART,Z8,Z5,,,False
+约,NOUN,A6.1+; Q2.2; E6+; S9; X2.1; T1.1; I3.1,A1.1.1;S1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+今夜,NOUN,T1.1.2,T1.1.2,,,False
+，,PUNCT,PUNCT,,,,False
+圣火,NOUN,Z99,O2,,,False
+一侧,NOUN,Z99,M6,,,False
+，,PUNCT,PUNCT,,,,False
+《,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+的,PART,Z5,Z5,,,False
+薪火,NOUN,Z99,O2,,,False
+》,PUNCT,PUNCT,,,,False
+旋律,NOUN,K2; Q3; T1.1; M1; S5+c; A2.1+,K2,,,False
+再次,ADV,N6+; Z4,N6；A13.3,,,False
+响起,VERB,X3.2; Q2.2; A8; N3.1%,K2,,,False
+，,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+穿越,VERB,M1; M6; Z5,T1.1;A1.1.1,,,False
+”,PUNCT,PUNCT,,,,False
+而,PART,Z5; Z6,Z5,,,False
+来,VERB,M1,M1,,,False
+的,PART,Z5,Z5,,,False
+历届,ADJ,Z99,N5;T1.3,,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+吉祥物,NOUN,A1.4; X9.2+,O2;K5.1,,,False
+在,ADP,Z5,Z5,,,False
+这,DET,M6; Z5; Z8,Z8,,,False
+场,NUM,K5.1; A1.1.1; M2; X2.2+; I3.1; Q2.2,Z99,“场”为量词,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+之,PART,Z8,Z5,,,False
+约,NOUN,A6.1+; Q2.2; E6+; S9; X2.1; T1.1; I3.1,S1.1.1,,,False
+中,PART,Z5,M6,,,False
+，,PUNCT,PUNCT,,,,False
+牵起,VERB,Z99,S3.1,,,False
+一,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：一条,False
+条,NUM,G2.1/P1; S7.4-; A1.7+; S8-,Z99,WRONG-TOKEN,分词有误，应为：一条,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.1;S1.2.1,,,False
+的,PART,Z5,Z5,,,False
+纽带,NOUN,B1,S3.1;02,,,False
+。,PUNCT,PUNCT,,,,True
+27日,NOUN,Z99,T1.1.1,,,False
+晚,NOUN,T1.3; T4-,T1.3,,,False
+，,PUNCT,PUNCT,,,,False
+第七,NUM,N1,N1;N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,Z99,量词,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+闭幕式,NOUN,Z99,K5.1,,,False
+文艺,NOUN,Q4.1; Q1.2,C1,,,False
+演出,NOUN,A1.1.1; A10+; K4; K3; Q4.3; X9.2+; A2.2; A9-; X9.2; A12-; O4.1; Q2.2; S1.1.1; X2.5+; Q3,K4,,,False
+在,ADP,Z5,Z5,,,False
+一个,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：一 个,False
+轻松,VERB,A12+; A12+/A2.1; N5-/A2.1; E3+; K1; A1.7-,E4.1,,,False
+活泼,VERB,A1.1.1; K2; N3.8+; X5.2+; O4.2+; Q4.3; W2; W4; L1+%,E3;E4.1,,,False
+的,PART,Z5,Z5,,,False
+开场,NOUN,Z99,T2;K4;K5.1,,,False
+中,PART,Z5,T1;M6,,,False
+拉开,VERB,B5,A10,,,False
+了,PART,Z5,Z5,,,False
+帷幕,NOUN,Z99,T2;K5.1;K4,,,False
+——,PUNCT,PUNCT,,,,False
+本届,NOUN,T1.1.2; W3/M4; W3/M5; O3; E1,N4;Z99,,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+吉祥物,NOUN,A1.4; X9.2+,O2;K5.1,,,False
+“,PUNCT,PUNCT,,,,False
+兵兵,NOUN,Z99,Z1,,,False
+”,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+追逐,VERB,E6-; L2mfn; M1; X7+; X2.4; M2; M6; P1; B3; F1; M7/K5.1; T1.3; Q2.2; S3.2; Z4,M1,,,False
+光束,NOUN,E4.1+; W2; Q4.3; Q1.2; Q1.2/O2; Y1; H2; O2/K5.1,O2,,,False
+的,PART,Z5,Z5,,,False
+奔跑,NOUN,M1/N3.8+; K5.1; G1.2; G2.1-; X3.3; S7.1+; A1.1.1; T2++; M3.3; A6.3+; K4; M1; B5; X8+; T1.3; X7/N5+; N5; K5.1%; M6; X7+; P1; B3; F1; M7/K5.1,M1,,,False
+中,PART,Z5,M6,,,False
+，,PUNCT,PUNCT,,,,False
+打开,VERB,A1.1.1; T2+; A10+; S1.2.1+; X6-; X5.2+; A7+; K5.1; M2; O4.4/A2.1,A10,,,False
+一,NUM,N1,N1,,,False
+条,NUM,G2.1/P1; S7.4-; A1.7+; S8-,Z99,量词,,False
+时空,NOUN,Z99,T1.1,,,False
+通道,NOUN,G1.2; H2; G1.2/S5+c; Q3; M1; I1.2/M1@; M7,O2,,,False
+，,PUNCT,PUNCT,,,,False
+飞过,VERB,A10-; L2; M5; M1; N3.8+; E3-,M1,,,False
+花海,PROPN,Z99,L2,,,False
+、,PUNCT,PUNCT,,,,False
+麦浪,PROPN,Z99,L2,,,False
+、,PUNCT,PUNCT,,,,False
+森林,PROPN,Z3,L2,,,False
+；,PUNCT,PUNCT,,,,False
+穿越,VERB,M1; M6; Z5,M1,,,False
+长城,PROPN,Z99,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+黄鹤楼,PROPN,Z99,Z2,,,False
+。,PUNCT,PUNCT,,,,True
+流光溢彩,NOUN,Z99,A5.1,,,False
+中,PART,Z5,M6,,,False
+，,PUNCT,PUNCT,,,,False
+时光,NOUN,T1; T1.2; T1.3; T1.1.2; N6; N1; K2; G2.1@,T1.1,,,False
+轮盘,NOUN,Z99,O2,,,False
+一次次,ADV,Z99,N5,,,False
+出现,VERB,A1.1.1; M1; A10+; O4.1; A3+; G2.1; K5; Q4; A8; K4; L2; X9.2+/A12+; T2; M6; S1.1.3+; S1.2; S9; O2; M7; E6-; M1/N6+; S9/T1.3; X3.4; X3.2+,A10,,,False
+，,PUNCT,PUNCT,,,,False
+慢慢,ADV,N3.8-,N3.8,,,False
+把,X,A1.1.1,Z5,,,False
+时间,NOUN,T1.1,T1.1,,,False
+拉回,VERB,Z99,T1.1.1；M2,,,False
+到,VERB,M1; T2,Z5,,,False
+2015年,NOUN,Z99,T1.1.1,,,False
+、,PUNCT,PUNCT,,,,False
+2011年,NOUN,Z99,T1.1.1,,,False
+、,PUNCT,PUNCT,,,,False
+2007年,NOUN,Z99,T1.1.1,,,False
+……,PUNCT,PUNCT,,,,False
+韩国,PROPN,Z2; Z2/Q3; Z2/S2mf,Z2,,,False
+闻庆,PROPN,Z99,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+巴西,PROPN,Z2,Z2,,,False
+里约热内卢,PROPN,Z99,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+印度,PROPN,Z2,Z2,,,False
+海德拉巴,PROPN,Z2,Z2,,,False
+……,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+兵兵,NOUN,Z99,Z1,,,False
+”,PUNCT,PUNCT,,,,False
+依次,ADV,Z99,N4,,,False
+穿越,VERB,M1; M6; Z5,M1,,,False
+去,PART,M1,M1；Z5,,,False
+领略,VERB,Z99,X2.3,,,False
+前,DET,T2-; N4,T1.1.1,,,False
+六,NUM,N1; T3; T1.2,N1,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,Z99,量词,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+举办国,NOUN,Z99,M7；K5.1,,,False
+的,PART,Z5,Z5,,,False
+文化,NOUN,C1; S1.1.1; S5+; L1; A5.1+++; O4.2+++,C1；X2,,,False
+，,PUNCT,PUNCT,,,,False
+呼唤,VERB,Q2.2/X3.2++; F2@,Q1.1,,,False
+出历,VERB,Z99,Z99,WRONG-TOKEN,分词有误，应为：出 历届,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,Z99,WRONG-TOKEN,分词有误，应为：出 历届,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+的,PART,Z5,Z5,,,False
+吉祥物,NOUN,A1.4; X9.2+,O2;K5.1,,,False
+，,PUNCT,PUNCT,,,,False
+欢聚一堂,VERB,Z99,S1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+嬉戏,VERB,E4.1+; L3; G2.2-; M1/E4.1+,K5.2,,,False
+玩耍,VERB,A10+; E4.1+; K5.1; M1/E4.1+,K5.2,,,False
+，,PUNCT,PUNCT,,,,False
+好不,ADV,Z99,A13.3,,,False
+热闹,VERB,K1/S1.1.3+; S9; X5.2+; L1+%,E4.1,,,False
+。,PUNCT,PUNCT,,,,True
+打破,VERB,A1.1.1; N5+/A2.1; E3-; G3; A1.1.2; A1.9; S5-; T2-; E4.1-/A2.2; A2.1+; T1.3; Q2.1@; B2-; E2+; E3-/A1.1.1; E4.2-; S8-; I1.1-; K1/T1.3; O2; A1.4; O1.1; X2.5-,A1.9,,,False
+时空,NOUN,Z99,T1.1/M7,,,False
+的,PART,Z5,Z5,,,False
+隔阂,NOUN,Z99,A1.8,,,False
+，,PUNCT,PUNCT,,,,False
+7,NUM,N1,N1,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,Z99,量词,,False
+吉祥物,NOUN,A1.4; X9.2+,O2;K5.1,,,False
+因,ADP,A2.2; X2.1; X4.1; M6; Q2.2; Z5; Z5/A2.2,A2.2；Z5,,,False
+“,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+”,PUNCT,PUNCT,,,,False
+聚首,VERB,Z99,S1.1.1;S3.1,,,False
+，,PUNCT,PUNCT,,,,False
+就,ADV,X2.1; N3.8+; T1.1.2/A11.1+; N4,Z5,,,False
+如同,VERB,E2+,A6.1,,,False
+109,NUM,N1,N1,,,False
+个,NUM,S2mf,Z99,量词,,False
+国家,NOUN,G1.1c; W3,M7,,,False
+9300多,NUM,N1,N5,,,False
+名,NUM,Q2.2,Z99,量词,,False
+军体,NOUN,Z99,G3；K5.1,,,False
+健儿,NOUN,Z99,S2;K5.1,,,False
+从,ADP,Z5,M6,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+各地,NOUN,Z99,M7,,,False
+而,PART,Z5; Z6,Z5,,,False
+来,VERB,M1,M1,,,False
+；,PUNCT,PUNCT,,,,False
+数十万,NUM,N1,N5,,,False
+“,PUNCT,PUNCT,,,,False
+水杉绿,NOUN,Z99,Z3；O4.3,,,False
+”,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+江潮,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：“江潮蓝”,False
+蓝,VERB,I1.2; O4.3; S1.2.4-; G1.2,Z99,WRONG-TOKEN,分词有误，应为：“江潮蓝”,False
+”,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+砖玉红,NOUN,Z99,Z3;O4.3,,,False
+”,PUNCT,PUNCT,,,,False
+从,ADP,Z5,M6,,,False
+五,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：五湖四海 相聚,False
+湖,NOUN,F4; B1; O1.2; W3/M4; C1%,Z99,WRONG-TOKEN,分词有误，应为：五湖四海 相聚,False
+四海相聚,VERB,Z99,Z99,WRONG-TOKEN,分词有误，应为：五湖四海 相聚,False
+；,PUNCT,PUNCT,,,,False
+首次,ADV,Z99,N4；T2,,,False
+走出,VERB,Z99,M1,,,False
+“,PUNCT,PUNCT,,,,False
+军营,NOUN,G3/H4; N1; N5; T1.3; H4,G3,,,False
+比武,NOUN,Z99,G3,,,False
+”,PUNCT,PUNCT,,,,False
+，,PUNCT,PUNCT,,,,False
+改变,VERB,A2.1+; I1; B1; B5; N2%; P1; S5+c; T1.3/I3.1; A2.2; A6.1-; A6.3+; M2; M1; I2.2; O2; A1.4; S7.1+,A2.1,,,False
+以往,NOUN,T1.1.1; T3++,T1.1.1,,,False
+以,ADP,Z5,Z5,,,False
+军方,NOUN,G3,G3,,,False
+为主,VERB,Z99,N5,,,False
+、,PUNCT,PUNCT,,,,False
+相对,ADV,A13/A6,A13.1;Z5,,,False
+封闭,VERB,A1.1.1; A10-; T2-; A1.7+; X6+; F1; H1/M4; F4,A1.7;A10,,,False
+办赛,VERB,Z99,K5.1,,,False
+的,PART,Z5,Z5,,,False
+模式,NOUN,A5.4-; A10+; C1; O2/A5.4-; A4.1; X4.2; A5.1+++; C1/S2mf; B5/I3.2/S2mf; O4.2+; M6; M3/H3; N3.3; A1.1.1; T1.3; O4.1; O4.3; B5/Q1.2,A4.1,,,False
+……,PUNCT,PUNCT,,,,True
+这是,PRON,Z99,Z99,WRONG-TOKEN,分词有误，应为：这 是,False
+和平,NOUN,E3+,E3+,,,False
+的,PART,Z5,Z5,,,False
+召唤,NOUN,G1.1; Q2.2; S6+; X7+; S7.1+; A1.1.1; T2+; A1.5.1,A1.1.1,,,False
+。,PUNCT,PUNCT,,,,False
+恰似,ADV,Z99,A6.1,,,False
+此刻,NOUN,Z99,T1.1.2；T1.2,,,False
+，,PUNCT,PUNCT,,,,False
+来自,VERB,A2.2,M6,,,False
+五,NUM,N1,N1,,,False
+大洲,NOUN,Z99,M7,,,False
+的,PART,Z5,Z5,,,False
+军体,NOUN,Z99,G3；K5.1,,,False
+健儿们,NOUN,Z99,S2;K5.1,,,False
+共聚一堂,VERB,Z99,S1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+100多,NUM,N1,N5,,,False
+面,NUM,A10+; A11.1++; N5++; A5.1++; A1.1.1; L1-; F1; M6; S1.1.1; X2.1; B5; O4.3; A10-; N5-/A2.1; S5+,Z99,量词,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,W3,,,False
+军体,NOUN,Z99,G3；K5.1,,,False
+成员国,NOUN,Z99,M7；G1.1,,,False
+的,PART,Z5,Z5,,,False
+旗帜,NOUN,G1.2/I3.1/S5+c; S5+c; Q1.1; G3; N5-/A2.1; B2-/A2.1; H1; O2/H1; O2,O2,,,False
+齐齐,ADV,Z99,A6.1,,,False
+飘扬,VERB,A10+; S1.2.3+; M1; N5-; N5+; P1; B2-; W3/M4; N5; S5+c; P1c,M1,,,False
+。,PUNCT,PUNCT,,,,True
+不同于,VERB,Z99,A6.1,,,False
+开幕式,NOUN,Z99,K5.1,,,False
+的,PART,Z5,Z5,,,False
+宏大,ADJ,Z99,N3.2,,,False
+叙事,NOUN,Z99,Q1.1；Q3；S1.1,,,False
+，,PUNCT,PUNCT,,,,False
+闭幕式,NOUN,Z99,T2;K5.1,,,False
+是,VERB,A3; Z5,A5.2,,,False
+一,NUM,N1,N1,,,False
+场,NUM,K5.1; A1.1.1; M2; X2.2+; I3.1; Q2.2,Z99,量词,,False
+充满,VERB,X5.2+; O4.3,A13.3,,,False
+活力,NOUN,X5.2+; O4.3,E4,,,False
+的,PART,Z5,Z5,,,False
+联欢,NOUN,Z99,E4.1；S1.1.3,,,False
+。,PUNCT,PUNCT,,,,False
+10,NUM,N1,N1,,,False
+天,NUM,T1.3; W1,Z99,量词,,False
+来,PART,M1,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+在一起,ADV,S1.2.6+; S5+; T1.1.2; M6,M6；S1.1.3,,,False
+”,PUNCT,PUNCT,,,,False
+的,PART,Z5,Z5,,,False
+画面,NOUN,O2; G2.1/A5.2-; K5.1@; O4.1; A8; X2.1; C1,O4.1,,,False
+从,ADP,Z5,M6；Z5,,,False
+大,ADJ,N3.2+; N5+; S1.2.5+,N3.2,,,False
+屏幕,NOUN,Y2; Q4.3; H5; A10-,O3,,,False
+上,PART,M1; A1.1.1,M6,,,False
+闪过,VERB,Z99,M1,,,False
+。,PUNCT,PUNCT,,,,False
+运动员们,NOUN,K5.1/S2.2m,S2；K5.1,,,False
+的,PART,Z5,Z5,,,False
+奋力,ADJ,Z99,E5,,,False
+拼搏,NOUN,Z99,E5,,,False
+、,PUNCT,PUNCT,,,,False
+观众们,NOUN,Z99,S2,,,False
+的,PART,Z5,Z5,,,False
+热情,ADJ,F2; O4.6+; E2+; O4.2+; S1.2.1+; X5.2+; K2; S3.2,E4.1,,,False
+欢呼,NOUN,E4.1+; E4.1+++; Q2.2; S7.2+/Q2.2; X3.2; W4,E4.1,,,False
+、,PUNCT,PUNCT,,,,False
+志愿者们,NOUN,Z99,S2,,,False
+的,PART,Z5,Z5,,,False
+辛勤,ADJ,Z99,S1.2.5,,,False
+付出,NOUN,I1.1/I3.1,A1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+其中,NOUN,M6; O4.2+; Z5,M6；Z5,,,False
+有,VERB,A9+,A3,,,False
+多少,NUM,A13.6; N1; N5; Q1.3; K2; Q4.2; N5+/A2.1; Z5; A13.3,N5,,,False
+欢喜,NOUN,E4.1+; E4.2+; K1,E4.1,,,False
+和,CCONJ,Z5,Z5,,,False
+泪水,NOUN,A1.1.1; A1.1.2; B1; O4.2-; N3.8+%,E4.1,,,False
+，,PUNCT,PUNCT,,,,False
+多少,NUM,A13.6; N1; N5; Q1.3; K2; Q4.2; N5+/A2.1; Z5; A13.3,N5,,,False
+荣耀,NOUN,E2+++; X2.2+; S7.2+; O4.2+,S7.2,,,False
+和,CCONJ,Z5,Z5,,,False
+梦想,NOUN,X2; X2.1; X7++; X4.1; X3.4; X7+; S9@; A5.2-; X5.1-,X4.1,,,False
+，,PUNCT,PUNCT,,,,False
+又,ADV,N6+; Z4,Z5,,,False
+有,VERB,A9+,Z5,,,False
+多少,NUM,A13.6; N1; N5; Q1.3; K2; Q4.2; N5+/A2.1; Z5; A13.3,N5,,,False
+历史,NOUN,T1.1.1; P1/T1.1.1; Q2.1; B2,Q3;S1.1.1,,,False
+被,X,A3+; Z5,Z5,,,False
+书写,VERB,Q1.2,Q1.2,,,False
+。,PUNCT,PUNCT,,,,False
+一个个,NUM,N1,N5,,,False
+难忘,VERB,X5.2+,Z99,WRONG-TOKEN,分词有误，应为：难忘的,False
+的,PART,Z5,Z99,WRONG-TOKEN,分词有误，应为：难忘的,False
+瞬间,NOUN,B1; O4.3/N6+; G2.1/P1; G3; M2; M1; E4.1-; E5-; A2.1+; A6.1+; N3.2-; Q1.2; Q4.2; O2; Q3; G2.1/P1@; T1.1.2; T1.2; N3; T1.3; X5.2+; N5-,T1.2,,,False
+闪过,VERB,Z99,T1.2;M1,,,False
+，,PUNCT,PUNCT,,,,False
+把,X,A1.1.1,Z5,,,False
+每,DET,S5---; N5.1---,Z5；N5,,,False
+一个,NUM,N1,N5,,,False
+见证者,NOUN,Z99,S2,,,False
+拉回,VERB,Z99,M2,,,False
+与,ADP,Z5,Z5,,,False
+这,DET,M6; Z5; Z8,Z8,,,False
+场,NUM,K5.1; A1.1.1; M2; X2.2+; I3.1; Q2.2,Z99,量词,,False
+盛会,NOUN,S1.1.1; A1.1.1,S1.1.1,,,False
+有关,VERB,Z5,Z99,WRONG-TOKEN,分词有误，应为：有关的,False
+的,PART,Z5,Z99,WRONG-TOKEN,分词有误，应为：有关的,False
+记忆,NOUN,A9+; X2; X2.2+; S7.2+; Y2; X2.3+; X2.2+/S7.2+; X2.2+/T1.1.1,X1；X2.3,,,False
+中,PART,Z5,M6,,,False
+。,PUNCT,PUNCT,,,,False
+我们,PRON,Z8mf; S2mf,Z8；S2,,,False
+想起,VERB,A2.1+; A3+; X2.1; M2; X2.2+; I3.1; Q2.2; M7; H1; A1.2; P1; I3.1-/G1.2; I2.2/T2-; K5.2; A6.1+; Y2; X3.2/G3,X5.1,,,False
+了,PART,Z5,Z5,,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+水上,NOUN,Z99,M4,,,False
+救生,NOUN,Z99,S8；K5.1,,,False
+项目,NOUN,A1.1.1; P1; A10+; X7+; X2.6+; M2; O4.4; X3.2; Q2.2; X2.1; A3+/A11.1+; A6.2-; S1.1.1/X7+; K5; A4.2+; G2.1/P1; O2; Q4; X4.1; Q4.2; Q3; G2.1/P1@; Z4,A4.1,,,False
+最后,ADJ,N4,T4；N4,,,False
+一个,NUM,N1,N4,,,False
+比赛日,NOUN,Z99,T1.1;K5.1,,,False
+，,PUNCT,PUNCT,,,,False
+中国队,NOUN,Z99,K5.1；S2,,,False
+0,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：0.14,False
+.,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：0.14,False
+14,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：0.14,False
+秒,NUM,N4,Z99；T1.1,量词,,False
+的,PART,Z5,Z5,,,False
+冲刺,NOUN,M1/N3.8+,M1,,,False
+；,PUNCT,PUNCT,,,,False
+理解,VERB,A9+; S5+; X2.5+; E1; X9.1+; X9.1+/S2mf; Q2.2/X9.1+; Q1.2/X9.1+; E6-; G2.1; F1/B1; A1.7+; A10+; A1.1.1; X3; N5; X2.1; B1%; X2.2+; S3.2/B1%; X4.1; X3.4,X2.1,,,False
+了,PART,Z5,Z5,,,False
+潘玉程,PROPN,Z99,Z1,,,False
+用,ADP,Z5,A1.5.1,,,False
+六,NUM,N1; T3; T1.2,N1,,,False
+年,NUM,H4/T1.3; K1/W4,Z99；T1.1,量词,,False
+时间,NOUN,T1.1,T1.1,,,False
+超越,VERB,A5.1+; M7; N5.2+; A5.1++; M3; N3.8++,A13.3；A2.1,,,False
+自己,PRON,Z8,Z8,,,False
+的,PART,Z5,Z5,,,False
+那,DET,Z5,Z8,,,False
+一,NUM,N1,N1,,,False
+秒,NUM,N4,Z99；T1.1,连词,,False
+；,PUNCT,PUNCT,,,,False
+记住,VERB,E6+; E2-; S8+; A1.3; I1; O4.2-; Q1.2; A5/P1; N3.1; Q1.1; X1; X2.2+; X2.3+; P1,X2.3,,,False
+了,PART,Z5,Z5,,,False
+来自,VERB,A2.2,M6,,,False
+德国,PROPN,Z2; Z2/S2mf; Z2/Q3,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+巴西,PROPN,Z2,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+法国,PROPN,S5+; S5+c; Z2; Z1mf; Z2/S2mf; Z2/Q3,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+印度,PROPN,Z2,Z2,,,False
+、,PUNCT,PUNCT,,,,False
+意大利,PROPN,Z2; Z2/S2mf; Z2/Q3; F1,Z2,,,False
+等,PART,T1.3; A3+; S1.1.1,Z5,,,False
+国,NOUN,G1.1c; O4.1; S5+c; W3; F4/M7; K2; M7; A4.1; O1.1/W3; F4; O4.2-; Q2.1,M7;G1.1,,,False
+的,PART,Z5,Z5,,,False
+48,NUM,N1,N1,,,False
+名,NUM,Q2.2,Z99,量词,,False
+残疾人,NOUN,Z99,S2,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,S2；K5.1,,,False
+……,PUNCT,PUNCT,,,,True
+挑战,VERB,A6.1-; S7.3+; Q2.2; E5+,K5.1,,,False
+强者,NOUN,Z99,S2,,,False
+的,PART,Z5,Z5,,,False
+激情,NOUN,X5.2+; S3.2; S9@; E4.1-@,E1；E3,,,False
+，,PUNCT,PUNCT,,,,False
+超越,VERB,A5.1+; M7; N5.2+; A5.1++; M3; N3.8++,A13.3；A2.1,,,False
+自我,PRON,S1.2.3+; S5-; Z8mfn; Z8,Z8；S2,,,False
+的,PART,Z5,Z5,,,False
+痛快,NOUN,A13.3; E4.1+,E1；E3,,,False
+，,PUNCT,PUNCT,,,,False
+赢得,VERB,A9+; N5+/A2.1; X9.2+/S7.3; X9.2+/G3,A1.1.1,,,False
+胜利,NOUN,L3; T1.3; X8+; G3; E3-; O2; X9.2+; X9.2+/S7.3; X9.2+/G3; A9+; O4.2+; S7.1+,E4.2,,,False
+的,PART,Z5,Z5,,,False
+荣耀,NOUN,E2+++; X2.2+; S7.2+; O4.2+,S7.2,,,False
+，,PUNCT,PUNCT,,,,False
+不,ADV,Z6,Z6,,,False
+分,VERB,A6.1-; S3.1-; A9-/N5.1-; N2,A4.1；A1.1.1,,,False
+国家,NOUN,G1.1c; W3,M7;G1.1,,,False
+、,PUNCT,PUNCT,,,,False
+地域,NOUN,M7; A4.1; N3.6; B1; N1; N5; T1.3; H4; Q1.2; W3; W4; A1.1.1; E1,M7,,,False
+、,PUNCT,PUNCT,,,,False
+种族,NOUN,E6-; L2; K5.1; S7.3+; S5+c; S2mf; K2; S4c; A4.1c; S5+; M1/N3.8+,S2；S7.1,,,False
+、,PUNCT,PUNCT,,,,False
+宗教,NOUN,S9,S9,,,False
+的,PART,Z5,Z5,,,False
+人们,NOUN,S2; S2.2m; S2mf; K2; S2mfc,S2,,,False
+倾心,ADV,Z99,X1；E2,,,False
+交融,VERB,Z99,S3.1,,,False
+的,PART,Z5,Z5,,,False
+愉悦,NOUN,Z99,E4.1,,,False
+，,PUNCT,PUNCT,,,,False
+汇聚,VERB,Z99,A1.8；S3.1;S1.1.3,,,False
+在,ADP,Z5,Z5,,,False
+今晚,NOUN,T1.1.2,T1.1.2；T1.3,,,False
+的,PART,Z5,Z5,,,False
+武汉,NOUN,Z2,Z99,WRONG-TOKEN,分词有误，应为：武汉体育中心,False
+体育,NOUN,A10+; K5.1; P1/K5.1,Z99,WRONG-TOKEN,分词有误，应为：武汉体育中心,False
+中心,NOUN,A11.1+; B1; M6; E1; X5.2+; O1; F1; H1c; M7c; G1.2c; K5.1mfn; O2; A11.1+/M7; Y2%; W3; M7/A11.1+,Z99,WRONG-TOKEN,分词有误，应为：武汉体育中心,False
+，,PUNCT,PUNCT,,,,False
+激荡,VERB,Z99,E1,,,False
+在,ADP,Z5,Z5,,,False
+每个,DET,N5.1+; S1.1.2+,Z5；N5,,,False
+人,NOUN,S2mfc,S2,,,False
+的,PART,Z5,Z5,,,False
+心中,NOUN,Z99,X1,,,False
+。,PUNCT,PUNCT,,,,True
+这是,PRON,Z99,Z8,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+的,PART,Z5,Z5,,,False
+魅力,NOUN,M2; A2.2; S7.1+; A9+; M1; O4.2+; Q2.2; G2.1; E2+; S3.2; O3; S9%; Q2.1; Q3; S9; T1.3; X2; X5.2+,A5.1,,,False
+。,PUNCT,PUNCT,,,,False
+每,DET,S5---; N5.1---,Z5；N5,,,False
+一块,NUM,A1.1.1,Z99,WRONG-TOKEN,分词有误，应为：一 块,False
+奖牌,NOUN,F4; K5.2; L1-; O2; O1.1; I1.1; F3,K5.1；O2,,,False
+的,PART,Z5,Z5,,,False
+产生,NOUN,I1.1; S4f; A11.1+++; W3/M4; A6.2+; A2.1+; N5+,A1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+每,DET,S5---; N5.1---,Z5；N5,,,False
+一,NUM,N1,N1,,,False
+场,NUM,K5.1; A1.1.1; M2; X2.2+; I3.1; Q2.2,Z99,量词,,False
+扣人心弦,VERB,Z99,A5.1,,,False
+的,PART,Z5,Z5,,,False
+比赛,NOUN,A6.1+; K1; K5.1; K5.2; K2; K3; A1.1.1; K6; S7.3+; K4; O2; S5+c; S7.3; M1/N3.8+; W5; S8+; A9+/A2.1-; X7+; L2; F1,K5.1,,,False
+，,PUNCT,PUNCT,,,,False
+都,ADV,A13.1; A13.2,Z5,,,False
+给,VERB,A9-; A1.1.1,Z5,,,False
+了,PART,Z5,Z5,,,False
+我们,PRON,Z8mf; S2mf,Z8,,,False
+一个,NUM,N1,Z99,WRONG-TOKEN,分词有误，应为：一 个,False
+为,ADP,Z5,Z5,,,False
+之,PRON,Z8,Z5,,,False
+呐喊,VERB,E4.1-; Q2.2; Q2.2/X3.2++,Q1.1,,,False
+的,PART,Z5,Z5,,,False
+理由,NOUN,A2.2; Q2.2; X2.1; X4.1; A7+/Q2.2; G2.2+; O4.1; K5; A5.1; N3.1; O2; K2; N5%; X9.2+; A1.1.1; S1.2.4+; Q2.2/A5.2-; A11.1+; Q3; X7+; Z5/A2.2,X2.1,,,False
+。,PUNCT,PUNCT,,,,True
+时光,NOUN,T1; T1.2; T1.3; T1.1.2; N6; N1; K2; G2.1@,T1.1,,,False
+匆匆,VERB,N3.8+; A1.3-,T1.2,,,False
+，,PUNCT,PUNCT,,,,False
+无论,ADV,Z99,Z5,,,False
+胜败,VERB,Z99,S7.3；K5.1,,,False
+。,PUNCT,PUNCT,,,,False
+10,NUM,N1,N1,,,False
+天,NUM,T1.3; W1,Z99,量词,,False
+的,PART,Z5,Z5,,,False
+友好,NOUN,K5.1; S1.2.1+; S7.3-/K5.2,S3.2,,,False
+相聚,NOUN,Z99,S3.2;S1.1.3,,,False
+，,PUNCT,PUNCT,,,,False
+10,NUM,N1,N1,,,False
+天,NUM,T1.3; W1,Z99,量词,,False
+的,PART,Z5,Z5,,,False
+同场,NOUN,Z99,S3.2;M7,,,False
+竞技,NOUN,S7.3,K5.1；S7.3,,,False
+，,PUNCT,PUNCT,,,,False
+10,NUM,N1,N1,,,False
+天,NUM,T1.3; W1,Z99,量词,,False
+的,PART,Z5,Z5,,,False
+交流,NOUN,A2.1+; S1.1.2+; A9/S1.1.2+; Q2.1/E3-; G3; M1/S1.1.2+; I2.2/H1; Q1.3/H1,S1.1.1;Q1.1,,,False
+交融,NOUN,Z99,S1.1.1,,,False
+，,PUNCT,PUNCT,,,,False
+铺,VERB,A1.1.1; A9+; A2.2; S6+; A3+; A9-; X9.2+; X6+; N3.6+/A2.1; N3.3+/A2.1; N5+/A2.1; N5; T1.3; H1,A1.1.1,,,False
+就,VERB,Z5,Z5,,,False
+一,NUM,N1,N1,,,False
+条,NUM,G2.1/P1; S7.4-; A1.7+; S8-,Z99,量词,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+携手,VERB,Z99,S3.2；S1.1.3,,,False
+和平,NOUN,E3+,E3+,,,False
+、,PUNCT,PUNCT,,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+的,PART,Z5,Z5,,,False
+共进,VERB,Z99,S3.2,,,False
+之,PART,Z8,Z5,,,False
+路,NOUN,M3; G3,M7,,,False
+。,PUNCT,PUNCT,,,,True
+“,PUNCT,PUNCT,,,,False
+我们,PRON,Z8mf; S2mf,Z8；S2,,,False
+超越,VERB,A5.1+; M7; N5.2+; A5.1++; M3; N3.8++,A13.3；A2.1,,,False
+了,PART,Z5,Z5,,,False
+运动,NOUN,A10+; E3-; K1; K5.1; K5.2; K2; K3; A1.1.1; K6; K4; A1.5.1; P1; G3@; M1; M2; A2.1+; H4/A2.1; Q1.1; S5+c; E1; M3; X7+/Q2.2; I2.2/Q2.2; G1.2/Q2.2; G3,K5.1,,,False
+本身,PRON,Z8,Z8,,,False
+，,PUNCT,PUNCT,,,,False
+走到,VERB,Z99,M1,,,False
+一起,ADV,S5+; T1.1.2; M6,M6;S3.2,,,False
+，,PUNCT,PUNCT,,,,False
+这才,PRON,Z99,N99,WRONG-TOKEN,分词有误，应为：这 才是,False
+是,VERB,A3; Z5,N99,WRONG-TOKEN,分词有误，应为：这 才是,False
+本次,DET,Z99,N4；T1.1.2,,,False
+盛会,NOUN,S1.1.1; A1.1.1,S1.1.3;K5.1,,,False
+最,ADV,A11.1+; N5+++; N3.2+++; A11.1+++; N5.1+; O2/M4; O3,Z99,WRONG-TOKEN,分词有误，应为：最大的,False
+大,VERB,A11.1+; N5+++; N3.2+++; A11.1+++; N5.1+; O2/M4; O3,Z99,WRONG-TOKEN,分词有误，应为：最大的,False
+的,PART,Z5,Z99,WRONG-TOKEN,分词有误，应为：最大的,False
+成功,NOUN,I1.1+; I3.1; X3.2; Y2; X8+; G3; E3-; O2; X9.2+; X9.2+/S7.3; X9.2+/G3; A9+,A5.1,,,False
+之,PART,Z8,Z5,,,False
+处,NOUN,A10+; M6; H1; A14; G1.1; H5; H2/S5+c; X2.2; I2.1/H1c; I2.1/H2c; S7.1+; I3.1; S9; S8+; M7; O4.4; O2; B2-; N5-; Q4.3; Q2.1; X4.1; A5.1; A1.5.2; T1.2; O3; K5; S7.2+; A4.1; X3.4; A1.2; P1,Z5,,,False
+。,PUNCT,PUNCT,,,,False
+”,PUNCT,PUNCT,,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,W3,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,S2；S7,,,False
+赫尔维·皮奇,PROPN,Z99,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 用,False
+里,PROPN,B5,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 用,False
+洛用,PROPN,Z99,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 用,False
+这样,PRON,Z8,Z8,,,False
+一句话,NOUN,Z99,Q1.1,,,False
+形容,VERB,Q2.2,A6.1,,,False
+他,PRON,Z8m,Z8,,,False
+对,ADP,Z5,Z5,,,False
+武汉,NOUN,Z2,Z2,,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+的,PART,Z5,Z5,,,False
+印象,NOUN,A13.2; A2.2; A8; O4.1; B2+; A5.1+; Q1.2; T2+; X2.1; A5.4-/A8; O4.2; O4.4; X3.2; Q2.2; N3.1%; X5.2+; A11.1+; A1.1.1,X2.1,,,False
+。,PUNCT,PUNCT,,,,True
+竞赛,NOUN,K1; S7.3+; K5.1; S5+c; S7.3; K5.2; X7+; A1.1.1; L2; F1; M1/N3.8+; G1.2; G2.1-; X3.3; S7.1+; T2++; M3; S4; A6.3+; K4; M1; B5; X8+; T1.3; X7/N5+; N5; K5.1%; W5; S8+; A9+/A2.1-; X5.2+,K5.1；S7.3,,,False
+本身,PRON,Z8,Z8,,,False
+，,PUNCT,PUNCT,,,,False
+永远,ADV,N6+++; T2+++,T1.3,,,False
+不是,VERB,E2-/Z6,Z6,,,False
+竞技,NOUN,S7.3,K5.1；S7.3,,,False
+的,PART,Z5,Z5,,,False
+目的,NOUN,A1.1.1; A1.5.1; S1.1.3+; A2.2; N2; Y2; A1.7-; A4.1; C1; X7+; B5; G2.2/S5-; S1.2; K5.1; M6; T2-; O2; N4; X2.1; A11.1+; Q3; X3.4; X2.4; X4.1; G3,X1,,,False
+。,PUNCT,PUNCT,,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+传友,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：传 友谊,False
+谊,NOUN,S3.1,Z99,WRONG-TOKEN,分词有误，应为：传 友谊,False
+，,PUNCT,PUNCT,,,,False
+让,VERB,S7.4+,Z5,,,False
+我们,PRON,Z8mf; S2mf,Z8,,,False
+记住,VERB,E6+; E2-; S8+; A1.3; I1; O4.2-; Q1.2; A5/P1; N3.1; Q1.1; X1; X2.2+; X2.3+; P1,X2.3,,,False
+了,PART,Z5,Z5,,,False
+女子,NOUN,L2mf; S2.1; S2.1f; L2f@,S2.1,,,False
+1500,NUM,N1,N1,,,False
+米,NUM,F1,Z99,量词,,False
+自由泳,NOUN,Z99,K5.1,,,False
+决赛,NOUN,K5.1; N4; T2-; X6+; X6+/S7.3,K5.1,,,False
+中,PART,Z5,M6,,,False
+，,PUNCT,PUNCT,,,,False
+埃及,PROPN,Z2,Z2,,,False
+选手,NOUN,A1.1.1; A1.7+; K5.1; B5; O2; K5.1/S2mf; S7.3+/S2mf; K6/S2mf; K5.2/S2mf; K2/S2mf; S1.1.3+/S2mf; K4/S2mf; K3,S2;K5.1,,,False
+赛德,PROPN,Z99,Z1,,,False
+在,ADP,Z5,Z5,,,False
+全场,NOUN,Z99,S2;M7,,,False
+掌声,NOUN,E2+/X3.2+,E2；E4,,,False
+中,PART,Z5,M6,,,False
+游完,VERB,Z99,K5.1;M1,,,False
+最后,ADJ,N4,N4,,,False
+100米,NUM,N1,N99,WRONG-TOKEN,分词有误，应为：100 米,False
+的,PART,Z5,Z5,,,False
+感动,NOUN,E1; O4.5; X3; M1; M2; A2.1+; H4/A2.1; K5.2; X5.2+; X5.2+++; E4.1+++; E5---,E1；E4,,,False
+；,PUNCT,PUNCT,,,,False
+记住,VERB,E6+; E2-; S8+; A1.3; I1; O4.2-; Q1.2; A5/P1; N3.1; Q1.1; X1; X2.2+; X2.3+; P1,X2.3,,,False
+了,PART,Z5,Z5,,,False
+多国,ADJ,Z99,M7；W3,,,False
+运动员,NOUN,K5.1/S2.2m; K5.1/S2mf,S2；K5.1,,,False
+对着,ADP,Z99,M6;Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+五,NUM,N1,N1,,,False
+项,NUM,O2; Q4; X4.1; A7-; S2mf; L2mf; S5+/S2mf; B1,Z99,量词,,False
+女将,NOUN,Z99,S2.1；K5.1,,,False
+卢嫔嫔,PROPN,Z99,Z1,,,False
+高呼,VERB,Z99,Q1.1,,,False
+“,PUNCT,PUNCT,,,,False
+Happy,PUNCT,PUNCT,E4.1,,,False
+birthday,NOUN,Z99,T1.3,,,False
+（,PUNCT,PUNCT,,,,False
+生日快乐,VERB,Z99,E4.1,,,False
+）,PUNCT,PUNCT,,,,False
+！,PUNCT,PUNCT,,,,False
+”,PUNCT,PUNCT,,,,False
+时,PART,F1; T1.3; X7+/T1; N3.1/T1,T1.1,,,False
+的,PART,Z5,Z5,,,False
+温暖,NOUN,O4.6+; O4.2+; S1.2.1+,E2；E4.1,,,False
+；,PUNCT,PUNCT,,,,False
+记住,VERB,E6+; E2-; S8+; A1.3; I1; O4.2-; Q1.2; A5/P1; N3.1; Q1.1; X1; X2.2+; X2.3+; P1,X2.3,,,False
+了,PART,Z5,Z5,,,False
+叶戈里亚诺,PROPN,Z99,Z1,,,False
+和,CCONJ,Z5,Z5,,,False
+钱,PROPN,A1.1.1; B4; F1,Z99,WRONG-TOKEN,分词有误，应为：钱佳睿,False
+佳睿,PROPN,Z99,Z99,WRONG-TOKEN,分词有误，应为：钱佳睿,False
+两,NUM,N1; N5,N1,,,False
+名,NUM,Q2.2,Z99,量词,,False
+“,PUNCT,PUNCT,,,,False
+女,ADJ,S2.1f,S2.1,,,False
+剑客,NOUN,Z99,G3;S2,,,False
+”,PUNCT,PUNCT,,,,False
+化身,VERB,K2; Q1.1/A1.6; S9; A3+; E1; S2mf,A2.1,,,False
+“,PUNCT,PUNCT,,,,False
+好,ADJ,A5.1+; G2.2+; O4.2+; A1.5.2+,A5.1,,,False
+闺蜜,NOUN,Z99,S2.1,,,False
+”,PUNCT,PUNCT,,,,False
+时,PART,F1; T1.3; X7+/T1; N3.1/T1,T1.1,,,False
+的,PART,Z5,Z5,,,False
+拥抱,NOUN,L2mfn; E2+; N5+; S4c; O2; S3.2; S1.1.1; S8+,S3.2,,,False
+、,PUNCT,PUNCT,,,,False
+挽手,NOUN,Z99,S3.2,,,False
+、,PUNCT,PUNCT,,,,False
+揽肩,NOUN,Z99,S3.2,,,False
+、,PUNCT,PUNCT,,,,False
+畅谈,NOUN,Q2.1,Q1.1,,,False
+、,PUNCT,PUNCT,,,,False
+大笑,NOUN,B2-; E4.1+; O2; E1; Q2.2/X3.2+++,E4.1,,,False
+；,PUNCT,PUNCT,,,,False
+记住,VERB,E6+; E2-; S8+; A1.3; I1; O4.2-; Q1.2; A5/P1; N3.1; Q1.1; X1; X2.2+; X2.3+; P1,X2.3,,,False
+了,PART,Z5,Z5,,,False
+军运村,PROPN,Z99,K5.1,,,False
+的,PART,Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+志愿者,NOUN,A7+; A1.2+; A9-/X7+; Q2.2; G1.2/S2mf; I3.1/S2mf; P1/S2mf; I3.1/I1.1-/S2mf; I3.1/X7+/S2mf; G3/S2mf; S9/S2mf,S2,,,False
+之,PART,Z8,Z5,,,False
+家,NOUN,H4/H1c; M6,M7,,,False
+”,PUNCT,PUNCT,,,,False
+里,PART,B5,M6,,,False
+，,PUNCT,PUNCT,,,,False
+用,ADP,Z5,A1.5.1,,,False
+不同,ADJ,A6.1-; A11.2+; A4.2+,A6.1,,,False
+文字,NOUN,K4; Q3; Q1.2; Y2@; I2.1; Q2.1; S9@; S2mf; K4/S2mf; S1.2; S2mf/A6.2-; A4.1; O4.2+; O4.1,Q3,,,False
+语言,NOUN,B1; F1; B5; O2%; Q2.1; Q3; Y2,Q3,,,False
+写下,VERB,Z99,Q1.2,,,False
+的,PART,Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+和平,NOUN,E3+,E3+,,,False
+”,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+我,PRON,Z8mf,Z8,,,False
+爱,VERB,E2+,E2,,,False
+中国,PROPN,Z8,Z2,,,False
+”,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+”,PUNCT,PUNCT,,,,False
+等,PART,T1.3; A3+; S1.1.1,Z5,,,False
+美好,ADJ,A5.1+; A4.2+; O4.5; O4.1; W4; N3.2-; E4.1+; E4.2+; O4.2+; G2.2+; A1.5.2+; N3.2+,A5.1,,,False
+祝愿,NOUN,X7+,X2.6,,,False
+……,PUNCT,PUNCT,,,,True
+比赛,NOUN,A6.1+; K1; K5.1; K5.2; K2; K3; A1.1.1; K6; S7.3+; K4; O2; S5+c; S7.3; M1/N3.8+; W5; S8+; A9+/A2.1-; X7+; L2; F1,K5.1,,,False
+的,PART,Z5,Z5,,,False
+金牌,NOUN,Z99,O1.1;O2；K5.1,,,False
+弥足,VERB,Z99,Z99,WRONG-TOKEN,分词有误，应为：弥足珍贵,False
+珍贵,VERB,A6.2-; N6-; E2+; I1.1+; E2-%; A5.4-%,Z99,WRONG-TOKEN,分词有误，应为：弥足珍贵,False
+，,PUNCT,PUNCT,,,,False
+友谊,ADJ,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+的,PART,Z5,Z5,,,False
+金牌,NOUN,Z99,O1.1;O2；K5.1,,,False
+地久天长,VERB,Z99,T3,,,False
+。,PUNCT,PUNCT,,,,False
+这,DET,M6; Z5; Z8,Z8,,,False
+一刻,NOUN,Z99,T1.2,,,False
+，,PUNCT,PUNCT,,,,False
+我们,PRON,Z8mf; S2mf,Z8；S2,,,False
+坚信,VERB,A7+; Q2.2; S9@; X2.1; X4.1; G2.1,X2.1,,,False
+，,PUNCT,PUNCT,,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+能够,VERB,Z99,X9,,,False
+打破,VERB,A1.1.1; N5+/A2.1; E3-; G3; A1.1.2; A1.9; S5-; T2-; E4.1-/A2.2; A2.1+; T1.3; Q2.1@; B2-; E2+; E3-/A1.1.1; E4.2-; S8-; I1.1-; K1/T1.3; O2; A1.4; O1.1; X2.5-,A10；A2.1,,,False
+语言,NOUN,B1; F1; B5; O2%; Q2.1; Q3; Y2,Q3,,,False
+壁垒,NOUN,H1/G3; S8+; A10-; O2; S8-; S1.2.1-,A1.7,,,False
+，,PUNCT,PUNCT,,,,False
+成为,VERB,A2.1+; O4.2+; M1; N3.1; A2.2; A3+; X2.1; A9+; S4; N4; S3.2,A2.1,,,False
+连接,VERB,A2.2; S5+; A1.1.1; A1.8+; M3; O3; Q1.3; F1; K5.1/M7%; B1; H1; F3; M6; M7/M3; A1.7+; N5.1-; O2; Q4; K2; K4; G3@; Q3; T1.1.2,S3.2;S1.1.3,,,False
+一代,NUM,M1; S4; A2.1; T1.3; S5+c,S2,,,False
+又,CCONJ,Z5,Z5,,,False
+一代人,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：一代 人,False
+的,PART,Z5,Z5,,,False
+纽带,NOUN,B1,S3.1,,,False
+。,PUNCT,PUNCT,,,,True
+当,ADP,A1.2+; A13.3; A13.2; A2.1+; M2; A5.3+; A4.2+; G2.2+; M6; N3.2+; A5.3+/A2.1; A5.4+; S1.2.4+; A6.1+++; N3.2/A5.1+; N3.2; B5; O2; B2-; N5+; A5.1+; Q1.1; A6.2+; S1.1.3; A5.4-; K4; S1.2.5+; S6+; A7+; S7.1+; A1.1.1; X9.2+; S7.4+; G1.2; S8-; S9; T1.3; Z4; Z5,Z5,,,False
+泰国,PROPN,Z2; Z2/Q3; Z2/S2mf,Z2,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S2；S7.1,,,False
+联络,VERB,A2.2; S5+; M3; A1.1.1; Q2.1; Q1.2; Q1.3; Q4.3; Q2.2; S1.1.1; S2mf; O3; S1.1.2+,Z99,WRONG-TOKEN,分词有误，应为：联络官 洛本,False
+官洛,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：联络官 洛本,False
+本,ADV,A13.3; T1.1.1,Z99,WRONG-TOKEN,分词有误，应为：联络官 洛本,False
+把,X,A1.1.1,Z5,,,False
+自己,PRON,Z8,Z8,,,False
+胸前,NOUN,Z99,M6,,,False
+佩戴,VERB,O4.1; H5,A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+泰国,PROPN,Z2; Z2/Q3; Z2/S2mf,Z2,,,False
+国旗,NOUN,Q1.1; G3,O2；G1,,,False
+图案军,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：图案 军运 徽章 取,False
+运徽,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：图案 军运 徽章 取,False
+章取,VERB,Z99,Z99,WRONG-TOKEN,分词有误，应为：图案 军运 徽章 取,False
+下来,VERB,M1; M2; S4; N5-/A2.1,M6,,,False
+，,PUNCT,PUNCT,,,,False
+郑重,VERB,A11.1+; A15-; E4.1-,Z99,WRONG-TOKEN,分词有误，应为：郑重地 送,False
+地送,VERB,Z99,Z99,WRONG-TOKEN,分词有误，应为：郑重地 送,False
+给,VERB,A9-; A1.1.1,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+小学生,NOUN,Z99,S2,,,False
+习梓洋,PROPN,Z99,Z1,,,False
+后,PART,M6-; T4--; T1.1.1; N4-; Z5,T1.1,,,False
+，,PUNCT,PUNCT,,,,False
+他,PRON,Z8m,Z8,,,False
+也,ADV,N5++; N5.2+,Z5,,,False
+收到,VERB,A9+; S5+,A1.1.1,,,False
+了,PART,Z5,Z5,,,False
+习梓洋,PROPN,Z99,Z1,,,False
+特意,ADV,A4.2+,A13.3,,,False
+为,ADP,Z5,Z5,,,False
+他,PRON,Z8m,Z8,,,False
+准备,VERB,A1.1.1; A2.1+; A9+; A2.2; S6+; A3+; A9-; X9.2+; X6+; F1; A1.2+; B2+; A1.4; A1.5; A4.1; A9; X9.1+; Z5; M1; M2; X2.5+; E4.1-; N4; G2.1; B2-; N3.2/A5.1+; E6-; B4; O4.1; B5; B3; I1; N3.2; O2; X7+; T2+; A9+/A12+; O4.2+; N3.2-; Q2.2; S7.1+; X5.2+; S8+; Z2; Z4,A1.1.1,,,False
+的,PART,Z5,Z5,,,False
+鲜花,NOUN,L3,L3,,,False
+和,CCONJ,Z5,Z5,,,False
+绣,VERB,Z99,C1,,,False
+着,PART,Z2; T1.1.2,Z5,,,False
+武汉,PROPN,Z2,Z2,,,False
+黄鹤楼,NOUN,Z99,Z2,,,False
+图案,NOUN,A4.1; A6.2+; S1.2; Q1.2; C1; X7+; B5; O4.3; X4.2; O4.1; B5/Q1.2,C1;O4.3,,,False
+的,PART,Z5,Z5,,,False
+汉绣,NOUN,Z99,C1,,,False
+。,PUNCT,PUNCT,,,,False
+两,NUM,N1; T3; T1.2,N1,,,False
+人,NOUN,N1; T3; T1.2,S2,,,False
+在,ADP,Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+创军人,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：创 军人,False
+荣耀筑,PROPN,Z99,Z99,WRONG-TOKEN,分词有误，应为：荣耀 筑,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+和平,NOUN,E3+,E3+,,,False
+”,PUNCT,PUNCT,,,,False
+巨幅,ADJ,Z99,N3.2;N13.2,,,False
+标语,NOUN,A11.1+; E4.1-; Q2.2; Q1.2; Q2.1; Q3,Q1.2,,,False
+下,PART,M6,M6,,,False
+的,PART,Z5,Z5,,,False
+合影,NOUN,Z99,O2;C1,,,False
+将,ADV,T1.1.3,T1.1.3,,,False
+成为,VERB,A2.1+; O4.2+; M1; N3.1; A2.2; A3+; X2.1; A9+; S4; N4; S3.2,A2.1,,,False
+彼此,PRON,A6.1+,Z8;S1.1.2,,,False
+的,PART,Z5,Z5,,,False
+珍藏,NOUN,A9+; I1; B5,A5.1；E2,,,False
+。,PUNCT,PUNCT,,,,True
+这是,PRON,Z99,Z99,WRONG-TOKEN,分词有误，应为：这 是,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+的,PART,Z5,Z5,,,False
+力量,NOUN,A1.1.1; A7+; B1; E3-; O2; F2; S7.1+; G2.1c; N3; S5+c; S1.2.5+; O4.1; X9.1+; N5; O3; N2@; B3,S1.2.5,,,False
+。,PUNCT,PUNCT,,,,False
+武汉,NOUN,Z2,Z2,,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+以,ADP,Z5,Z5,,,False
+极,ADV,N3.2+; A5.1+; N3.2+++; N3.7+; N5+++; W1,Z99,WRONG-TOKEN,分词有误，应为：极大的,False
+大,VERB,N3.2+; A5.1+; N3.2+++; N3.7+; N5+++; W1,Z99,WRONG-TOKEN,分词有误，应为：极大的,False
+的,PART,Z5,Z99,WRONG-TOKEN,分词有误，应为：极大的,False
+魅力,NOUN,M2; A2.2; S7.1+; A9+; M1; O4.2+; Q2.2; G2.1; E2+; S3.2; O3; S9%; Q2.1; Q3; S9; T1.3; X2; X5.2+,A5.1,,,False
+感染,VERB,A2.1+; A5.4-/A8; B2-; A9+; A1.7+; G2.1; A10+; T2-; A1.1.1; X3; T4; M3; O2; A12-; T1.2; N5.1+; O4.2-; G2.2-,E2,,,False
+了,PART,Z5,Z5,,,False
+所有,DET,Z5/N5.1+,N5,,,False
+参与者,NOUN,S1.1.3/S2mf,S2；S1.1.3,,,False
+和,CCONJ,Z5,Z5,,,False
+八方,NOUN,Z99,N5；M7,,,False
+宾客,NOUN,S1.1.1/S2mf; M1/S2mf; S2mf,S2,,,False
+，,PUNCT,PUNCT,,,,False
+此刻,NOUN,Z99,T1.1.2；T1.2,,,False
+，,PUNCT,PUNCT,,,,False
+全场,NOUN,Z99,S2；M7,,,False
+的,PART,Z5,Z5,,,False
+狂欢,NOUN,E2+; E4.1+; K1; K1/S1.1.3+; K5.1/O2; L2mfn; S2.1f/T3+; S3.2,E4.1,,,False
+中,PART,Z5,M6,,,False
+流淌,VERB,Z99,M1,,,False
+着,PART,Z2; T1.1.2,Z5,,,False
+真挚,ADJ,A5.2+; A5.4+,A5.2,,,False
+的,PART,Z5,Z5,,,False
+祝福,NOUN,E4.1+; S9/Q1.2; S8+; S9/Q2.2; S7.4+,X2,,,False
+和,CCONJ,Z5,Z5,,,False
+希望,NOUN,X2.6+; E4.1+; X9.2+; A5.1+,X2,,,False
+。,PUNCT,PUNCT,,,,True
+惜别,VERB,Z99,X2;M1,,,False
+时分,NOUN,Z99,T1.1；T1.2,,,False
+，,PUNCT,PUNCT,,,,False
+来自,VERB,A2.2,M6,,,False
+中国,PROPN,Z8,Z2,,,False
+青铜,NOUN,O1.1; O4.3,O1.1,,,False
+时代,NOUN,M3; N6; M3fn; B1; T1.2; S3.2; S3.2/S2mf; T1.3; Q3; P1/T1.3; P1c; T1.1.1; T3; T3++; T1; T1.1.2; N1; Z3,T1.1；T1.3,,,False
+的,PART,Z5,Z5,,,False
+编钟,NOUN,Z99,O2；C1,,,False
+声乐,NOUN,Z99,K2,,,False
+响起,VERB,X3.2; Q2.2; A8; N3.1%,K2,,,False
+，,PUNCT,PUNCT,,,,False
+楚玉,PROPN,Z99,O2,,,False
+玉纹,NOUN,Z99,O4.3,,,False
+铺满,VERB,Z99,N5；M2,,,False
+全场,NOUN,Z99,S2；M7,,,False
+，,PUNCT,PUNCT,,,,False
+唯美,ADJ,Z99,A5.1,,,False
+舞蹈,NOUN,A1.1.1; M1; K1; L2; B1@; X3.2/M1; H5; B5/O4.4; M3/O4.4,K4,,,False
+尽显,VERB,Z99,A5.1,,,False
+中国,PROPN,Z8,Z2,,,False
+古典,ADJ,T3+; K2,T1.1.1,,,False
+风韵,NOUN,O4.6,A5.1;O4.2,,,False
+，,PUNCT,PUNCT,,,,False
+几,NUM,N5,N1,,,False
+句,NUM,G2.1,Z99,量词,,False
+高昂,VERB,E4.1+,A13.3,,,False
+的,PART,Z5,Z5,,,False
+汉剧,NOUN,Z99,K4,,,False
+唱腔,NOUN,K2,K4,,,False
+振奋,VERB,G1.1; Q2.2; M1; N5+/A2.1; N3.2+/A2.1; S7.1+/A2.1; N3.7+/A2.1; O4.4,Z99,WRONG-TOKEN,分词有误，应为：振奋人心,False
+人心,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：振奋人心,False
+……,PUNCT,PUNCT,,,,False
+每,DET,S5---; N5.1---,Z5；N5,,,False
+一,NUM,N1,N1,,,False
+幕,NUM,A10-; K1,Z99,量词,,False
+演出,NOUN,A1.1.1; A10+; K4; K3; Q4.3; X9.2+; A2.2; A9-; X9.2; A12-; O4.1; Q2.2; S1.1.1; X2.5+; Q3,K4；K2；C1,,,False
+都,ADV,A13.1; A13.2,Z5,,,False
+引来,VERB,Z99,M1,,,False
+外国,NOUN,Z99,M7,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S2；S7.1,,,False
+的,PART,Z5,Z5,,,False
+观众,NOUN,K1/S2mfc; S2mfc; S1.1.3+; X3.4/S2mf,S2；K5.1,,,False
+纷纷,ADV,Z99,N5,,,False
+抬起,VERB,A5.1+/A2.2; E4.1+/A2.2; S8+,A1.1.1,,,False
+手机,NOUN,Z99,O3,,,False
+拍照,VERB,Z99,O3;A1.1.1,,,False
+录像,NOUN,Z99,O3;A1.1.1,,,False
+。,PUNCT,PUNCT,,,,True
+军运会,NOUN,Z99,G3;K5.1,,,False
+已然,ADV,Z99,Z5,,,False
+深深,ADV,A13.3,A13.3,,,False
+烙上,VERB,Z99,A1.1.1,,,False
+了,PART,Z5,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+印记,NOUN,O4.2-; Q1.2; A5/P1; N3.1; Q1.1,A2.1,,,False
+，,PUNCT,PUNCT,,,,False
+留下,VERB,A2.2; A1.8+; B1; K1/T1.3; S7.4+; M1; M2; A1.1.1; A1.9; A9-; T2-; M6; A6.1-; N5.2+; H1/T1.1.1; L1-; T2++; M8; Z5,A1.1.1;M2,,,False
+武汉,NOUN,Z2,Z2,,,False
+足迹,NOUN,A1.1.1; K5.1; M1; S1.1.3+; T1.2; H5; O2; A2.1+; K1@; K5.1@; N5-; O4.4; Q1.1,O2,,,False
+。,PUNCT,PUNCT,,,,False
+军运会,NOUN,Z99,G3;K5.1,,,False
+让,VERB,S7.4+,Z5,,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+认识,VERB,E2+; X2.5+; S1.1.1; I1.1++; L3; X2.1; X2.2+; S3.2/B1%; S7.4+; G2.1+; X3,X2.3,,,False
+了,PART,Z5,Z5,,,False
+武汉,NOUN,Z2,Z2,,,False
+，,PUNCT,PUNCT,,,,False
+也,ADV,N5++; N5.2+,Z5,,,False
+更加,ADV,A13.3; N6++; N5++; N3.3++; T2++; N5+/A2.1,A13.3,,,False
+了解,VERB,A2.1+/A3+; X3; A4.1; Q3; S1.2.6+; E1; X2.1; X9.1+; A8; A9+; X2.5+; G2.1; A1.7+; A10+; A1.1.1; L3; M6; T2-; O2; X7+; N4; S3.2; S8+; A1.8+; S9/M7; X2.2+; I3.2; X3.4; S1.1.1; X2.3+; A7+; Z4,X2.3;X5.1,,,False
+了,PART,Z5,Z5,,,False
+中国,PROPN,Z8,Z2,,,False
+。,PUNCT,PUNCT,,,,False
+最后,ADV,N4,N4,,,False
+，,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+繁荣,VERB,A1.3+/I1; E2+++; I1.1+; X9.2+; N3.2+/A2.1; I1.1+++; A1.4; X9.2; T1.1.3/S9; L3; M1; O4.1; K2; N5+; N3.8+; F3%; S8+; I1; G1.1c; X2.2+; S7.2+; O4.2+; E2+; L1; M2; N4,A5.1,,,False
+幸福,VERB,E4.1+; E4.2+; I1.1+++; A1.4; X9.2; T1.1.3/S9; S8+; I1; G1.1c; S9/Q2.2; S7.4+; Z4; S9,E4.1,,,False
+的,PART,Z5,Z5,,,False
+武汉,PROPN,Z2,Z2,,,False
+吉庆街,PROPN,Z99,Z2,,,False
+上,PART,M1; A1.1.1,M6,,,False
+，,PUNCT,PUNCT,,,,False
+《,PUNCT,PUNCT,,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2;S1.2.1,,,False
+天长地久,NOUN,Z99,T3,,,False
+》,PUNCT,PUNCT,,,,False
+唱响,VERB,Z99,K2;Q4.3,,,False
+，,PUNCT,PUNCT,,,,False
+观众们,NOUN,Z99,S2,,,False
+摇晃,VERB,A7-; G2.1-; O2/H1; K1; M1; E5-; M1/E3-; E4.1-; O2; K2%; X5.2+; I1/K5.1,A1.1.1,,,False
+着,PART,Z2; T1.1.2,Z5,,,False
+手机,NOUN,Z99,O3,,,False
+，,PUNCT,PUNCT,,,,False
+把,X,A1.1.1,Z5,,,False
+现场,NOUN,A14; K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; M6; O4.4; O2; B2-; N5-; Q4.3; X3.4,M7,,,False
+变成,VERB,A2.1+; O4.2+; A9+; Z5; X9.2+; A2.2; M1; M2; X2.5+; E4.1-; L3,A2.1,,,False
+苍穹,ADJ,Z99,W1,,,False
+星海,NOUN,Z99,W1,,,False
+。,PUNCT,PUNCT,,,,False
+身着,VERB,Z99,A1.5.1,,,False
+发光,NOUN,O4.6+; S3.2/S2mf; Q2.2%; W2; E1; Q1.1; O4.2+; B4; W4,O4.1,,,False
+服饰,NOUN,B5,B5,,,False
+的,PART,Z5,Z5,,,False
+演员,NOUN,K4/S2.2m; A1.1.1/S2mf@; K4/S2mf; X9.2+/S2mf; K6/S2mf; K5.2/S2mf; K2/S2mf; S1.1.3+/S2mf; K3,S2,,,False
+涌入,VERB,Z99,M1,,,False
+观众席,NOUN,H1; I2.2/H5; H5; S8-; M6; M2; M8; M1; T2++; N3; A3+; X2.1; A7; G1.2; S8+; S7.4+; I2.2; S1.2.5+,M7,,,False
+和,CCONJ,Z5,Z5,,,False
+舞台,NOUN,A1.1.1; M4; H4; K4; A5.4-; C1; A8; M7; S1.1.1; E3-; E2+; K5.1/H1; K1/H1; X4.1; S7.1+/S5+c; O2; O1.1; P1; K5.1; T1.2; N5.1-; H2/K4; A4.1,M7,,,False
+，,PUNCT,PUNCT,,,,False
+像,ADP,Z5,A6.1,,,False
+一条条,NOUN,Z99,N5,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+的,PART,Z5,Z5,,,False
+纽带,NOUN,B1,O1.1;S3.2,,,False
+，,PUNCT,PUNCT,,,,False
+把,X,A1.1.1,Z5,,,False
+现场,NOUN,A14; K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; M6; O4.4; O2; B2-; N5-; Q4.3; X3.4,M7,,,False
+连接,VERB,A2.2; S5+; A1.1.1; A1.8+; M3; O3; Q1.3; F1; K5.1/M7%; B1; H1; F3; M6; M7/M3; A1.7+; N5.1-; O2; Q4; K2; K4; G3@; Q3; T1.1.2,S3.2;A2.2,,,False
+在一起,ADV,S1.2.6+; S5+; T1.1.2; M6,M6;Z5,,,False
+。,PUNCT,PUNCT,,,,True
+结束,NOUN,M6; T2-; O2; X7+; N4,T2,,,False
+意味着,VERB,Q1.1; A11.1+; X7+,A7,,,False
+又,ADV,N6+; Z4,Z5,,,False
+一,NUM,N1,N1,,,False
+新篇章,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：新 篇章,False
+的,PART,Z5,Z5,,,False
+开始,NOUN,T2+,T2,,,False
+。,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+浑厚,VERB,Z99,K2;A5.1,,,False
+的,PART,Z5,Z5,,,False
+音乐声,NOUN,Z99,K2,,,False
+中,PART,Z5,M6,,,False
+，,PUNCT,PUNCT,,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,M7,,,False
+军事,NOUN,G3; S7.3,G3,,,False
+体育,NOUN,A10+; K5.1; P1/K5.1,K5.1,,,False
+理事会,NOUN,G1.1c; S7.1+/S5+c,S7.1,,,False
+会旗,NOUN,Z99,O2,,,False
+缓缓,ADV,Z99,A13.7;N3.8,,,False
+降下,VERB,M1; S4; N5-/A2.1; M2; S7.1-/A2.1; A11.1-/A2.1; X3.2-/A2.1; M6; N3.7--; N5--; I1.3--; A5.1--; A11.1--; E4.1--; X3.2--; G2.2--; S7.1--; Y2,M1,,,False
+，,PUNCT,PUNCT,,,,False
+被,X,A3+; Z5,Z5,,,False
+移交,VERB,M2; Q2.1; X9.2+; B3; S9%; M6/A2.1+; A9-; I3.1/A2.1+; Y2; M3; M4; M5; C1; N3.3; S7.1-/A2.1,M2,,,False
+到,VERB,M1; T2,Z5,,,False
+国际,NOUN,M7; M7/S5+c; K5.1; K5.1/S2mf,W3,,,False
+军体,NOUN,Z99,G3；K5.1,,,False
+主席,NOUN,A11.1+; G1.1/S2mf; Z3c; G1.1/S7.1+/S2mf; S7.1+/S2mf,S2,,,False
+赫尔维·皮奇,PROPN,Z99,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 手中,False
+里,PROPN,B5,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 手中,False
+洛手,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 手中,False
+中,PART,Z5,Z99,WRONG-TOKEN,分词有误，应为：赫尔维·皮奇里洛 手中,False
+。,PUNCT,PUNCT,,,,True
+现场,NOUN,A14; K4; C1; A8; A1.1.1; M7; S1.1.1; E3-; E2+; M6; O4.4; O2; B2-; N5-; Q4.3; X3.4,M7,,,False
+尽情,ADV,Z99,A13.3,,,False
+欢呼,VERB,E4.1+; E4.1+++; Q2.2; W4; M6; S7.2+/Q2.2; X3.2,E4.1,,,False
+的,PART,Z5,Z5,,,False
+同时,NOUN,N6-; S5+; T1.1.2,T1.1;T1.2,,,False
+，,PUNCT,PUNCT,,,,False
+一些,NUM,N5,N5,,,False
+参赛,ADJ,Z99,K5.1,,,False
+队员,NOUN,Z99,S2;K5.1,,,False
+眼中,NOUN,Z99,X3.4,,,False
+却,ADV,A13.6; T1.1.2; T1.3; Z4; Z5,Z5,,,False
+泛起,VERB,Z99,S1.1.1,,,False
+泪花,NOUN,Z99,E1;E4,,,False
+。,PUNCT,PUNCT,,,,True
+璀璨,ADJ,Z99,O4.3,,,False
+星空,NOUN,Z99,W1,,,False
+下,PART,M6,M6,,,False
+，,PUNCT,PUNCT,,,,False
+在,ADP,Z5,Z5,,,False
+长江,PROPN,Z99,Z2,,,False
+之,PART,Z8,Z5,,,False
+滨,NOUN,E6+; I1.1; X2.6+; M1; I1/H1; I1.1/I2.1c; W3/M4; A9+/H1; O2; M6; M4; S5-,M7,,,False
+武汉,PROPN,Z2,Z99,WRONG-TOKEN,分词有误，应为：武汉体育中心,False
+体育,NOUN,A10+; K5.1; P1/K5.1,Z99,WRONG-TOKEN,分词有误，应为：武汉体育中心,False
+中心,NOUN,A11.1+; B1; M6; E1; X5.2+; O1; F1; H1c; M7c; G1.2c; K5.1mfn; O2; A11.1+/M7; Y2%; W3; M7/A11.1+,Z99,WRONG-TOKEN,分词有误，应为：武汉体育中心,False
+燃烧,VERB,B2-; B2-/O4.6+; E3-/A2.1; N3.2+/A2.1; G3; O4.6+; A11.2+; E1; A1.5.1; E3-; O4.3; Z4; Q2.2%; S3.2/S2mf; T2+,A1.1.1,,,False
+了,PART,Z5,Z5,,,False
+10,NUM,N1,N1,,,False
+天,NUM,T1.3; W1,Z99；T1.1,量词,,False
+的,PART,Z5,Z5,,,False
+第七,NUM,N1,N4,,,False
+届,NUM,T1.3; B1; Q3; P1/T1.3,Z99,量词,,False
+世界,NOUN,W1; S5; A4.1,W3,,,False
+军人,NOUN,A1.1.1; G3; G3/S2.2m; G3/S2mf; G3/S5,G3;S2,,,False
+运动会,NOUN,K5.1; K5.2; A1.1.1,K5.1,,,False
+的,PART,Z5,Z5,,,False
+圣火,NOUN,Z99,O2,,,False
+今夜,NOUN,T1.1.2,T1.1.2,,,False
+即将,ADV,T1.1.3/N3.8+,T1.1.3；Z5,,,False
+熄灭,VERB,L1-; A3-; O4.6-; A1.1.2@,A2.1；T2,,,False
+。,PUNCT,PUNCT,,,,False
+中国,PROPN,Z8,Z2,,,False
+士兵,NOUN,A1.1.1; G3; G3/S2mf; G3/S5; K2; X3.2; F2; S4m; M1; Z4,S2;G3,,,False
+走向,VERB,A6.2+; A2.1+; A8; S8+; X5.1+,M1,,,False
+主火,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：主 火炬 塔,False
+炬塔,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：主 火炬 塔,False
+，,PUNCT,PUNCT,,,,False
+将,X,T1.1.3; K5.2,Z5,,,False
+圣火,NOUN,Z99,O2,,,False
+引入,VERB,S9/T2+,M1,,,False
+手中,NOUN,Z99,M6,,,False
+的,PART,Z5,Z5,,,False
+“,PUNCT,PUNCT,,,,False
+和平尊,NOUN,Z99,Z3,,,False
+”,PUNCT,PUNCT,,,,False
+。,PUNCT,PUNCT,,,,False
+圣火,NOUN,Z99,O2,,,False
+熄灭,VERB,L1-; A3-; O4.6-; A1.1.2@,T2,,,False
+，,PUNCT,PUNCT,,,,False
+“,PUNCT,PUNCT,,,,False
+和平尊,NOUN,Z99,Z3,,,False
+”,PUNCT,PUNCT,,,,False
+将,ADV,T1.1.3,Z5；T1.1.3,,,False
+带,VERB,Z5,Z99,WRONG-TOKEN,分词有误，应为：带着,False
+着,PART,Z2; T1.1.2,Z99,WRONG-TOKEN,分词有误，应为：带着,False
+文明,NOUN,C1; S1.1.1; S5+; L1; A5.1+++; O4.2+++,S1.1.1,,,False
+之,PART,Z8,Z5,,,False
+光,NOUN,G2.2+; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; X2.2+; S7.2+; O4.2+; O2/W2; O2/O4.6+; B4; Y1,O1,,,False
+、,PUNCT,PUNCT,,,,False
+希望,NOUN,X2.6+; E4.1+; X9.2+; A5.1+,X2.1,,,False
+之,PART,Z8,Z5,,,False
+光,NOUN,G2.2+; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; X2.2+; S7.2+; O4.2+; O2/W2; O2/O4.6+; B4; Y1,O1,,,False
+、,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+之,PART,Z8,Z5,,,False
+光,NOUN,G2.2+; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; X2.2+; S7.2+; O4.2+; O2/W2; O2/O4.6+; B4; Y1,O1,,,False
+，,PUNCT,PUNCT,,,,False
+去,VERB,M1,Z99,WRONG-TOKEN,分词有误，应为：去往 下,False
+往下,ADV,Z99,Z99,WRONG-TOKEN,分词有误，应为：去往 下,False
+一,NUM,N1,N5,,,False
+站,VERB,M6; M8,M7,,,False
+。,PUNCT,PUNCT,,,,True
+共享,VERB,S1.1.2+; I1.1; S1.1.3+; S9; S5+@,S1.1.2,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+，,PUNCT,PUNCT,,,,False
+同筑,VERB,Z99,A1.5.1,,,False
+和平,NOUN,E3+,E3+,,,False
+。,PUNCT,PUNCT,,,,False
+熟悉,VERB,X2.2+; X2.3+; X2.5+; S1.2.1+,A5.4,,,False
+的,PART,Z5,Z5,,,False
+《,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+的,PART,Z5,Z5,,,False
+薪火,NOUN,Z99,O2,,,False
+》,PUNCT,PUNCT,,,,False
+旋律,NOUN,K2; Q3; T1.1; M1; S5+c; A2.1+,K2,,,False
+响起,VERB,X3.2; Q2.2; A8; N3.1%,K2,,,False
+，,PUNCT,PUNCT,,,,False
+真的,ADV,A13.3; A13.5; A13.6; A13.2; A5.2+; A5.4+; N5++; N5.2+,A5.4,,,False
+到,VERB,M1; T2,T1.1,,,False
+了,PART,Z5,Z5,,,False
+告别,VERB,M1; M2; A1.1.1; A1.9; A9-; T2-; S1.1.1; Z4,Q1.1,,,False
+的,PART,Z5,Z5,,,False
+时刻,NOUN,A1.1.1; O1.1; W3; T1; T1.2; T1.3; T1.1.2; N6; N1; K2; G2.1@; N3; X7+/T1; N3.1/T1; P1; Q1.2/T1/M3; Q1.2/T1/M4; Q1.2/T1/M5,T1.1,,,False
+。,PUNCT,PUNCT,,,,False
+那,DET,Z5,Z8,,,False
+一,NUM,N1,N1,,,False
+句,NUM,G2.1,Z99,量词,,False
+“,PUNCT,PUNCT,,,,False
+捧,VERB,M2; A1.1.1; A9+; X2.1; S7.1+/A1.7+; S7.2+/Q2.2,A1.1.1,,,False
+着,PART,Z2; T1.1.2,Z5,,,False
+你,PRON,Z8mf,Z8,,,False
+，,PUNCT,PUNCT,,,,False
+和平,NOUN,E3+,E3+,,,False
+薪火,NOUN,Z99,O2,,,False
+传递,VERB,M1; A9-; M2; K5.1; T1.3; T2-; X9.2+; N5.2+; S7.4+; A5.4+/A8; O4.3; Q2.1; Q1.2; Q1.3; X2.2+; A9+; Q4; B1%; B2-%,M1；M6,,,False
+，,PUNCT,PUNCT,,,,False
+携手,VERB,Z99,S1.1.2；S3.2,,,False
+同行,VERB,A6.1+/S2mf; S7.1+/S2mf; I3.1; S3.1/S2mf; S5+c,M1;S3.2,,,False
+四海皆,NOUN,Z99,Z99,WRONG-TOKEN,分词有误，应为：四海 皆是,False
+是,VERB,A3; Z5,Z99,WRONG-TOKEN,分词有误，应为：四海 皆是,False
+兄弟,NOUN,S2.2m; S4m; S9/S2.2m; S4mf; S5+/S2mf; S5+c,S2,,,False
+”,PUNCT,PUNCT,,,,False
+萦绕,VERB,Z99,K2,,,False
+耳边,NOUN,Z99,M6,,,False
+，,PUNCT,PUNCT,,,,False
+各国,NOUN,Z99,M7,,,False
+代表团,NOUN,S5+c; S7.4+; A9-,S2,,,False
+久久,ADV,Z99,T3,,,False
+不,ADV,Z6,Z6,,,False
+愿,VERB,A1.1.1; A1.5; A5.4+; I1; O4.1; A1.2+; X7+; T2+; A9+/A12+; X9.1+; X2.6+; E4.1+; X9.2+; A5.1+; S3.2; X5.2+; T1.1.3,X2.1,,,False
+离去,VERB,I3.1-; M1; T2+; T2-,M1,,,False
+，,PUNCT,PUNCT,,,,False
+希望,VERB,X2.6+; E4.1+; X9.2+; A5.1+,X2.1,,,False
+留下,VERB,A2.2; A1.8+; B1; K1/T1.3; S7.4+; M1; M2; A1.1.1; A1.9; A9-; T2-; M6; A6.1-; N5.2+; H1/T1.1.1; L1-; T2++; M8; Z5,A1.1.1,,,False
+哪怕,ADV,Z99,Z5,,,False
+更,ADV,A13.3; N6++,Z5,,,False
+多,VERB,A13.3; N6+; N6++; A6.2-; N6-; A13.4; K5.1; N5+; I1.3+; N5++; N5.2+; A13.2; T2-; M6; Z3c; Z5,N5,,,False
+一,NUM,N1,N1,,,False
+秒,NUM,N4,Z99；T1.1,,,False
+的,PART,Z5,Z5,,,False
+回忆,NOUN,X2.1/T1.1.1; X2.2+; I3.1-/G1.2; I2.2/T2-; Y2; X3.2/G3; K5.2; X2.2+/S7.2+,X2.1,,,False
+。,PUNCT,PUNCT,,,,True
+曲终,VERB,Z99,T2,,,False
+，,PUNCT,PUNCT,,,,False
+武汉,NOUN,Z2,Z2,,,False
+告别,VERB,M1; M2; A1.1.1; A1.9; A9-; T2-; S1.1.1; Z4,T2,,,False
+军运,NOUN,Z99,K5.1,,,False
+，,PUNCT,PUNCT,,,,False
+难分难舍,VERB,Z99,S3.2；X2.1,,,False
+；,PUNCT,PUNCT,,,,False
+人,NOUN,S2mfc,S2,,,False
+未,ADV,Z6,Z6,,,False
+散,VERB,A1.1.1; N3.6+/A2.1; N3.3+/A2.1; N5+/A2.1; N5; T1.3; A9-; I2.2; M2/N3.6; M1; T2-; A1.7-; A9+/N5+; B4; W4; S5+/O4.2-c; S1.1.1%; M2; N3.6+; N3.8-; T2-/G2.1,M1,,,False
+，,PUNCT,PUNCT,,,,False
+长江,PROPN,Z99,Z2,,,False
+之,PART,Z8,Z5,,,False
+滨,NOUN,E6+; I1.1; X2.6+; M1; I1/H1; I1.1/I2.1c; W3/M4; A9+/H1; O2; M6; M4; S5-,M7,,,False
+的,PART,Z5,Z5,,,False
+和平,NOUN,E3+,E3+,,,False
+之,PART,Z8,Z5,,,False
+火,NOUN,I3.1-; G3; M2; A2.2; Q2.2; O4.6+,O2,,,False
+，,PUNCT,PUNCT,,,,False
+友谊,NOUN,S1.2.1+; S3.1; S5+c; P1,S3.2,,,False
+之,PART,Z8,Z5,,,False
+光,NOUN,G2.2+; O4.3; W2; O3/W2; M3; O4.6+; X4.1; E1; X2.2+; S7.2+; O4.2+; O2/W2; O2/O4.6+; B4; Y1,O1,,,False
+，,PUNCT,PUNCT,,,,False
+永不,ADV,Z99,A5.3；Z6；A13.2,,,False
+熄灭,VERB,L1-; A3-; O4.6-; A1.1.2@,A10；A2.1,,,False
+！,PUNCT,PUNCT,,,,True
