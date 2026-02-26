@@ -65,3 +65,4 @@ The following data files, that we use for testing, are licensed under [Creative 
 * [./tests/data/parsers/benedict/english/benedict_english_corpus.txt](./tests/data/parsers/benedict/english/benedict_english_corpus.txt)
 * [./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt](./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt)
 * [./tests/data/parsers/torch/torch_corpus.csv](./tests/data/parsers/torch/torch_corpus.csv)
+* [./tests/data/parsers/corcencc/corcencc_corpus.txt](./tests/data/parsers/corcencc/corcencc_corpus.txt)

@@ -48,15 +48,14 @@ class TorchParser(BaseParser):
         filter then it will not affect the multi-tag label `F2/O2` only `F2`
         labels will be filtered out.
 
+        The label validation does not need to include the `PUNCT` label as this is
+        always validated and is expected to be a valid semantic tag.
+
         NOTE: when parsing the ToRCH corpus many rules are used to create a USAS
         validated dataset. Some of the token semantic tags are removed as they
         are not valid tags and are replaced with an empty string or if possible
         with a valid tag. In addition if there are no corrected USAS tags and the
         predicted USAS tags are `PUNCT` then the semantic tags will also be `PUNCT`.
-
-        NOTE: that when parsing the ToRCH corpus, some of the entires have
-        annotation issues, for these entries the semantic tag will be an empty
-        string, just like if you have used the label filter.
         
         Args:
             dataset_path: Path to the ToRCH corpus, should be in CSV format.

@@ -1,0 +1,2 @@
+Mae|bod|verb|B|Bpres3u|B|A5.4 'n|yn|part|U|Utra|U|Z5 dda|da|adj|Ans|Anscadu|Ans|A5.1 sgwrsio|sgwrsio|verb|B|Be|B|Q2.1 !|!|punc|Atd|Atdt|Atd|PUNCT
+Dewiswch|dewis|verb|B|Bgorch2ll|B|X6 templed|templed|noun|E|Egu|E|N5.1-/A5.4 arall|arall|adj|Ans|Anscadu|Ans|Z5 .|.|punc|Atd|Atdt|Atd|PUNCT
