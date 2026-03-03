@@ -7,3 +7,6 @@ dist
 .ruff_cache
 .pytest_cache
 .coverage
+tests/data/parsers/icc_irish/ICC-GA-WR0-021-tuairisc.tsv
+tests/data/parsers/icc_irish/ICC-GA-WPH-003-george_orwell.tsv
+tests/data/parsers/icc_irish/ICC-GA-WPH-001-the_wire.tsv

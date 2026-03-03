@@ -1,0 +1,8 @@
+ID	TOKEN	LEMMA	UPOS	PAROLE	MWE	USAS	USAS_DESCRIPTION
+1	Is	is	AUX	Wp-i	(0, 1)	Z5	Grammatical bin
+2	sraith	sraith	NOUN	Ncfsc	(1, 2)	Q4.3/N4	The Media: TV, Radio & Cinema / Linear order
+3	theilifíse	teilifís	NOUN	Ncfsg	(2, 3)	Q4.3	The Media: TV, Radio & Cinema
+4	í	í	PRON	Pp3fs	(3, 4)	Z8	Pronouns etc.
+5	The	the	ADJ	Npmsc	(4, 6)	Z0	Unmatched proper noun
+6	Simpsons	Simpsons	NOUN	Npmsc	(4, 6)	Z0	Unmatched proper noun
+7	.	.	PUNCT	Fe	(6, 7)	Z9	Other

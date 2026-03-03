@@ -57,6 +57,8 @@ To run the tests (uses pytest and coverage) and generate a coverage report:
 make test
 ```
 
+To test the parsing of the Irish ICC dataset, i.e. to fully test the `usas_evaluation_framework.parsers.icc_irish.ICCIrishParser.parse` method fully it requires downloading the Irish ICC human annotated dataset files too: `tests/data/parsers/icc_irish`, e.g. `tests/data/parsers/icc_irish/ICC-GA-WPH-001-the_wire.tsv`.
+
 ## License
 
 The code is licensed under [Apache License Version 2.0](./LICENSE).
