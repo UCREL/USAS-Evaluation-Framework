@@ -96,5 +96,28 @@ class EvaluationDataset(BaseModel):
             The number of texts
         """
         return len(self.texts)
+
+    def text_tokens_equal(self: "EvaluationDataset", other: "EvaluationDataset") -> bool:
+        """
+        Returns True if the texts in the datasets are equal, False otherwise.
+        This comparison is based on the tokens of each text at the same index
+        being equal.
+
+        Args:
+            other: The other dataset whose texts are to be compared too.
+
+        Returns:
+            True if the texts are equal, False otherwise.
+        """
+        # Check if the number of texts in both datasets is the same
+        if len(self) != len(other):
+            return False
+
+        # Compare each text's tokens at the same index
+        for self_text, other_text in zip(self.texts, other.texts):
+            if self_text.tokens != other_text.tokens:
+                return False
+
+        return True
     
 

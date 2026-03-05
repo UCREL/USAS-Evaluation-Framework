@@ -220,3 +220,103 @@ def test_evaluation_dataset_len_multiple(evaluation_texts_data: EvaluationTextsD
         texts=texts
     )
     assert len(dataset) == 3
+
+
+def test_text_tokens_equal_identical_datasets(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Test that text_tokens_equal returns True for identical datasets."""
+    texts = [EvaluationTexts(**evaluation_texts_data)]
+    dataset1 = EvaluationDataset(
+        name="Dataset 1",
+        text_level=TextLevel.sentence,
+        texts=texts
+    )
+    dataset2 = EvaluationDataset(
+        name="Dataset 2",
+        text_level=TextLevel.sentence,
+        texts=texts
+    )
+    assert dataset1.text_tokens_equal(dataset2) is True
+
+
+def test_text_tokens_equal_different_tokens(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Test that text_tokens_equal returns False for datasets with different tokens."""
+    texts1 = [EvaluationTexts(**evaluation_texts_data)]
+    dataset1 = EvaluationDataset(
+        name="Dataset 1",
+        text_level=TextLevel.sentence,
+        texts=texts1
+    )
+    
+    # Create a copy with different tokens (very similar but not the same)
+    different_texts_data = copy.deepcopy(evaluation_texts_data)
+    different_texts_data["tokens"] = ["This", "is", "a", "test", "sentences", "."]
+    texts2 = [EvaluationTexts(**different_texts_data)]
+    dataset2 = EvaluationDataset(
+        name="Dataset 2",
+        text_level=TextLevel.sentence,
+        texts=texts2
+    )
+    assert dataset1.text_tokens_equal(dataset2) is False
+
+
+def test_text_tokens_equal_different_lengths(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Test that text_tokens_equal returns False for datasets with different lengths."""
+    texts1 = [EvaluationTexts(**evaluation_texts_data)]
+    dataset1 = EvaluationDataset(
+        name="Dataset 1",
+        text_level=TextLevel.sentence,
+        texts=texts1
+    )
+    
+    texts2 = [
+        EvaluationTexts(**evaluation_texts_data),
+        EvaluationTexts(**evaluation_texts_data)
+    ]
+    dataset2 = EvaluationDataset(
+        name="Dataset 2",
+        text_level=TextLevel.sentence,
+        texts=texts2
+    )
+    assert dataset1.text_tokens_equal(dataset2) is False
+
+
+def test_text_tokens_equal_empty_datasets() -> None:
+    """Test that text_tokens_equal returns True for empty datasets."""
+    dataset1 = EvaluationDataset(
+        name="Dataset 1",
+        text_level=TextLevel.sentence,
+        texts=[]
+    )
+    dataset2 = EvaluationDataset(
+        name="Dataset 2",
+        text_level=TextLevel.sentence,
+        texts=[]
+    )
+    assert dataset1.text_tokens_equal(dataset2) is True
+
+
+def test_text_tokens_equal_mixed_matching(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Test that text_tokens_equal returns False when some texts match and others don't."""
+    texts1 = [
+        EvaluationTexts(**evaluation_texts_data),
+        EvaluationTexts(**evaluation_texts_data)
+    ]
+    dataset1 = EvaluationDataset(
+        name="Dataset 1",
+        text_level=TextLevel.sentence,
+        texts=texts1
+    )
+    
+    # Create a copy with different tokens for the second text (very similar but not the same)
+    different_texts_data = copy.deepcopy(evaluation_texts_data)
+    different_texts_data["tokens"] = ["This", "is", "a", "test", "sentences", "."]
+    texts2 = [
+        EvaluationTexts(**evaluation_texts_data),
+        EvaluationTexts(**different_texts_data)
+    ]
+    dataset2 = EvaluationDataset(
+        name="Dataset 2",
+        text_level=TextLevel.sentence,
+        texts=texts2
+    )
+    assert dataset1.text_tokens_equal(dataset2) is False
