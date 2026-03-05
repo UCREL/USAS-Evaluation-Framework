@@ -2,7 +2,7 @@ import logging
 import re
 from importlib.resources import files
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, TypeVar
 
 import yaml
 from pydantic import BaseModel, Field
@@ -13,7 +13,7 @@ TAG_RE = re.compile(r"^[A-Z](\d+)((\.\d+)+)?")
 PUNCT_RE = re.compile(r"^PUNCT")
 POSITIVE_MARKERS_RE = re.compile(r"\++")
 NEGATIVE_MARKERS_RE = re.compile(r"\-+")
-
+T = TypeVar("T")
 
 # A regular expression that was used to capture edge cases in the original
 # C version of the USAS tagger:
@@ -335,3 +335,21 @@ def load_usas_mapper(usas_tag_descriptions_file: Path | None,
             tmp_usas_mapping[key] = value
         usas_mapping = tmp_usas_mapping
     return usas_mapping
+
+
+def create_inner_list(a_list: list[T]) -> list[list[T]]:
+    """
+    Creates a list of lists from a list of objects. The inner list will only
+    contain the one object that was in the original list at the same index.
+
+    Args:
+        a_list: The list to create the inner list from.
+
+    Returns:
+        list[list[T]]: A list of lists from the original list.
+    
+    Examples:
+        >>> create_inner_list([1, 2, 3])
+        [[1], [2], [3]]
+    """
+    return [[item] for item in a_list]

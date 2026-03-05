@@ -342,11 +342,12 @@ class CorcenccParser(BaseParser):
                     tokens.append(token)
                     semantic_tags.append(usas_label)
 
+                semantic_tags_with_inner_list = data_utils.create_inner_list(semantic_tags)
                 evaluation_text = EvaluationTexts(text=" ".join(tokens),
                                                 tokens=tokens,
                                                 lemmas=None,
                                                 pos_tags=None,
-                                                semantic_tags=semantic_tags,
+                                                semantic_tags=semantic_tags_with_inner_list,
                                                 mwe_indexes=[frozenset({})] * len(tokens))
 
                 evaluation_texts.append(evaluation_text)

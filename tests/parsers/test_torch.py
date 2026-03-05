@@ -30,7 +30,7 @@ class TestTorchParser:
         assert dataset.texts[0].tokens == ["新华社"]
         assert dataset.texts[0].lemmas is None
         assert dataset.texts[0].pos_tags is None
-        assert dataset.texts[0].semantic_tags == ["Z3"]
+        assert dataset.texts[0].semantic_tags == [["Z3"]]
         assert dataset.texts[0].mwe_indexes == [frozenset({})]
 
     def test_parse_wrong_format(self, get_test_torch_directory: Path) -> None:
@@ -40,14 +40,14 @@ class TestTorchParser:
 
     @pytest.fixture(params=[None, set(["T1"])])
     def small_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
-        semantic_tags: list[list[str]] = [
-            ["Z3", "PUNCT"],
-            ["T1", "I1.1/I3.1"]
+        semantic_tags: list[list[list[str]]] = [
+            [["Z3"], ["PUNCT"]],
+            [["T1"], ["I1.1/I3.1"]]
         ]
         if request.param is not None:
-            semantic_tags = [
-            ["Z3", "PUNCT"],
-            ["", "I1.1/I3.1"]
+            semantic_tags: list[list[list[str]]] = [
+            [["Z3"], ["PUNCT"]],
+            [[""], ["I1.1/I3.1"]]
         ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -144,7 +144,7 @@ class TestTorchParser:
         assert dataset.texts[0].lemmas is None
         assert dataset.texts[0].pos_tags is None
         assert dataset.texts[0].tokens == ["新华社", "。"]
-        assert dataset.texts[0].semantic_tags == ["Z3", "PUNCT"]
+        assert dataset.texts[0].semantic_tags == [["Z3"], ["PUNCT"]]
         assert dataset.texts[0].mwe_indexes == [frozenset({})] * 2
 
     def test_parse_full_dataset(self, get_test_torch_directory: Path) -> None:
@@ -163,7 +163,9 @@ class TestTorchParser:
         for text in dataset.texts:
             token_count += len(text.tokens)
             assert text.semantic_tags is not None
-            for semantic_tag in text.semantic_tags:
+            for semantic_tag_list in text.semantic_tags:
+                assert len(semantic_tag_list) == 1
+                semantic_tag = semantic_tag_list[0]
                 if semantic_tag != "PUNCT" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:

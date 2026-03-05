@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import TypedDict
 
 from usas_evaluation_framework.data_utils import (
+    create_inner_list,
     parse_usas_token_group,
 )
 from usas_evaluation_framework.dataset import (
@@ -346,12 +347,12 @@ class EnglishBenedict(BaseParser):
                                 )
 
                 mwe_indexes = EnglishBenedict.get_mwe_indexes(validated_line)
-
+                usas_tags_with_inner_list = create_inner_list(usas_tags)
                 evaluation_text = EvaluationTexts(text=validated_line,
                                                   tokens=tokens,
                                                   lemmas=None,
                                                   pos_tags=None,
-                                                  semantic_tags=usas_tags,
+                                                  semantic_tags=usas_tags_with_inner_list,
                                                   mwe_indexes=mwe_indexes)
                 evaluation_texts.append(evaluation_text)
                 
@@ -500,12 +501,13 @@ class FinnishBenedict(BaseParser):
             else:
                 all_mwe_indexes.append(frozenset({}))
 
+        usas_tags_with_inner_list = create_inner_list(all_usas_tags)
         return EvaluationTexts(
             text=text,
             tokens=all_tokens,
             lemmas=None,
             pos_tags=None,
-            semantic_tags=all_usas_tags,
+            semantic_tags=usas_tags_with_inner_list,
             mwe_indexes=all_mwe_indexes
         )
 
@@ -574,11 +576,13 @@ class FinnishBenedict(BaseParser):
 
                 logger.debug(f"Number of tokens in line: {len(tokens)}")
 
-                tmp_usas_tags: list[str] = []
+                tmp_usas_tags: list[list[str]] = []
                 usas_tags = validated_evaluation_text.semantic_tags
                 assert isinstance(usas_tags, list)
                 for index, token in enumerate(tokens):
-                    usas_tag = usas_tags[index]
+                    usas_tag_inner_list = usas_tags[index]
+                    assert len(usas_tag_inner_list) == 1
+                    usas_tag = usas_tag_inner_list[0]
 
                     # Validate token is not a USAS tag
                     token_is_a_tag = True
@@ -607,7 +611,7 @@ class FinnishBenedict(BaseParser):
                                             f"Error semantic tag is not in the label validation: {line_index}-{usas_sub_tag}"
                                             f" (line_index/semantic_tag): `{line}`"
                                         )
-                    tmp_usas_tags.append(usas_tag)
+                    tmp_usas_tags.append([usas_tag])
                 
                 
 

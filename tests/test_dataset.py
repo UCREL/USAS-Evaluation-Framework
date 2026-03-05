@@ -16,7 +16,7 @@ class EvaluationTextsData(TypedDict):
     tokens: list[str]
     lemmas: list[str]
     pos_tags: list[str]
-    semantic_tags: list[str]
+    semantic_tags: list[list[str]]
     mwe_indexes: list[frozenset[int]]
 
 def test_text_level_enum_values() -> None:
@@ -65,7 +65,7 @@ def evaluation_texts_data() -> EvaluationTextsData:
         "tokens": ["This", "is", "a", "test", "sentence", "."],
         "lemmas": ["This", "be", "a", "test", "sentence", "."],
         "pos_tags": ["DT", "VBZ", "DT", "NN", "NN", "."],
-        "semantic_tags": ["Z1", "Z2", "Z3", "Z4", "Z5", "Z6"],
+        "semantic_tags": [["Z1"], ["Z2"], ["Z3"], ["Z4"], ["Z5"], ["Z6"]],
         "mwe_indexes": [frozenset({1}), frozenset({2}), frozenset({3}), frozenset({4}), frozenset({5}), frozenset({6})]
     } 
 
@@ -95,7 +95,7 @@ def test_evaluation_texts__eq__(evaluation_texts_data: EvaluationTextsData) -> N
         ("tokens", ["Different tokens"] * len(evaluation_texts_data["tokens"])),
         ("lemmas", ["Different lemmas"]* len(evaluation_texts_data["tokens"])),
         ("pos_tags", ["Different pos tags"]* len(evaluation_texts_data["tokens"])),
-        ("semantic_tags", ["Different semantic tags"]* len(evaluation_texts_data["tokens"])),
+        ("semantic_tags", [["Different semantic tags"]]* len(evaluation_texts_data["tokens"])),
         ("mwe_indexes", [frozenset({})]* len(evaluation_texts_data["tokens"]))
     ]
     for incorrect_key, incorrect_value in incorrect_key_values:

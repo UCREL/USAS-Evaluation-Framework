@@ -30,7 +30,7 @@ class TestCorcenccParser:
         assert dataset.texts[0].tokens == ["Ceisiwch"]
         assert dataset.texts[0].lemmas is None
         assert dataset.texts[0].pos_tags is None
-        assert dataset.texts[0].semantic_tags == ["X8"]
+        assert dataset.texts[0].semantic_tags == [["X8"]]
         assert dataset.texts[0].mwe_indexes == [frozenset({})]
 
     def test_parse_wrong_format(self, get_test_corcencc_directory: Path) -> None:
@@ -40,14 +40,14 @@ class TestCorcenccParser:
 
     @pytest.fixture(params=[None, set(["A5.4"])])
     def small_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
-        semantic_tags: list[list[str]] = [
-            ["A5.4", "Z5", "A5.1", "Q2.1", "PUNCT"],
-            ["X6", "N5.1/A5.4", "Z5", "PUNCT"]
+        semantic_tags: list[list[list[str]]] = [
+            [["A5.4"], ["Z5"], ["A5.1"], ["Q2.1"], ["PUNCT"]],
+            [["X6"], ["N5.1/A5.4"], ["Z5"], ["PUNCT"]]
         ]
         if request.param is not None:
-            semantic_tags = [
-            ["", "Z5", "A5.1", "Q2.1", "PUNCT"],
-            ["X6", "N5.1/A5.4", "Z5", "PUNCT"]
+            semantic_tags: list[list[list[str]]] = [
+            [[""], ["Z5"], ["A5.1"], ["Q2.1"], ["PUNCT"]],
+            [["X6"], ["N5.1/A5.4"], ["Z5"], ["PUNCT"]]
         ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -152,7 +152,9 @@ class TestCorcenccParser:
         for text in dataset.texts:
             token_count += len(text.tokens)
             assert text.semantic_tags is not None
-            for semantic_tag in text.semantic_tags:
+            for semantic_tag_list in text.semantic_tags:
+                assert len(semantic_tag_list) == 1
+                semantic_tag = semantic_tag_list[0]
                 if semantic_tag != "PUNCT" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:

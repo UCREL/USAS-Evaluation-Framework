@@ -265,12 +265,13 @@ class ICCIrishParser(BaseParser):
 
         logger.info(f"Finished parsing the {dataset_name} dataset")
 
+        semantic_tags_with_inner_list = data_utils.create_inner_list(semantic_tags)
         evaluation_texts = [
             EvaluationTexts(text=" ".join(tokens),
                             tokens=tokens,
                             lemmas=None,
                             pos_tags=None,
-                            semantic_tags=semantic_tags,
+                            semantic_tags=semantic_tags_with_inner_list,
                             mwe_indexes=mwe_indexes)
         ]
         return EvaluationDataset(name=dataset_name,

@@ -199,7 +199,7 @@ class TestEnglishBenedict:
         assert dataset.texts[0].tokens == ["Coffee"]
         assert dataset.texts[0].lemmas is None
         assert dataset.texts[0].pos_tags is None
-        assert dataset.texts[0].semantic_tags == ["F2"]
+        assert dataset.texts[0].semantic_tags == [["F2"]]
         assert dataset.texts[0].mwe_indexes == [frozenset({})]
 
     def test_parse_wrong_format(self, get_test_english_benedict_directory: Path) -> None:
@@ -209,18 +209,18 @@ class TestEnglishBenedict:
 
     @pytest.fixture(params=[None, set(["F2"])])
     def small_english_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
-        semantic_tags: list[list[str]] = [
-            ["F2"],
-            ["Z5", "T1.1.1", "Z5", "F2"],
-            ["F2/O4.5", "F2/O4.5", "PUNCT", "A13.3", "O4.5", "A1.1.1", "PUNCT", "O4.1"],
-            ["F2/O4.5", "F2/O4.5", "PUNCT", "Z5", "O4.5", "F2/O4.5", "PUNCT", "A13.4", "O4.1", "O1.1"]
+        semantic_tags: list[list[list[str]]] = [
+            [["F2"]],
+            [["Z5"], ["T1.1.1"], ["Z5"], ["F2"]],
+            [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.3"], ["O4.5"], ["A1.1.1"], ["PUNCT"], ["O4.1"]],
+            [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["Z5"], ["O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.4"], ["O4.1"], ["O1.1"]]
         ]
         if request.param is not None:
-            semantic_tags = [
-                [""],
-                ["Z5", "T1.1.1", "Z5", ""],
-                ["F2/O4.5", "F2/O4.5", "PUNCT", "A13.3", "O4.5", "A1.1.1", "PUNCT", "O4.1"],
-                ["F2/O4.5", "F2/O4.5", "PUNCT", "Z5", "O4.5", "F2/O4.5", "PUNCT", "A13.4", "O4.1", "O1.1"]
+            semantic_tags: list[list[list[str]]] = [
+                [[""]],
+                [["Z5"], ["T1.1.1"], ["Z5"], [""]],
+                [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.3"], ["O4.5"], ["A1.1.1"], ["PUNCT"], ["O4.1"]],
+                [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["Z5"], ["O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.4"], ["O4.1"], ["O1.1"]]
             ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -333,7 +333,9 @@ class TestEnglishBenedict:
         for text in dataset.texts:
             token_count += len(text.tokens)
             assert text.semantic_tags is not None
-            for semantic_tag in text.semantic_tags:
+            for semantic_tag_list in text.semantic_tags:
+                assert len(semantic_tag_list) == 1
+                semantic_tag = semantic_tag_list[0]
                 if semantic_tag != "PUNCT" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:
@@ -363,7 +365,7 @@ class TestFinnishBenedict:
                                           lemmas=None,
                                           pos_tags=None,
                                           tokens=["Vac", "pot", "is"],
-                                          semantic_tags=["F2/O2", "F2/O2", "A3"],
+                                          semantic_tags=[["F2/O2"], ["F2/O2"], ["A3"]],
                                           mwe_indexes=[frozenset({})] * 3)
         assert FinnishBenedict.validate_text_string_format(test_string) == expected_output
 
@@ -373,7 +375,7 @@ class TestFinnishBenedict:
                                           lemmas=None,
                                           pos_tags=None,
                                           tokens=["Vac", "pot", "is"],
-                                          semantic_tags=["F2/O2", "F2/O2", "A3"],
+                                          semantic_tags=[["F2/O2"], ["F2/O2"], ["A3"]],
                                           mwe_indexes=[frozenset({1}), frozenset({1}), frozenset({})])
         assert FinnishBenedict.validate_text_string_format(test_string) == expected_output
 
@@ -381,7 +383,7 @@ class TestFinnishBenedict:
         test_string = ('- , ! : ( ) ? " .')
         expected_output = EvaluationTexts(text='- , ! : ( ) ? " .',
                            tokens=['-', ',', '!', ':', '(', ')', '?', '"', '.'],
-                           semantic_tags=["PUNCT"] * 9,
+                           semantic_tags=[["PUNCT"]] * 9,
                            mwe_indexes=[frozenset({})] * 9,
                            lemmas=None,
                            pos_tags=None)
@@ -393,7 +395,7 @@ class TestFinnishBenedict:
                                           lemmas=None,
                                           pos_tags=None,
                                           tokens=["Vac", "pot", "is", "good", "day"],
-                                          semantic_tags=["F2/O2", "F2/O2", "A3", "A13.3", "A13.3"],
+                                          semantic_tags=[["F2/O2"], ["F2/O2"], ["A3"], ["A13.3"], ["A13.3"]],
                                           mwe_indexes=[frozenset({1}), frozenset({1}), frozenset({}), frozenset({2}), frozenset({2})])
         assert FinnishBenedict.validate_text_string_format(test_string) == expected_output
 
@@ -451,23 +453,23 @@ class TestFinnishBenedict:
         assert dataset.texts[0].tokens == ["Kahvi"]
         assert dataset.texts[0].lemmas is None
         assert dataset.texts[0].pos_tags is None
-        assert dataset.texts[0].semantic_tags == ["F2"]
+        assert dataset.texts[0].semantic_tags == [["F2"]]
         assert dataset.texts[0].mwe_indexes == [frozenset({})]
 
     @pytest.fixture(params=[None, set(["F2"])])
     def small_finnish_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
-        semantic_tags: list[list[str]] = [
-            ["A1.5.2", "PUNCT"],
-            ["N3.1/F2/O4.3"],
-            ["F2/L3", "F2/L3"],
-            ["F2"]
+        semantic_tags: list[list[list[str]]] = [
+            [["A1.5.2"], ["PUNCT"]],
+            [["N3.1/F2/O4.3"]],
+            [["F2/L3"], ["F2/L3"]],
+            [["F2"]]
         ]
         if request.param is not None:
-            semantic_tags = [
-                ["A1.5.2", "PUNCT"],
-                ["N3.1/F2/O4.3"],
-                ["F2/L3", "F2/L3"],
-                [""]
+            semantic_tags: list[list[list[str]]] = [
+                [["A1.5.2"], ["PUNCT"]],
+                [["N3.1/F2/O4.3"]],
+                [["F2/L3"], ["F2/L3"]],
+                [[""]]
             ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -579,7 +581,9 @@ class TestFinnishBenedict:
         for text in dataset.texts:
             token_count += len(text.tokens)
             assert text.semantic_tags is not None
-            for semantic_tag in text.semantic_tags:
+            for semantic_tag_list in text.semantic_tags:
+                assert len(semantic_tag_list) == 1
+                semantic_tag = semantic_tag_list[0]
                 if semantic_tag != "PUNCT" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:

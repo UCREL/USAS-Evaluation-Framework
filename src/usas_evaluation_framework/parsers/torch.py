@@ -250,21 +250,23 @@ class TorchParser(BaseParser):
 
                 is_sentence_break = cast(bool, string_to_bool[dataset_row["sentence-break"].strip().lower()])
                 if is_sentence_break:
+                    semantic_tags_with_inner_list = data_utils.create_inner_list(semantic_tags)
                     evaluation_text = EvaluationTexts(text=" ".join(tokens),
                                                       tokens=tokens,
                                                       lemmas=None,
                                                       pos_tags=None,
-                                                      semantic_tags=semantic_tags,
+                                                      semantic_tags=semantic_tags_with_inner_list,
                                                       mwe_indexes=[frozenset({})] * len(tokens))
                     evaluation_texts.append(evaluation_text)
                     tokens = []
                     semantic_tags = []
         if tokens:
+            semantic_tags_with_inner_list = data_utils.create_inner_list(semantic_tags)
             evaluation_text = EvaluationTexts(text=" ".join(tokens),
                                               tokens=tokens,
                                               lemmas=None,
                                               pos_tags=None,
-                                              semantic_tags=semantic_tags,
+                                              semantic_tags=semantic_tags_with_inner_list,
                                               mwe_indexes=[frozenset({})] * len(tokens))
             evaluation_texts.append(evaluation_text)
         

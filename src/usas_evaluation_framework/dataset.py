@@ -29,7 +29,9 @@ class EvaluationTexts(BaseModel):
         tokens (list[str]): The tokens of the text.
         lemmas (list[str] | None): The lemmas of the text. Default is `None`.
         pos_tags (list[str] | None): The POS tags of the text. Default is `None`.
-        semantic_tags (list[str] | None): The semantic tags of the text. Default is `None`.
+        semantic_tags (list[list[str]] | None): The semantic tags of the text. Default is `None`.
+            The inner list contains all the possible semantic tags for the token at the same index.
+            The semantic tags are in order of likelihood, e.g. the first tag is the most likely tag.
         mwe_indexes (list[frozenset[int]] | None): The Multi Word Expression (MWE) indexes of the text.
             If the set is empty then the token is not part of a MWE, otherwise
             the set contains the MWE index and all tokens with the same index
@@ -39,7 +41,7 @@ class EvaluationTexts(BaseModel):
     tokens: list[str]
     lemmas: list[str] | None
     pos_tags: list[str] | None
-    semantic_tags: list[str] | None
+    semantic_tags: list[list[str]] | None
     mwe_indexes: list[frozenset[int]] | None
 
     @model_validator(mode='after')
