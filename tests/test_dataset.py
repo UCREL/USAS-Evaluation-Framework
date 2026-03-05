@@ -57,6 +57,7 @@ def test_text_level_enum_invalid_value() -> None:
     except ValueError:
         pass
 
+
 @pytest.fixture
 def evaluation_texts_data() -> EvaluationTextsData:
     return {
@@ -67,6 +68,7 @@ def evaluation_texts_data() -> EvaluationTextsData:
         "semantic_tags": ["Z1", "Z2", "Z3", "Z4", "Z5", "Z6"],
         "mwe_indexes": [frozenset({1}), frozenset({2}), frozenset({3}), frozenset({4}), frozenset({5}), frozenset({6})]
     } 
+
 
 def test_evaluation_texts_valid_initialization(evaluation_texts_data: EvaluationTextsData) -> None:
     texts = EvaluationTexts(
@@ -83,6 +85,7 @@ def test_evaluation_texts_valid_initialization(evaluation_texts_data: Evaluation
     assert texts.pos_tags == evaluation_texts_data["pos_tags"]
     assert texts.semantic_tags == evaluation_texts_data["semantic_tags"]
     assert texts.mwe_indexes == evaluation_texts_data["mwe_indexes"]
+
 
 def test_evaluation_texts__eq__(evaluation_texts_data: EvaluationTextsData) -> None:
     expected_evaluation_texts = EvaluationTexts(**evaluation_texts_data)
@@ -107,6 +110,7 @@ def test_evaluation_texts__eq__(evaluation_texts_data: EvaluationTextsData) -> N
     assert alt_evaluation_texts == alt_evaluation_texts
 
     assert alt_evaluation_texts != expected_evaluation_texts
+
 
 @pytest.mark.parametrize("list_attribute_testing", ["lemmas", "pos_tags", "semantic_tags", "mwe_indexes"])
 def test_evaluation_texts_mismatched_lengths(list_attribute_testing: Literal["lemmas", "pos_tags", "semantic_tags", "mwe_indexes"],
@@ -133,6 +137,7 @@ def test_evaluation_texts_mismatched_lengths(list_attribute_testing: Literal["le
             semantic_tags=semantic_tags,
             mwe_indexes=mwe_indexes
         )
+
 
 def test_evaluation_texts_none_values(evaluation_texts_data: EvaluationTextsData) -> None:
     texts = EvaluationTexts(
@@ -168,6 +173,7 @@ def test_evaluation_dataset_valid_initialization(evaluation_texts_data: Evaluati
     assert dataset.labels_removed == {"Z1", "Z2"}
     assert dataset.texts == texts
 
+
 def test_evaluation_dataset_empty_texts() -> None:
     dataset = EvaluationDataset(
         name="Test Dataset",
@@ -179,3 +185,38 @@ def test_evaluation_dataset_empty_texts() -> None:
     assert dataset.text_level == TextLevel.sentence
     assert dataset.labels_removed is None
     assert dataset.texts == []
+
+def test_evaluation_dataset_len_empty() -> None:
+    """Test that __len__ returns 0 for an empty dataset."""
+    dataset = EvaluationDataset(
+        name="Test Dataset",
+        text_level=TextLevel.sentence,
+        texts=[]
+    )
+    assert len(dataset) == 0
+
+
+def test_evaluation_dataset_len_single(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Test that __len__ returns 1 for a dataset with one text."""
+    texts = [EvaluationTexts(**evaluation_texts_data)]
+    dataset = EvaluationDataset(
+        name="Test Dataset",
+        text_level=TextLevel.sentence,
+        texts=texts
+    )
+    assert len(dataset) == 1
+
+
+def test_evaluation_dataset_len_multiple(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Test that __len__ returns the correct count for a dataset with multiple texts."""
+    texts = [
+        EvaluationTexts(**evaluation_texts_data),
+        EvaluationTexts(**evaluation_texts_data),
+        EvaluationTexts(**evaluation_texts_data)
+    ]
+    dataset = EvaluationDataset(
+        name="Test Dataset",
+        text_level=TextLevel.sentence,
+        texts=texts
+    )
+    assert len(dataset) == 3

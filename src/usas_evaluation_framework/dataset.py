@@ -87,5 +87,14 @@ class EvaluationDataset(BaseModel):
     text_level: TextLevel
     labels_removed: set[str] | None = None
     texts: list[EvaluationTexts]
+
+    def __len__(self: "EvaluationDataset") -> int:
+        """
+        Returns the number of texts in the dataset.
+
+        Returns:
+            The number of texts
+        """
+        return len(self.texts)
     
 
