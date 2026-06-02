@@ -36,7 +36,7 @@ To run locally first ensure you have the following tools installted locally:
 When developing on the project you will want to install the Python package locally in editable format with all the extra requirements, this can be done like so:
 
 ```bash
-uv sync
+uv sync --all-extras
 ```
 
 ### Linting
@@ -58,6 +58,33 @@ make test
 ```
 
 To test the parsing of the Irish ICC dataset, i.e. to fully test the `usas_evaluation_framework.parsers.icc_irish.ICCIrishParser.parse` method fully it requires downloading the Irish ICC human annotated dataset files too: `tests/data/parsers/icc_irish`, e.g. `tests/data/parsers/icc_irish/ICC-GA-WPH-001-the_wire.tsv`.
+
+## Evaluation metrics and splits
+
+### Metrics
+
+#### Top-N Accuracy
+
+* Micro
+* Macro
+
+#### Coverage
+
+This only applies to the rule based methods
+
+### Splits
+
+#### Tokens within a lexicon
+
+#### Unseen tokens from the training dataset
+
+#### Unseen token/semantic label from the training dataset
+
+#### Top level categories
+
+Metrics scores for the 21 top level categories
+
+#### Named Entities
 
 ## License
 
