@@ -55,6 +55,10 @@ notebooks = [
     "pymusas[neural]>=0.4.0",
     "spacy>=3.8.11",
 ]
+excel-conversion = [
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.3",
+]
 
 [dependency-groups]
 dev = [
