@@ -185,6 +185,25 @@ class TestSpanishWikipediaUSAS:
         assert dataset.labels_removed == label_filter
 
     # ------------------------------------------------------------------
+    # MWE index remapping
+    # ------------------------------------------------------------------
+
+    def test_parse_mwe_remapping(self, get_test_directory: Path) -> None:
+        """corrected_mwe IDs that do not start at 1 are remapped to sequential integers starting at 1."""
+        dataset = SpanishWikipediaUSAS.parse(
+            get_test_directory / "spanish_wikipedia_mwe_remapping.csv"
+        )
+        assert len(dataset.texts) == 1
+        mwe_indexes = dataset.texts[0].mwe_indexes
+        # corrected_mwe values 3 and 5 must be remapped to 1 and 2 respectively
+        assert mwe_indexes == [
+            frozenset({1}), frozenset({1}),  # vasos/sanguineos — group 3 → 1
+            frozenset(),                      # y — no MWE
+            frozenset({2}), frozenset({2}), frozenset({2}),  # mata/de/hambre — group 5 → 2
+            frozenset(),                      # .
+        ]
+
+    # ------------------------------------------------------------------
     # Label validation
     # ------------------------------------------------------------------
 

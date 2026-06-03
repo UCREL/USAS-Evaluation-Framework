@@ -232,7 +232,7 @@ class SpanishWikipediaUSAS(BaseParser):
             for row in reader:
                 # Empty row → sentence boundary
                 if not any(field.strip() for field in row):
-                    flush(sentence_rows) # I do not think this is needed
+                    flush(sentence_rows)
                     sentence_rows: list[list[str]] = []
                     current_sentence_key = None
                     continue
@@ -246,6 +246,7 @@ class SpanishWikipediaUSAS(BaseParser):
                     )
                 sentence_key = '|'.join(parts[:3])
 
+                # The elif occurs when the data starts a new file in the dataset
                 if current_sentence_key is None:
                     current_sentence_key = sentence_key
                 elif current_sentence_key != sentence_key:
