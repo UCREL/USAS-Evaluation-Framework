@@ -9,6 +9,65 @@ import typer
 app = typer.Typer(help="Parse all Excel files in a folder into a single CSV file.")
 
 
+def _fix_punct_to_z9(df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
+    """Replace PUNCT-derived tags in the corrected USAS column with Z9.
+
+    Conditions (per token row):
+    - ``corrected USAS`` equals ``'PUNCT'``, or
+    - ``corrected USAS`` is empty AND (``predicted USAS`` or ``POS`` equals ``'PUNCT'``).
+
+    Returns the updated DataFrame and the count of cells changed.
+    """
+    if "corrected USAS" not in df.columns:
+        return df, 0
+
+    corrected = df["corrected USAS"].fillna("").astype(str).str.strip()
+    predicted = (
+        df["predicted USAS"].fillna("").astype(str).str.strip()
+        if "predicted USAS" in df.columns
+        else pd.Series("", index=df.index)
+    )
+    pos = (
+        df["POS"].fillna("").astype(str).str.strip()
+        if "POS" in df.columns
+        else pd.Series("", index=df.index)
+    )
+
+    mask = (corrected == "PUNCT") | (
+        (corrected == "") & ((predicted == "PUNCT") | (pos == "PUNCT"))
+    )
+
+    df = df.copy()
+    df.loc[mask, "corrected USAS"] = "Z9"
+    return df, int(mask.sum())
+
+
+def _print_stats(df: pd.DataFrame) -> None:
+    """Echo sentence, token, and corrected-USAS-tag counts from the combined DataFrame."""
+    typer.echo("\nDataset summary:")
+
+    if "id" in df.columns:
+        token_mask = df["id"].notna() & (df["id"].astype(str).str.strip() != "")
+        n_tokens = int(token_mask.sum())
+        sentence_keys = (
+            df.loc[token_mask, "id"]
+            .astype(str)
+            .str.rsplit("|", n=1)
+            .str[0]
+        )
+        n_sentences = int(sentence_keys.nunique())
+        typer.echo(f"  Sentences:           {n_sentences:,}")
+        typer.echo(f"  Tokens:              {n_tokens:,}")
+    else:
+        typer.echo(f"  Tokens:              {len(df):,}")
+
+    if "corrected USAS" in df.columns:
+        n_corrected = int(
+            (df["corrected USAS"].fillna("").astype(str).str.strip() != "").sum()
+        )
+        typer.echo(f"  Corrected USAS tags: {n_corrected:,}")
+
+
 def _find_excel_files(folder: Path, recursive: bool) -> list[Path]:
     """Find all Excel files in a folder.
 
@@ -66,6 +125,17 @@ def main(
             help="Search for Excel files recursively in subdirectories.",
         ),
     ] = False,
+    punct_to_z9: Annotated[
+        bool,
+        typer.Option(
+            "--punct-to-z9/--no-punct-to-z9",
+            help=(
+                "Replace PUNCT tags in 'corrected USAS' with Z9. "
+                "Also fills empty 'corrected USAS' cells with Z9 when "
+                "'predicted USAS' or 'POS' is PUNCT."
+            ),
+        ),
+    ] = False,
 ) -> None:
     """Parse all Excel files in FOLDER into a single CSV file.
 
@@ -75,6 +145,7 @@ def main(
         sheet: Sheet name or 0-based index to read. Defaults to the first sheet.
         add_source: Add a 'source_file' column with the originating filename.
         recursive: Search subdirectories recursively.
+        punct_to_z9: Replace PUNCT tags with Z9 in the corrected USAS column.
 
     Raises:
         typer.Exit: If no Excel files are found or a file cannot be read.
@@ -109,9 +180,15 @@ def main(
         raise typer.Exit(code=1)
 
     combined = pd.concat(frames, ignore_index=True)
+
+    if punct_to_z9:
+        combined, n_changed = _fix_punct_to_z9(combined)
+        typer.echo(f"\nReplaced PUNCT tags with Z9 in 'corrected USAS' ({n_changed} cell(s) updated).")
+
     combined.to_csv(output, index=False)
 
     typer.echo(f"\nWrote {len(combined)} rows to '{output}'.")
+    _print_stats(combined)
 
 
 if __name__ == "__main__":
