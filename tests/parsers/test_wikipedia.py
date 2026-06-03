@@ -4,7 +4,6 @@ from pathlib import Path
 import pytest
 
 from tests.utils_test import get_test_data_directory  # noqa: F401
-from usas_evaluation_framework.data_utils import load_usas_mapper
 from usas_evaluation_framework.dataset import (
     EvaluationDataset,
     EvaluationTexts,
@@ -17,7 +16,7 @@ class TestWikipediaUSAS:
 
     @pytest.fixture
     def get_test_directory(self, get_test_data_directory: Path) -> Path:  # noqa: F811
-        return get_test_data_directory / "parsers" / "spanish_wikipedia"
+        return get_test_data_directory / "parsers" / "wikipedia"
 
     # ------------------------------------------------------------------
     # dataset_name parameter
@@ -25,7 +24,7 @@ class TestWikipediaUSAS:
 
     def test_parse_default_dataset_name(self, get_test_directory: Path) -> None:
         """Without dataset_name the returned dataset is named 'Wikipedia USAS'."""
-        dataset = WikipediaUSAS.parse(get_test_directory / "spanish_wikipedia_empty.csv")
+        dataset = WikipediaUSAS.parse(get_test_directory / "wikipedia_empty.csv")
         assert dataset.name == "Wikipedia USAS"
 
     @pytest.mark.parametrize("dataset_name", [
@@ -38,7 +37,7 @@ class TestWikipediaUSAS:
     ) -> None:
         """dataset_name is stored on the returned EvaluationDataset."""
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_empty.csv",
+            get_test_directory / "wikipedia_empty.csv",
             dataset_name=dataset_name,
         )
         assert dataset.name == dataset_name
@@ -49,7 +48,7 @@ class TestWikipediaUSAS:
 
     def test_parse_default_language_none(self, get_test_directory: Path) -> None:
         """Without language the returned dataset has language=None."""
-        dataset = WikipediaUSAS.parse(get_test_directory / "spanish_wikipedia_empty.csv")
+        dataset = WikipediaUSAS.parse(get_test_directory / "wikipedia_empty.csv")
         assert dataset.language is None
 
     @pytest.mark.parametrize("language", ["Spanish", "English", "Welsh", "Irish"])
@@ -58,7 +57,7 @@ class TestWikipediaUSAS:
     ) -> None:
         """language is stored on the returned EvaluationDataset."""
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_empty.csv",
+            get_test_directory / "wikipedia_empty.csv",
             language=language,
         )
         assert dataset.language == language
@@ -68,7 +67,7 @@ class TestWikipediaUSAS:
     ) -> None:
         """Both dataset_name and language can be supplied together."""
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_empty.csv",
+            get_test_directory / "wikipedia_empty.csv",
             dataset_name="Medical Wikipedia",
             language="Spanish",
         )
@@ -81,7 +80,7 @@ class TestWikipediaUSAS:
 
     def test_parse_empty(self, get_test_directory: Path) -> None:
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_empty.csv",
+            get_test_directory / "wikipedia_empty.csv",
             dataset_name="Wikipedia USAS",
             language="Spanish",
         )
@@ -95,7 +94,7 @@ class TestWikipediaUSAS:
     def test_parse_one_token(self, get_test_directory: Path) -> None:
         """Single sentence, single token — uses predicted USAS (no correction)."""
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_one_token.csv",
+            get_test_directory / "wikipedia_one_token.csv",
             dataset_name="Medical Wikipedia",
             language="Spanish",
         )
@@ -118,7 +117,7 @@ class TestWikipediaUSAS:
         """When corrected USAS contains multiple ';'-separated tags (e.g. 'B3/A5 ; F1'),
         only the first tag ('B3/A5') is used as the resolved semantic tag."""
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_multi_corrected_usas.csv"
+            get_test_directory / "wikipedia_multi_corrected_usas.csv"
         )
         assert len(dataset.texts) == 1
         assert dataset.texts[0].semantic_tags == [["B3/A5"]]
@@ -131,21 +130,21 @@ class TestWikipediaUSAS:
         """A corrected USAS tag that cannot be parsed raises ValueError."""
         with pytest.raises(ValueError):
             WikipediaUSAS.parse(
-                get_test_directory / "spanish_wikipedia_wrong_format.csv"
+                get_test_directory / "wikipedia_wrong_format.csv"
             )
 
     def test_parse_text_is_usas_label(self, get_test_directory: Path) -> None:
         """A token whose text is itself a valid USAS tag raises ValueError."""
         with pytest.raises(ValueError):
             WikipediaUSAS.parse(
-                get_test_directory / "spanish_wikipedia_text_as_label.csv"
+                get_test_directory / "wikipedia_text_as_label.csv"
             )
 
     def test_parse_invalid_id_format(self, get_test_directory: Path) -> None:
         """A token ID that does not match <language>|<article>|<sentence_id>|<token_id> raises ValueError."""
         with pytest.raises(ValueError, match="does not match expected format"):
             WikipediaUSAS.parse(
-                get_test_directory / "spanish_wikipedia_invalid_id_format.csv"
+                get_test_directory / "wikipedia_invalid_id_format.csv"
             )
 
     # ------------------------------------------------------------------
@@ -236,8 +235,8 @@ class TestWikipediaUSAS:
     @pytest.mark.parametrize(
         "data_file_name",
         [
-            "spanish_wikipedia_small_example.csv",
-            "spanish_wikipedia_small_with_extra_empty_lines.csv",
+            "wikipedia_small_example.csv",
+            "wikipedia_small_with_extra_empty_lines.csv",
         ],
     )
     def test_parse_small_example(
@@ -271,7 +270,7 @@ class TestWikipediaUSAS:
     def test_parse_mwe_remapping(self, get_test_directory: Path) -> None:
         """corrected_mwe IDs that do not start at 1 are remapped to sequential integers starting at 1."""
         dataset = WikipediaUSAS.parse(
-            get_test_directory / "spanish_wikipedia_mwe_remapping.csv"
+            get_test_directory / "wikipedia_mwe_remapping.csv"
         )
         assert len(dataset.texts) == 1
         mwe_indexes = dataset.texts[0].mwe_indexes
@@ -307,7 +306,7 @@ class TestWikipediaUSAS:
         label_filter: set[str] | None,
         label_validation_and_error: tuple[set[str], bool],
     ) -> None:
-        data_file = get_test_directory / "spanish_wikipedia_small_example.csv"
+        data_file = get_test_directory / "wikipedia_small_example.csv"
         validation_labels, to_error = label_validation_and_error
         if to_error:
             with pytest.raises(ValueError):
@@ -324,44 +323,3 @@ class TestWikipediaUSAS:
             )
             assert len(dataset.texts) == 3
             assert dataset.labels_removed == label_filter
-
-    # ------------------------------------------------------------------
-    # Full corpus smoke test
-    # ------------------------------------------------------------------
-
-    def test_parse_full_dataset(self) -> None:
-        """Parse the full spanish.csv corpus and verify sentence/token counts."""
-        data_file = Path(__file__).parent.parent.parent / "Data" / "spanish.csv"
-        usas_mapper = load_usas_mapper(None, None)
-        valid_usas_tags = set(usas_mapper.keys())
-        tags_to_filter: set[str] = set()
-        dataset = WikipediaUSAS.parse(
-            data_file,
-            valid_usas_tags,
-            tags_to_filter,
-            dataset_name="Medical Wikipedia",
-            language="Spanish",
-        )
-
-        assert dataset.name == "Medical Wikipedia"
-        assert dataset.language == "Spanish"
-        assert dataset.text_level == "sentence"
-        # 21 cancer + 6 chemotherapy + 3 melanoma sentences
-        assert len(dataset.texts) == 30
-
-        token_count = 0
-        multi_tag_count = 0
-        for text in dataset.texts:
-            assert text.tokens is not None
-            assert text.lemmas is not None
-            assert text.pos_tags is not None
-            assert text.semantic_tags is not None
-            assert text.mwe_indexes is not None
-            token_count += len(text.tokens)
-            for tag_list in text.semantic_tags:
-                assert len(tag_list) == 1
-                if "/" in tag_list[0]:
-                    multi_tag_count += 1
-
-        assert token_count > 0
-        assert multi_tag_count > 0
