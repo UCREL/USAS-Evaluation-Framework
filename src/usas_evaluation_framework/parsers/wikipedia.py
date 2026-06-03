@@ -16,10 +16,9 @@ from usas_evaluation_framework.parsers.base import BaseParser
 logger = logging.getLogger(__name__)
 
 
-class SpanishWikipediaUSAS(BaseParser):
+class WikipediaUSAS(BaseParser):
     """
-    Parser for the Spanish Wikipedia USAS corpus that contains human-annotated
-    USAS semantic tags.
+    Parser for Wikipedia USAS corpora that contain human-annotated USAS semantic tags.
 
     The corpus is stored as a CSV file with the following columns:
 
@@ -47,8 +46,8 @@ class SpanishWikipediaUSAS(BaseParser):
 
     MWE group resolution: ``corrected MWE`` is used when non-empty; otherwise no
     MWE grouping is applied (``predicted MWE`` is ignored).  MWE group identifiers
-    are remapped to sequential integers (1, 2, ...) within each sentence as sometimes 
-    it is the case that MWE within a sentence start an integer that is not 1, e.g. 
+    are remapped to sequential integers (1, 2, ...) within each sentence as sometimes
+    it is the case that MWE within a sentence start an integer that is not 1, e.g.
     they carry on the MWE number from the previous sentence.
 
     This corpus supports MWEs and provides lemmas and POS tags.
@@ -95,14 +94,16 @@ class SpanishWikipediaUSAS(BaseParser):
         dataset_path: Path,
         label_validation: set[str] | None = None,
         label_filter: set[str] | None = None,
+        dataset_name: str | None = "Wikipedia USAS",
+        language: str | None = None,
     ) -> EvaluationDataset:
         """
-        Parse the Spanish Wikipedia USAS corpus into the Evaluation Dataset format.
+        Parse a Wikipedia USAS corpus into the Evaluation Dataset format.
 
         If a token does not have a corrected USAS tag, the first ``;``-separated,
         but does have a POS tag of ``PUNCT``, then ``PUNCT`` is used. ``PUNCT``
         is always included in the label validation set.
-        
+
         Empty tags (produced by label filtering), which can include ``PUNCT``,
         are not checked against ``label_validation``.
 
@@ -110,21 +111,27 @@ class SpanishWikipediaUSAS(BaseParser):
         must appear in ``label_filter`` for the token to be filtered out.
 
         Args:
-            dataset_path: Path to the Spanish Wikipedia USAS CSV file.
+            dataset_path: Path to the Wikipedia USAS CSV file.
             label_validation: Optional set of valid semantic labels.  When
                 supplied, every resolved tag (excluding ``PUNCT`` and ``''``) is
                 checked against this set.
             label_filter: Optional set of labels to suppress.  Matching tokens
                 receive an empty-string tag.
+            dataset_name: Name for the returned dataset.
+                Defaults to ``'Wikipedia USAS'``.
+            language: Language of the corpus (e.g. ``'Spanish'``).
+                Defaults to ``None``.
         Returns:
-            EvaluationDataset: Parsed dataset named ``'Spanish Wikipedia USAS'``
-            at sentence-level granularity.  Tokens, lemmas, POS tags, semantic
-            tags, and MWE indexes are all populated.
+            EvaluationDataset: Parsed dataset at sentence-level granularity.
+            Tokens, lemmas, POS tags, semantic tags, and MWE indexes are all
+            populated.
         Raises:
             ValueError: If a token cannot be parsed or a tag fails label
                 validation.
         """
-        dataset_name = "Spanish Wikipedia USAS"
+        if dataset_name is None:
+            dataset_name = "Wikipedia USAS"
+
         text_level = TextLevel.sentence
 
         logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
@@ -159,7 +166,7 @@ class SpanishWikipediaUSAS(BaseParser):
                 corrected_mwe = row[9].strip()
 
                 try:
-                    usas_tag = SpanishWikipediaUSAS._resolve_usas_tag(
+                    usas_tag = WikipediaUSAS._resolve_usas_tag(
                         predicted_usas, corrected_usas, pos
                     )
                 except ValueError as e:
@@ -262,6 +269,7 @@ class SpanishWikipediaUSAS(BaseParser):
         return EvaluationDataset(
             name=dataset_name,
             text_level=text_level,
+            language=language,
             labels_removed=label_filter,
             texts=evaluation_texts,
         )

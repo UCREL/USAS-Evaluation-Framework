@@ -23,6 +23,7 @@ class TestCorcenccParser:
         one_token_data_file = get_test_corcencc_directory / "corcencc_one_token.txt"
         dataset = CorcenccParser.parse(one_token_data_file)
         assert dataset.name == "Corcencc"
+        assert dataset.language == "Welsh"
         assert dataset.text_level == "sentence"
 
         assert len(dataset.texts) == 1

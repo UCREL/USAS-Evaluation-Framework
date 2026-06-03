@@ -41,6 +41,8 @@ class CorcenccParser(BaseParser):
     def parse(dataset_path: Path,
               label_validation: set[str] | None = None,
               label_filter: set[str] | None = None,
+              dataset_name: str | None = "Corcencc",
+              language: str | None = "Welsh",
               ) -> EvaluationDataset:
         """
         Parses the CorCenCC corpus into the Evaluation Dataset format, for
@@ -74,6 +76,8 @@ class CorcenccParser(BaseParser):
                 that will not be returned, i.e. all USAS tags after the first `;`.
             label_filter: A set of labels from the dataset that should be filtered out.
                 Defaults to `None` in which case no filtering is performed.
+            dataset_name: Name for the returned dataset. Defaults to ``'Corcencc'``.
+            language: Language of the corpus. Defaults to ``'Welsh'``.
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `Corcencc` and the text level is set to
@@ -125,7 +129,10 @@ class CorcenccParser(BaseParser):
                     f"Error expected token is a tag: {token}"
                 )
 
-        dataset_name = "Corcencc"
+        if dataset_name is None:
+            dataset_name = "Corcencc"
+        if language is None:
+            language = "Welsh"
         text_level = TextLevel.sentence
 
         logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
@@ -358,6 +365,7 @@ class CorcenccParser(BaseParser):
             name=dataset_name,
             text_level=text_level,
             labels_removed=label_filter,
-            texts=evaluation_texts
+            texts=evaluation_texts,
+            language=language,
         )
                 

@@ -52,6 +52,7 @@ class TestICCIrishParser:
         one_token_data_file = get_test_icc_irish_directory / "icc_one_token.tsv"
         dataset = ICCIrishParser.parse(one_token_data_file)
         assert dataset.name == "ICCIrish"
+        assert dataset.language == "Irish"
         assert dataset.text_level == "paragraph"
 
         assert len(dataset.texts) == 1

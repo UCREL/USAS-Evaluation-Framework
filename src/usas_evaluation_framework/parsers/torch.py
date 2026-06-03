@@ -34,11 +34,13 @@ class TorchParser(BaseParser):
     def parse(dataset_path: Path,
               label_validation: set[str] | None = None,
               label_filter: set[str] | None = None,
+              dataset_name: str | None = "Torch",
+              language: str | None = "Chinese",
               ) -> EvaluationDataset:
         """
         Parses the ToRCH corpus into the Evaluation Dataset format, for
         easy evaluation of USAS WSD models.
-        
+
         If the label filter is used then the semantic label for that token will be
         an empty string, this empty string will not be raised as a validation error
         through label validation if this is not None.
@@ -56,7 +58,7 @@ class TorchParser(BaseParser):
         are not valid tags and are replaced with an empty string or if possible
         with a valid tag. In addition if there are no corrected USAS tags and the
         predicted USAS tags are `PUNCT` then the semantic tags will also be `PUNCT`.
-        
+
         Args:
             dataset_path: Path to the ToRCH corpus, should be in CSV format.
             label_validation: A set of labels that the semantic/dataset labels should
@@ -65,6 +67,8 @@ class TorchParser(BaseParser):
                 that will not be returned, i.e. all USAS tags after the first `;`.
             label_filter: A set of labels from the dataset that should be filtered out.
                 Defaults to `None` in which case no filtering is performed.
+            dataset_name: Name for the returned dataset. Defaults to ``'Torch'``.
+            language: Language of the corpus. Defaults to ``'Chinese'``.
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `Torch` and the text level is set to
@@ -173,7 +177,10 @@ class TorchParser(BaseParser):
                     f"Error expected token is a tag: {token}"
                 )
 
-        dataset_name = "Torch"
+        if dataset_name is None:
+            dataset_name = "Torch"
+        if language is None:
+            language = "Chinese"
         text_level = TextLevel.sentence
 
         logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
@@ -276,5 +283,6 @@ class TorchParser(BaseParser):
         return EvaluationDataset(name=dataset_name,
                                  text_level=text_level,
                                  labels_removed=label_filter,
-                                 texts=evaluation_texts)
+                                 texts=evaluation_texts,
+                                 language=language)
                 

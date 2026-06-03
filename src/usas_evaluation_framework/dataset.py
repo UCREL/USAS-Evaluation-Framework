@@ -87,6 +87,7 @@ class EvaluationDataset(BaseModel):
     """
     name: str
     text_level: TextLevel
+    language: str | None = None
     labels_removed: set[str] | None = None
     texts: list[EvaluationTexts]
 

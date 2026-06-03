@@ -156,6 +156,39 @@ def test_evaluation_texts_none_values(evaluation_texts_data: EvaluationTextsData
     assert texts.mwe_indexes is None
 
 
+@pytest.mark.parametrize("language", [None, "Spanish", "English", "Welsh", "Irish"])
+def test_evaluation_dataset_language(language: str | None) -> None:
+    """EvaluationDataset.language round-trips the supplied value (including None)."""
+    dataset = EvaluationDataset(
+        name="Test Dataset",
+        text_level=TextLevel.sentence,
+        texts=[],
+        language=language,
+    )
+    assert dataset.language == language
+
+
+@pytest.mark.parametrize("language_a,language_b", [
+    ("Spanish", "English"),
+    ("Spanish", None),
+    (None, "English"),
+])
+def test_evaluation_dataset_language_in_equality(
+    language_a: str | None,
+    language_b: str | None,
+    evaluation_texts_data: EvaluationTextsData,
+) -> None:
+    """Two EvaluationDatasets with different language values are not equal."""
+    texts = [EvaluationTexts(**evaluation_texts_data)]
+    dataset_a = EvaluationDataset(
+        name="Test Dataset", text_level=TextLevel.sentence, texts=texts, language=language_a
+    )
+    dataset_b = EvaluationDataset(
+        name="Test Dataset", text_level=TextLevel.sentence, texts=texts, language=language_b
+    )
+    assert dataset_a != dataset_b
+
+
 def test_evaluation_dataset_valid_initialization(evaluation_texts_data: EvaluationTextsData) -> None:
     texts = [
         EvaluationTexts(
