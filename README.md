@@ -147,3 +147,6 @@ The following data files, that we use for testing, are licensed under [Creative 
 * [./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt](./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt)
 * [./tests/data/parsers/torch/torch_corpus.csv](./tests/data/parsers/torch/torch_corpus.csv)
 * [./tests/data/parsers/corcencc/corcencc_corpus.txt](./tests/data/parsers/corcencc/corcencc_corpus.txt)
+
+The following data files, that we use for testing, are licensed under [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
+* [./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv](./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv)
