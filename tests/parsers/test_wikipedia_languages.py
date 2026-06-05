@@ -5,8 +5,10 @@ import pytest
 
 from tests.utils_test import get_test_data_directory  # noqa: F401
 from usas_evaluation_framework.data_utils import load_usas_mapper
+from usas_evaluation_framework.parsers.danish_wikipedia import DanishWikipediaUSAS
 from usas_evaluation_framework.parsers.dutch_wikipedia import DutchWikipediaUSAS
 from usas_evaluation_framework.parsers.english_wikipedia import EnglishWikipediaUSAS
+from usas_evaluation_framework.parsers.hindi_wikipedia import HindiWikipediaUSAS
 from usas_evaluation_framework.parsers.spanish_wikipedia import SpanishWikipediaUSAS
 from usas_evaluation_framework.parsers.wikipedia import WikipediaUSAS
 
@@ -31,6 +33,18 @@ LANGUAGE_PARAMS = [
         58, 1088, 944, 32,
         id="Dutch"
     ),
+    pytest.param(
+        DanishWikipediaUSAS, "Danish",
+        "danish_wikipedia", "danish_wikipedia_corpus.csv",
+        58, 1104, 949, 5,
+        id="Danish"
+    ),
+    pytest.param(
+        HindiWikipediaUSAS, "Hindi",
+        "hindi_wikipedia", "hindi_wikipedia_corpus.csv",
+        80, 2013, 1810, 2,
+        id="Hindi"
+    )
 ]
 
 
