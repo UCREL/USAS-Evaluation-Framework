@@ -150,3 +150,4 @@ The following data files, that we use for testing, are licensed under [Creative 
 
 The following data files, that we use for testing, are licensed under [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 * [./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv](./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv)
+* [./tests/data/parsers/english_wikipedia/english_wikipedia_corpus.csv](./tests/data/parsers/english_wikipedia/english_wikipedia_corpus.csv)
