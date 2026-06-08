@@ -145,7 +145,7 @@ uv run scripts/medical_wikipedia_excel_to_csv.py ./Data/Final_Annotated_Data/Spa
 
 **Note** to use this script you need to instal the `excel-conversion` extra: `uv pip install ".[excel-conversion]"`
 
-If you want to convert the NAACL 2015 Excel files into a single CSV script the following script will do so;
+If you want to convert the [NAACL 2015](https://aclanthology.org/N15-1137.pdf) Excel files into a single CSV script the following script will do so;
 
 
 ``` bash
@@ -171,6 +171,12 @@ uv run scripts/naacl_2015_chinese_excel_to_csv.py --help
 ╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
+An example that takes the original Excel files from NAACL 2015 and outputs a combined CSV file:
+
+``` bash
+uv run scripts/naacl_2015_chinese_excel_to_csv.py ./Data/naacl2015_chinese_data -o ./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv
+```
+
 ## License
 
 The code is licensed under [Apache License Version 2.0](./LICENSE).
@@ -187,3 +193,6 @@ The following data files, that we use for testing, are licensed under [Creative 
 * [./tests/data/parsers/dutch_wikipedia/dutch_wikipedia_corpus.csv](./tests/data/parsers/dutch_wikipedia/dutch_wikipedia_corpus.csv)
 * [./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv](./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv)
 * [./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv](./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv)
+
+The following data files currently have no or more specifically unknown license:
+* [./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv](./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv) 
