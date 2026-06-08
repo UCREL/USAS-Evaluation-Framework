@@ -1,4 +1,40 @@
-"""Script to parse all Excel files in a folder into a single CSV file."""
+"""Script to parse all Excel files in a folder into a single CSV file.
+
+Expected input columns (Excel files)
+--------------------------------------
+All columns are passed through unchanged. The following column names carry
+special meaning and must be present for the relevant options to take effect:
+
+``id``
+    Token identifier used to derive sentence and token counts in the summary
+    statistics.  Expected format: ``<sentence_key>|<token_index>`` (e.g.
+    ``doc1|3``).  Rows whose ``id`` cell is empty are treated as non-token rows
+    (e.g. blank separator rows) and excluded from counts.
+
+``POS``
+    Part-of-speech tag for each token.  Used by ``--punct-to-z9``: rows where
+    ``POS == 'PUNCT'`` may trigger a Z9 substitution in ``corrected USAS``.
+
+``predicted USAS``
+    USAS semantic tag produced by the tagger.  Used by ``--punct-to-z9``: rows
+    where ``predicted USAS == 'PUNCT'`` may trigger a Z9 substitution in
+    ``corrected USAS``.
+
+``corrected USAS``
+    Human-corrected USAS semantic tag.  Reported in summary statistics and
+    modified in-place by ``--punct-to-z9``.
+
+Output CSV columns
+------------------
+``source_file`` *(optional)*
+    Inserted as the first column when ``--add-source`` is supplied.  Contains
+    the filename (not the full path) of the Excel file the row originated from.
+
+All remaining columns are the union of columns from every processed Excel file,
+concatenated in the order the files are read.  Column values are unchanged
+except that ``corrected USAS`` may be set to ``Z9`` when ``--punct-to-z9`` is
+active (see ``--help`` for the exact substitution rules).
+"""
 
 from pathlib import Path
 from typing import Annotated
