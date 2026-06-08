@@ -92,16 +92,18 @@ In the future we should be able to replace [./src/usas_evaluation_framework/data
 
 ## Scripts
 
-### Excel to CSV
+### Wikipedia Medical 2026 Excel data to CSV
 
 **Note** to use this script you need to instal the `excel-conversion` extra: `uv pip install ".[excel-conversion]"`
 
-If you want to convert a folder of Excel files to a single CSV file use the [./scripts/excel_to_csv.py script](./scripts/excel_to_csv.py):
+If you want to convert the annotated Wikipedia Medical 2026 Excel data to CSV, this script will do so; it assumes that one folder of excel files (each folder we assumed to only contain one language at time of processing this data) is given as input and the output is a single CSV file containing all of the Excel file data;
+
+To note that all of the fields are parsed into the CSV unchanged apart from special cases listed in the help output below, for more detail have a read of the script itself; [./scripts/medical_wikipedia_excel_to_csv.py script](./scripts/medical_wikipedia_excel_to_csv.py):
 
 ``` bash
-uv run scripts/excel_to_csv.py --help
+uv run scripts/medical_wikipedia_excel_to_csv.py --help
                                                                                                                                                                                                                                                                                                                                                                                                                                         
- Usage: excel_to_csv.py [OPTIONS] FOLDER                                                                                                                                                                                                                                                                                                                                                                                                
+ Usage: medical_wikipedia_excel_to_csv.py [OPTIONS] FOLDER                                                                                                                                                                                                                                                                                                                                                                                                
                                                                                                                                                                                                                                                                                                                                                                                                                                         
  Parse all Excel files in FOLDER into a single CSV file.                                                                                                                                                                                                                                                                                                                                                                                
                                                                                                                                                                                                                                                                                                                                                                                                                                         
@@ -135,8 +137,13 @@ uv run scripts/excel_to_csv.py --help
 For example, which takes all of the excel files in `./Data/Final_Annotated_Data/Spanish` and writes all the rows from all the files into one CSV file `Data/spanish.csv`
 
 ``` bash
-uv run scripts/excel_to_csv.py ./Data/Final_Annotated_Data/Spanish --output Data/alt_spanish.csv --punct-to-z9
+uv run scripts/medical_wikipedia_excel_to_csv.py ./Data/Final_Annotated_Data/Spanish --output Data/alt_spanish.csv --punct-to-z9
 ```
+
+
+###
+
+**Note** to use this script you need to instal the `excel-conversion` extra: `uv pip install ".[excel-conversion]"`
 
 ## License
 
