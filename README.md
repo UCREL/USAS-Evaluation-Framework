@@ -177,6 +177,10 @@ An example that takes the original Excel files from NAACL 2015 and outputs a com
 uv run scripts/naacl_2015_chinese_excel_to_csv.py ./Data/naacl2015_chinese_data -o ./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv
 ```
 
+``` bash
+uv run scripts/naacl_2015_chinese_excel_to_csv.py ./Data/naacl2015_italian_data -l italian -o ./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv
+```
+
 ## License
 
 The code is licensed under [Apache License Version 2.0](./LICENSE).

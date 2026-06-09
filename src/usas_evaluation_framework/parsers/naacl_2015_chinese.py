@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
 
 class NAACL2015ChineseUSAS(BaseParser):
     """
-    Parser for the NAACL 2015 Chinese USAS corpus.
+    Parser for the NAACL 2015 Chinese USAS corpus, with optional support for
+    corpora that include an ``mwe`` column (e.g. the Italian variant).
 
     The corpus is stored as a CSV file with the following columns:
 
@@ -26,6 +27,10 @@ class NAACL2015ChineseUSAS(BaseParser):
     - ``token``: the token text
     - ``corrected_usas``: human-corrected USAS tag (single tag or multi-tag
       ``/``-separated, or empty when no tag is applicable)
+    - ``mwe`` *(optional)*: integer group identifier for Multi Word Expressions.
+      Blank means the token is not part of any MWE; a positive integer (stored
+      as a float string such as ``1.0``) means the token belongs to that MWE
+      group. All tokens sharing the same integer form one MWE.
 
     Sentences are delimited by empty rows in the CSV.
 
@@ -34,8 +39,10 @@ class NAACL2015ChineseUSAS(BaseParser):
     1. If ``corrected_usas`` is non-empty, it is used directly as the tag.
     2. Otherwise an empty string is assigned.
 
-    This corpus does not contain lemmas, POS tags, or MWE annotations; those
-    fields are ``None`` in the returned dataset.
+    When the ``mwe`` column is absent, ``mwe_indexes`` is ``None`` on every
+    returned :class:`EvaluationTexts`.  When the column is present,
+    ``mwe_indexes`` is a list of :class:`frozenset` — ``frozenset()`` for
+    tokens not in any MWE, ``frozenset({n})`` for tokens in MWE group *n*.
 
     The main parsing method is :meth:`parse`.
     """
@@ -72,7 +79,11 @@ class NAACL2015ChineseUSAS(BaseParser):
         language: str | None = "Chinese",
     ) -> EvaluationDataset:
         """
-        Parse a NAACL 2015 Chinese USAS corpus into the Evaluation Dataset format.
+        Parse a NAACL 2015 USAS corpus CSV into the Evaluation Dataset format.
+
+        The CSV must contain columns ``id``, ``token``, and ``corrected_usas``.
+        If an ``mwe`` column is also present, MWE information is read and
+        propagated to ``mwe_indexes`` on each :class:`EvaluationTexts`.
 
         Empty tags are not checked against ``label_validation``.
 
@@ -81,7 +92,7 @@ class NAACL2015ChineseUSAS(BaseParser):
         must appear in ``label_filter`` for the token to be filtered out.
 
         Args:
-            dataset_path: Path to the NAACL 2015 Chinese CSV file.
+            dataset_path: Path to the corpus CSV file.
             label_validation: Optional set of valid semantic labels.  When
                 supplied, every resolved tag (excluding ``''``) is checked
                 against this set per sub-tag.
@@ -92,11 +103,13 @@ class NAACL2015ChineseUSAS(BaseParser):
             language: Language of the corpus. Defaults to ``'Chinese'``.
         Returns:
             EvaluationDataset: Parsed dataset at sentence-level granularity.
-            Tokens and semantic tags are populated; lemmas, POS tags, and MWE
-            indexes are ``None``.
+            Tokens and semantic tags are populated; lemmas and POS tags are
+            ``None``.  ``mwe_indexes`` is ``None`` when no ``mwe`` column is
+            present, otherwise a list of frozensets per sentence.
         Raises:
-            ValueError: If a token ID does not match the expected format, or a
-                tag fails label validation.
+            ValueError: If a token ID does not match the expected format, a
+                tag fails label validation, or an MWE cell contains a value
+                that cannot be parsed as a positive integer.
         """
         if dataset_name is None:
             dataset_name = "NAACL 2015"
@@ -110,6 +123,7 @@ class NAACL2015ChineseUSAS(BaseParser):
         evaluation_texts: list[EvaluationTexts] = []
         sentence_rows: list[list[str]] = []
         current_sentence_key: str | None = None
+        has_mwe = False  # updated after reading the header
 
         def flush(rows: list[list[str]]) -> None:
             if not rows:
@@ -117,6 +131,7 @@ class NAACL2015ChineseUSAS(BaseParser):
 
             tokens: list[str] = []
             usas_tags: list[str] = []
+            mwe_idx_list: list[frozenset[int]] = []
 
             for row in rows:
                 while len(row) < 3:
@@ -134,6 +149,40 @@ class NAACL2015ChineseUSAS(BaseParser):
 
                 tokens.append(token)
                 usas_tags.append(usas_tag)
+
+                if has_mwe:
+                    mwe_raw = row[3].strip() if len(row) > 3 else ''
+                    if mwe_raw:
+                        try:
+                            mwe_int = int(float(mwe_raw))
+                            if mwe_int <= 0:
+                                raise ValueError(
+                                    f"MWE index must be a positive integer, got '{mwe_raw}'"
+                                )
+                            mwe_idx_list.append(frozenset({mwe_int}))
+                        except (ValueError, OverflowError) as exc:
+                            raise ValueError(
+                                f"Invalid MWE value '{mwe_raw}' for token '{token}'"
+                            ) from exc
+                    else:
+                        mwe_idx_list.append(frozenset())
+
+            # Re-index MWE groups to start at 1 within this sentence, so that
+            # annotator-level indexes that span sentence boundaries are normalised.
+            if has_mwe:
+                remap: dict[int, int] = {}
+                next_local = 1
+                remapped: list[frozenset[int]] = []
+                for fs in mwe_idx_list:
+                    if fs:
+                        orig = next(iter(fs))
+                        if orig not in remap:
+                            remap[orig] = next_local
+                            next_local += 1
+                        remapped.append(frozenset({remap[orig]}))
+                    else:
+                        remapped.append(frozenset())
+                mwe_idx_list = remapped
 
             # Label filtering
             if label_filter is not None:
@@ -157,13 +206,14 @@ class NAACL2015ChineseUSAS(BaseParser):
                     lemmas=None,
                     pos_tags=None,
                     semantic_tags=create_inner_list(usas_tags),
-                    mwe_indexes=None,
+                    mwe_indexes=mwe_idx_list if has_mwe else None,
                 )
             )
 
         with dataset_path.open('r', encoding='utf-8', newline='') as f:
             reader = csv.reader(f)
-            next(reader)  # skip header row
+            header = next(reader)
+            has_mwe = len(header) > 3 and header[3].strip() == 'mwe'
 
             for row in reader:
                 # Empty row → sentence boundary
