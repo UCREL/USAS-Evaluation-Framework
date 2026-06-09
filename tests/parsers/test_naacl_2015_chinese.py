@@ -10,10 +10,10 @@ from usas_evaluation_framework.dataset import (
     EvaluationTexts,
     TextLevel,
 )
-from usas_evaluation_framework.parsers.naacl_2015_chinese import NAACL2015ChineseUSAS
+from usas_evaluation_framework.parsers.naacl_2015 import NAACL2015USAS
 
 
-class TestNAACL2015ChineseUSAS:
+class TestNAACL2015USAS:
 
     @pytest.fixture
     def get_test_directory(self, get_test_data_directory: Path) -> Path:  # noqa: F811
@@ -25,12 +25,12 @@ class TestNAACL2015ChineseUSAS:
 
     def test_parse_default_dataset_name(self, get_test_directory: Path) -> None:
         """Without dataset_name the returned dataset is named 'NAACL 2015'."""
-        dataset = NAACL2015ChineseUSAS.parse(get_test_directory / "naacl_2015_chinese_empty.csv")
+        dataset = NAACL2015USAS.parse(get_test_directory / "naacl_2015_chinese_empty.csv")
         assert dataset.name == "NAACL 2015"
 
     def test_parse_none_dataset_name_uses_default(self, get_test_directory: Path) -> None:
         """Passing dataset_name=None falls back to 'NAACL 2015'."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_empty.csv",
             dataset_name=None,
         )
@@ -44,7 +44,7 @@ class TestNAACL2015ChineseUSAS:
         self, get_test_directory: Path, dataset_name: str
     ) -> None:
         """dataset_name is stored on the returned EvaluationDataset."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_empty.csv",
             dataset_name=dataset_name,
         )
@@ -55,16 +55,16 @@ class TestNAACL2015ChineseUSAS:
     # ------------------------------------------------------------------
 
     def test_parse_default_language(self, get_test_directory: Path) -> None:
-        """Without language the returned dataset has language='Chinese'."""
-        dataset = NAACL2015ChineseUSAS.parse(get_test_directory / "naacl_2015_chinese_empty.csv")
-        assert dataset.language == "Chinese"
+        """Without language the returned dataset has language=None."""
+        dataset = NAACL2015USAS.parse(get_test_directory / "naacl_2015_chinese_empty.csv")
+        assert dataset.language is None
 
     @pytest.mark.parametrize("language", ["Mandarin", "Cantonese", None])
     def test_parse_custom_language(
         self, get_test_directory: Path, language: str | None
     ) -> None:
         """language is stored on the returned EvaluationDataset."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_empty.csv",
             language=language,
         )
@@ -76,8 +76,9 @@ class TestNAACL2015ChineseUSAS:
 
     def test_parse_empty(self, get_test_directory: Path) -> None:
         """An empty file (header only) produces an empty dataset."""
-        dataset = NAACL2015ChineseUSAS.parse(
-            get_test_directory / "naacl_2015_chinese_empty.csv"
+        dataset = NAACL2015USAS.parse(
+            get_test_directory / "naacl_2015_chinese_empty.csv",
+            language="Chinese",
         )
         assert isinstance(dataset, EvaluationDataset)
         assert dataset.name == "NAACL 2015"
@@ -88,7 +89,7 @@ class TestNAACL2015ChineseUSAS:
 
     def test_parse_one_token(self, get_test_directory: Path) -> None:
         """Single sentence, single token — uses corrected USAS directly."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_one_token.csv"
         )
         assert len(dataset.texts) == 1
@@ -106,7 +107,7 @@ class TestNAACL2015ChineseUSAS:
 
     def test_parse_no_lemmas(self, get_test_directory: Path) -> None:
         """The corpus does not supply lemmas; lemmas is always None."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_small_example.csv"
         )
         for text in dataset.texts:
@@ -114,7 +115,7 @@ class TestNAACL2015ChineseUSAS:
 
     def test_parse_no_pos_tags(self, get_test_directory: Path) -> None:
         """The corpus does not supply POS tags; pos_tags is always None."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_small_example.csv"
         )
         for text in dataset.texts:
@@ -122,7 +123,7 @@ class TestNAACL2015ChineseUSAS:
 
     def test_parse_no_mwe_indexes(self, get_test_directory: Path) -> None:
         """The corpus does not supply MWE annotations; mwe_indexes is always None."""
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_small_example.csv"
         )
         for text in dataset.texts:
@@ -190,9 +191,10 @@ class TestNAACL2015ChineseUSAS:
         small_example_expected: tuple[EvaluationDataset, set[str] | None],
     ) -> None:
         expected, label_filter = small_example_expected
-        dataset = NAACL2015ChineseUSAS.parse(
+        dataset = NAACL2015USAS.parse(
             get_test_directory / "naacl_2015_chinese_small_example.csv",
             label_filter=label_filter,
+            language="Chinese",
         )
 
         assert len(dataset.texts) == 2
@@ -213,14 +215,14 @@ class TestNAACL2015ChineseUSAS:
     def test_parse_invalid_id_format(self, get_test_directory: Path) -> None:
         """A token ID that does not match <article>|<sentence_id>|<token_id> raises ValueError."""
         with pytest.raises(ValueError, match="does not match expected format"):
-            NAACL2015ChineseUSAS.parse(
+            NAACL2015USAS.parse(
                 get_test_directory / "naacl_2015_chinese_invalid_id_format.csv"
             )
 
     def test_parse_wrong_usas_format(self, get_test_directory: Path) -> None:
         """A corrected USAS tag that cannot be parsed raises ValueError."""
         with pytest.raises(ValueError):
-            NAACL2015ChineseUSAS.parse(
+            NAACL2015USAS.parse(
                 get_test_directory / "naacl_2015_chinese_wrong_format.csv"
             )
 
@@ -252,13 +254,13 @@ class TestNAACL2015ChineseUSAS:
         validation_labels, to_error = label_validation_and_error
         if to_error:
             with pytest.raises(ValueError):
-                NAACL2015ChineseUSAS.parse(
+                NAACL2015USAS.parse(
                     data_file,
                     label_validation=validation_labels,
                     label_filter=label_filter,
                 )
         else:
-            dataset = NAACL2015ChineseUSAS.parse(
+            dataset = NAACL2015USAS.parse(
                 data_file,
                 label_validation=validation_labels,
                 label_filter=label_filter,
@@ -281,7 +283,7 @@ class TestNAACL2015ChineseUSAS:
         valid_usas_tags = set(usas_mapper.keys())
         tags_to_filter: set[str] = set()
 
-        dataset = NAACL2015ChineseUSAS.parse(data_file, valid_usas_tags, tags_to_filter)
+        dataset = NAACL2015USAS.parse(data_file, valid_usas_tags, tags_to_filter, language="Chinese")
 
         assert isinstance(dataset, EvaluationDataset)
         assert dataset.name == "NAACL 2015"

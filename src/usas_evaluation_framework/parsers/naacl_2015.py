@@ -16,10 +16,9 @@ from usas_evaluation_framework.parsers.base import BaseParser
 logger = logging.getLogger(__name__)
 
 
-class NAACL2015ChineseUSAS(BaseParser):
+class NAACL2015USAS(BaseParser):
     """
-    Parser for the NAACL 2015 Chinese USAS corpus, with optional support for
-    corpora that include an ``mwe`` column (e.g. the Italian variant).
+    Parser for NAACL 2015 USAS corpora (Chinese, Italian, and others).
 
     The corpus is stored as a CSV file with the following columns:
 
@@ -76,7 +75,7 @@ class NAACL2015ChineseUSAS(BaseParser):
         label_validation: set[str] | None = None,
         label_filter: set[str] | None = None,
         dataset_name: str | None = "NAACL 2015",
-        language: str | None = "Chinese",
+        language: str | None = None,
     ) -> EvaluationDataset:
         """
         Parse a NAACL 2015 USAS corpus CSV into the Evaluation Dataset format.
@@ -100,7 +99,7 @@ class NAACL2015ChineseUSAS(BaseParser):
                 receive an empty-string tag.
             dataset_name: Name for the returned dataset.
                 Defaults to ``'NAACL 2015'``.
-            language: Language of the corpus. Defaults to ``'Chinese'``.
+            language: Language of the corpus. Defaults to ``None``.
         Returns:
             EvaluationDataset: Parsed dataset at sentence-level granularity.
             Tokens and semantic tags are populated; lemmas and POS tags are
@@ -141,7 +140,7 @@ class NAACL2015ChineseUSAS(BaseParser):
                 corrected_usas = row[2].strip()
 
                 try:
-                    usas_tag = NAACL2015ChineseUSAS._resolve_usas_tag(corrected_usas)
+                    usas_tag = NAACL2015USAS._resolve_usas_tag(corrected_usas)
                 except ValueError as e:
                     raise ValueError(
                         f"Error resolving USAS tag for token '{token}': {e}"
