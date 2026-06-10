@@ -358,7 +358,7 @@ class TestNAACL2015ItalianUSAS:
         assert dataset.name == "NAACL 2015"
         assert dataset.language == "Italian"
         assert dataset.text_level == TextLevel.sentence
-        assert len(dataset.texts) == 42
+        assert len(dataset.texts) == 215
 
         token_count = 0
         mwe_token_count = 0
@@ -374,10 +374,18 @@ class TestNAACL2015ItalianUSAS:
                 if fs:
                     mwe_token_count += 1
 
-        assert token_count == 1305
-        assert mwe_token_count == 2
+        assert token_count == 4499
+        assert mwe_token_count == 41
 
-        # MWE group 1 is in sentence 21 (index 20), at token positions 19 and 20
+        # MWE Group test
         sentence_21 = dataset.texts[20]
         assert sentence_21.mwe_indexes[19] == frozenset({1})
         assert sentence_21.mwe_indexes[20] == frozenset({1})
+
+
+        sentence_194 = dataset.texts[193]
+        print(sentence_194.mwe_indexes)
+        assert sentence_194.mwe_indexes[5] == frozenset({1})
+        assert sentence_194.mwe_indexes[6] == frozenset({1})
+        assert sentence_194.mwe_indexes[59] == frozenset({2})
+        assert sentence_194.mwe_indexes[60] == frozenset({2})
