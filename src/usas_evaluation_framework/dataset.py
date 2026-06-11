@@ -80,6 +80,8 @@ class DatasetStats(BaseModel):
         num_tokens (int): Total number of tokens across all texts.
         num_semantic_tags (int | None): Total number of individual semantic tag strings
             assigned across all tokens. None if no texts have semantic tags.
+        num_labelled_tokens (int | None): Number of tokens that have at least one semantic
+            tag assigned. None if no texts have semantic tags.
         num_compound_semantic_tags (int | None): Number of semantic tag strings containing
             a '/' (e.g. 'B2/A1.1.1'). None if no texts have semantic tags.
         unique_semantic_tags (frozenset[str] | None): The set of distinct semantic tag strings
@@ -90,6 +92,7 @@ class DatasetStats(BaseModel):
     num_texts: int
     num_tokens: int
     num_semantic_tags: int | None
+    num_labelled_tokens: int | None
     num_compound_semantic_tags: int | None
     unique_semantic_tags: frozenset[str] | None
     num_mwes: int | None
@@ -166,10 +169,18 @@ class EvaluationDataset(BaseModel):
         ]
         if all_tags:
             num_semantic_tags: int | None = len(all_tags)
+            num_labelled_tokens: int | None = sum(
+                1
+                for t in self.texts
+                if t.semantic_tags is not None
+                for tag_list in t.semantic_tags
+                if tag_list
+            )
             num_compound_semantic_tags: int | None = sum(1 for tag in all_tags if "/" in tag)
             unique_semantic_tags: frozenset[str] | None = frozenset(all_tags)
         else:
             num_semantic_tags = None
+            num_labelled_tokens = None
             num_compound_semantic_tags = None
             unique_semantic_tags = None
 
@@ -186,6 +197,7 @@ class EvaluationDataset(BaseModel):
             num_texts=len(self),
             num_tokens=num_tokens,
             num_semantic_tags=num_semantic_tags,
+            num_labelled_tokens=num_labelled_tokens,
             num_compound_semantic_tags=num_compound_semantic_tags,
             unique_semantic_tags=unique_semantic_tags,
             num_mwes=num_mwes,

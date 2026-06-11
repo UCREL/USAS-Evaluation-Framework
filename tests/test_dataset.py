@@ -384,6 +384,7 @@ def test_stats_empty_dataset() -> None:
         num_texts=0,
         num_tokens=0,
         num_semantic_tags=None,
+        num_labelled_tokens=None,
         num_compound_semantic_tags=None,
         unique_semantic_tags=None,
         num_mwes=None,
@@ -400,6 +401,7 @@ def test_stats_no_annotations() -> None:
     assert stats.num_texts == 2
     assert stats.num_tokens == 5
     assert stats.num_semantic_tags is None
+    assert stats.num_labelled_tokens is None
     assert stats.num_compound_semantic_tags is None
     assert stats.unique_semantic_tags is None
     assert stats.num_mwes is None
@@ -421,6 +423,7 @@ def test_stats_semantic_tags_simple() -> None:
     )
     stats = dataset.stats()
     assert stats.num_semantic_tags == 3
+    assert stats.num_labelled_tokens == 3
     assert stats.num_compound_semantic_tags == 0
     assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
 
@@ -432,6 +435,7 @@ def test_stats_semantic_tags_multiple_per_token() -> None:
     )
     stats = dataset.stats()
     assert stats.num_semantic_tags == 3
+    assert stats.num_labelled_tokens == 2
     assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
 
 
@@ -442,6 +446,7 @@ def test_stats_compound_semantic_tags() -> None:
     )
     stats = dataset.stats()
     assert stats.num_semantic_tags == 3
+    assert stats.num_labelled_tokens == 3
     assert stats.num_compound_semantic_tags == 2
 
 
@@ -453,7 +458,18 @@ def test_stats_unique_semantic_tags_deduplication() -> None:
     )
     stats = dataset.stats()
     assert stats.num_semantic_tags == 4  # total tag strings, including duplicates
+    assert stats.num_labelled_tokens == 4
     assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_labelled_tokens_partial() -> None:
+    """num_labelled_tokens counts only tokens with at least one tag, not those with empty lists."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[["A1"], [], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_labelled_tokens == 2
+    assert stats.num_semantic_tags == 2
 
 
 def test_stats_mwe_count_distinct_per_text() -> None:
@@ -487,6 +503,7 @@ def test_stats_uses_fixture_data(evaluation_texts_data: EvaluationTextsData) -> 
     assert stats.num_texts == 1
     assert stats.num_tokens == 6
     assert stats.num_semantic_tags == 6   # one tag per token
+    assert stats.num_labelled_tokens == 6
     assert stats.num_compound_semantic_tags == 0
     assert stats.unique_semantic_tags == frozenset({"Z1", "Z2", "Z3", "Z4", "Z5", "Z6"})
     assert stats.num_mwes == 6  # each token is its own MWE (IDs 1–6)
