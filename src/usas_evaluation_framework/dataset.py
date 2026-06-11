@@ -71,6 +71,30 @@ class EvaluationTexts(BaseModel):
         return self
 
 
+class DatasetStats(BaseModel):
+    """
+    Statistics about an EvaluationDataset.
+
+    Attributes:
+        num_texts (int): Number of texts in the dataset.
+        num_tokens (int): Total number of tokens across all texts.
+        num_semantic_tags (int | None): Total number of individual semantic tag strings
+            assigned across all tokens. None if no texts have semantic tags.
+        num_compound_semantic_tags (int | None): Number of semantic tag strings containing
+            a '/' (e.g. 'B2/A1.1.1'). None if no texts have semantic tags.
+        unique_semantic_tags (frozenset[str] | None): The set of distinct semantic tag strings
+            that appear in the dataset. None if no texts have semantic tags.
+        num_mwes (int | None): Number of distinct Multi Word Expressions across all texts.
+            None if no texts have MWE indexes.
+    """
+    num_texts: int
+    num_tokens: int
+    num_semantic_tags: int | None
+    num_compound_semantic_tags: int | None
+    unique_semantic_tags: frozenset[str] | None
+    num_mwes: int | None
+
+
 class EvaluationDataset(BaseModel):
     """
     A representation of a dataset, it can be used to hold either gold/true
@@ -122,5 +146,48 @@ class EvaluationDataset(BaseModel):
                 return False
 
         return True
-    
+
+    def stats(self: "EvaluationDataset") -> DatasetStats:
+        """
+        Returns statistics about the dataset.
+
+        Returns:
+            A DatasetStats object containing counts of texts, tokens, semantic tags,
+            compound semantic tags, unique semantic tags, and MWEs.
+        """
+        num_tokens = sum(len(t.tokens) for t in self.texts)
+
+        all_tags = [
+            tag
+            for t in self.texts
+            if t.semantic_tags is not None
+            for tag_list in t.semantic_tags
+            for tag in tag_list
+        ]
+        if all_tags:
+            num_semantic_tags: int | None = len(all_tags)
+            num_compound_semantic_tags: int | None = sum(1 for tag in all_tags if "/" in tag)
+            unique_semantic_tags: frozenset[str] | None = frozenset(all_tags)
+        else:
+            num_semantic_tags = None
+            num_compound_semantic_tags = None
+            unique_semantic_tags = None
+
+        if any(t.mwe_indexes is not None for t in self.texts):
+            num_mwes: int | None = sum(
+                len({idx for fs in t.mwe_indexes for idx in fs})
+                for t in self.texts
+                if t.mwe_indexes is not None
+            )
+        else:
+            num_mwes = None
+
+        return DatasetStats(
+            num_texts=len(self),
+            num_tokens=num_tokens,
+            num_semantic_tags=num_semantic_tags,
+            num_compound_semantic_tags=num_compound_semantic_tags,
+            unique_semantic_tags=unique_semantic_tags,
+            num_mwes=num_mwes,
+        )
 
