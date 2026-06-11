@@ -581,6 +581,33 @@ def test_merge_labels_removed_identical_sets() -> None:
     assert merged.labels_removed == labels
 
 
+def test_stats_unique_semantic_tags_splits_compound_tags() -> None:
+    """Compound tags (containing '/') are split so unique_semantic_tags holds individual tags only."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[["A1/B2"], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_unique_semantic_tags_compound_deduplication() -> None:
+    """Individual tags that appear both standalone and inside a compound tag are deduplicated."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[["A1/B2"], ["A1"], ["B2/C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_unique_semantic_tags_triple_compound() -> None:
+    """Tags with two slashes (three parts) are fully expanded."""
+    dataset = _make_dataset(
+        _make_text(["a"], semantic_tags=[["X1/Y2/Z3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.unique_semantic_tags == frozenset({"X1", "Y2", "Z3"})
+
+
 def test_stats_empty_string_tags_excluded() -> None:
     """Empty strings in semantic tag lists are not counted in any tag statistic."""
     dataset = _make_dataset(
