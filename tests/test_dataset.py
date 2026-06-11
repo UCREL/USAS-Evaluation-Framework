@@ -496,6 +496,91 @@ def test_stats_mwe_all_single_tokens() -> None:
     assert dataset.stats().num_mwes == 0
 
 
+# --- merge() tests ---
+
+def test_merge_two_datasets() -> None:
+    """Merging two datasets concatenates their texts and uses the supplied name/level/language."""
+    text1 = _make_text(["Hello", "world"])
+    text2 = _make_text(["Foo", "bar"])
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, language="English", texts=[text1])
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, language="English", texts=[text2])
+    merged = EvaluationDataset.merge("merged", TextLevel.sentence, "English", ds1, ds2)
+    assert merged.name == "merged"
+    assert merged.text_level == TextLevel.sentence
+    assert merged.language == "English"
+    assert merged.texts == [text1, text2]
+    assert merged.labels_removed is None
+
+
+def test_merge_three_datasets() -> None:
+    """Merging three datasets concatenates all texts in input order."""
+    texts = [_make_text([f"tok{i}"]) for i in range(3)]
+    datasets = [
+        EvaluationDataset(name=f"ds{i}", text_level=TextLevel.sentence, texts=[texts[i]])
+        for i in range(3)
+    ]
+    merged = EvaluationDataset.merge("merged", TextLevel.paragraph, None, *datasets)
+    assert merged.texts == texts
+    assert len(merged) == 3
+
+
+def test_merge_single_dataset() -> None:
+    """Merging a single dataset succeeds and produces an equivalent dataset under the new name."""
+    text = _make_text(["Hello"])
+    ds = EvaluationDataset(name="original", text_level=TextLevel.sentence, texts=[text])
+    merged = EvaluationDataset.merge("copy", TextLevel.sentence, None, ds)
+    assert merged.name == "copy"
+    assert merged.texts == [text]
+
+
+def test_merge_different_text_level_and_language() -> None:
+    """The caller-supplied text_level and language override whatever source datasets have."""
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, language="English", texts=[])
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.paragraph, language="Spanish", texts=[])
+    merged = EvaluationDataset.merge("merged", TextLevel.document, "Welsh", ds1, ds2)
+    assert merged.text_level == TextLevel.document
+    assert merged.language == "Welsh"
+
+
+def test_merge_no_datasets_raises() -> None:
+    """Calling merge with no source datasets raises ValueError."""
+    with pytest.raises(ValueError):
+        EvaluationDataset.merge("merged", TextLevel.sentence, None)
+
+
+@pytest.mark.parametrize("labels_a,labels_b", [
+    ({"Z1"}, None),
+    (None, {"Z1"}),
+    ({"Z1"}, {"Z2"}),
+])
+def test_merge_differing_labels_removed_raises(
+    labels_a: set[str] | None,
+    labels_b: set[str] | None,
+) -> None:
+    """Merging datasets with different labels_removed values raises ValueError."""
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, texts=[], labels_removed=labels_a)
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, texts=[], labels_removed=labels_b)
+    with pytest.raises(ValueError):
+        EvaluationDataset.merge("merged", TextLevel.sentence, None, ds1, ds2)
+
+
+def test_merge_labels_removed_both_none() -> None:
+    """When all datasets have labels_removed=None the merged result also has None."""
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, texts=[])
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, texts=[])
+    merged = EvaluationDataset.merge("merged", TextLevel.sentence, None, ds1, ds2)
+    assert merged.labels_removed is None
+
+
+def test_merge_labels_removed_identical_sets() -> None:
+    """When all datasets share the same labels_removed set the merged result inherits it."""
+    labels: set[str] = {"Z1", "Z2"}
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, texts=[], labels_removed=labels)
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, texts=[], labels_removed=labels.copy())
+    merged = EvaluationDataset.merge("merged", TextLevel.sentence, None, ds1, ds2)
+    assert merged.labels_removed == labels
+
+
 def test_stats_uses_fixture_data(evaluation_texts_data: EvaluationTextsData) -> None:
     """Sanity-check stats against the shared fixture with known values."""
     dataset = _make_dataset(EvaluationTexts(**evaluation_texts_data))

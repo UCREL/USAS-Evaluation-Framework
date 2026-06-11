@@ -150,6 +150,56 @@ class EvaluationDataset(BaseModel):
 
         return True
 
+    @classmethod
+    def merge(
+        cls,
+        name: str,
+        text_level: "TextLevel",
+        language: "str | None",
+        *datasets: "EvaluationDataset",
+    ) -> "EvaluationDataset":
+        """
+        Merges one or more EvaluationDatasets into a new dataset.
+
+        The caller supplies the name, text_level, and language for the result, so
+        datasets with differing values for those fields can be combined freely.
+        All source datasets must have identical labels_removed values.
+
+        Args:
+            name: The name for the merged dataset.
+            text_level: The TextLevel for the merged dataset.
+            language: The language for the merged dataset (can be None).
+            *datasets: One or more EvaluationDataset instances to merge.
+
+        Returns:
+            A new EvaluationDataset containing all texts from the source datasets
+            in the order they were supplied.
+
+        Raises:
+            ValueError: If no datasets are provided.
+            ValueError: If datasets have differing labels_removed values.
+        """
+        if not datasets:
+            raise ValueError("At least one dataset must be provided to merge.")
+
+        first_labels_removed = datasets[0].labels_removed
+        for dataset in datasets[1:]:
+            if dataset.labels_removed != first_labels_removed:
+                raise ValueError(
+                    f"All datasets must have the same labels_removed value, "
+                    f"but got {first_labels_removed!r} and {dataset.labels_removed!r}."
+                )
+
+        merged_texts = [text for dataset in datasets for text in dataset.texts]
+
+        return cls(
+            name=name,
+            text_level=text_level,
+            language=language,
+            labels_removed=first_labels_removed,
+            texts=merged_texts,
+        )
+
     def stats(self: "EvaluationDataset") -> DatasetStats:
         """
         Returns statistics about the dataset.
