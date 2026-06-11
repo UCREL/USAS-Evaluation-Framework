@@ -85,7 +85,7 @@ class DatasetStats(BaseModel):
         num_compound_semantic_tags (int | None): Number of semantic tag strings containing
             a '/' (e.g. 'B2/A1.1.1'). None if no texts have semantic tags.
         unique_semantic_tags (frozenset[str] | None): The set of distinct semantic tag strings
-            that appear in the dataset. None if no texts have semantic tags.
+            that appear in the dataset, this includes multitag strings. None if no texts have semantic tags.
         num_mwes (int | None): Number of distinct Multi Word Expressions across all texts.
             None if no texts have MWE indexes.
     """
@@ -216,6 +216,7 @@ class EvaluationDataset(BaseModel):
             if t.semantic_tags is not None
             for tag_list in t.semantic_tags
             for tag in tag_list
+            if tag.strip()
         ]
         if all_tags:
             num_semantic_tags: int | None = len(all_tags)
@@ -224,7 +225,7 @@ class EvaluationDataset(BaseModel):
                 for t in self.texts
                 if t.semantic_tags is not None
                 for tag_list in t.semantic_tags
-                if tag_list
+                if any(tag.strip() for tag in tag_list)
             )
             num_compound_semantic_tags: int | None = sum(1 for tag in all_tags if "/" in tag)
             unique_semantic_tags: frozenset[str] | None = frozenset(all_tags)

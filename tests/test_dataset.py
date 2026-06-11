@@ -581,6 +581,41 @@ def test_merge_labels_removed_identical_sets() -> None:
     assert merged.labels_removed == labels
 
 
+def test_stats_empty_string_tags_excluded() -> None:
+    """Empty strings in semantic tag lists are not counted in any tag statistic."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[[""], ["A1"], ["", "B2"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 2           # only "A1" and "B2"
+    assert stats.num_labelled_tokens == 2         # "b" (A1) and "c" (B2); "a" has only ""
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2"})
+    assert stats.num_compound_semantic_tags == 0
+
+
+def test_stats_whitespace_only_tags_excluded() -> None:
+    """Whitespace-only strings in semantic tag lists are treated the same as empty strings."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[["   "], ["A1"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 1
+    assert stats.num_labelled_tokens == 1
+    assert stats.unique_semantic_tags == frozenset({"A1"})
+
+
+def test_stats_all_empty_string_tags_returns_none() -> None:
+    """When every tag in the dataset is an empty string the stats treat it as unannotated."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[[""], [""]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags is None
+    assert stats.num_labelled_tokens is None
+    assert stats.unique_semantic_tags is None
+    assert stats.num_compound_semantic_tags is None
+
+
 def test_stats_uses_fixture_data(evaluation_texts_data: EvaluationTextsData) -> None:
     """Sanity-check stats against the shared fixture with known values."""
     dataset = _make_dataset(EvaluationTexts(**evaluation_texts_data))
