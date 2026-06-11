@@ -187,6 +187,7 @@ class TestEnglishBenedict:
         dataset = EnglishBenedict.parse(empty_english_data_file)
         assert isinstance(dataset, EvaluationDataset)
         assert dataset.name == "Benedict English"
+        assert dataset.language == "English"
         assert dataset.text_level == "sentence"
         assert len(dataset.texts) == 0
         assert dataset.labels_removed is None
@@ -441,6 +442,7 @@ class TestFinnishBenedict:
         dataset = FinnishBenedict.parse(empty_finnish_data_file)
         assert isinstance(dataset, EvaluationDataset)
         assert dataset.name == "Benedict Finnish"
+        assert dataset.language == "Finnish"
         assert dataset.text_level == "sentence"
         assert len(dataset.texts) == 0
         assert dataset.labels_removed is None

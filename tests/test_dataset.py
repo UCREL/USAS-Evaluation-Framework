@@ -5,6 +5,7 @@ from typing import Literal, TypedDict
 import pytest
 
 from usas_evaluation_framework.dataset import (
+    DatasetStats,
     EvaluationDataset,
     EvaluationTexts,
     TextLevel,
@@ -154,6 +155,39 @@ def test_evaluation_texts_none_values(evaluation_texts_data: EvaluationTextsData
     assert texts.pos_tags is None
     assert texts.semantic_tags is None
     assert texts.mwe_indexes is None
+
+
+@pytest.mark.parametrize("language", [None, "Spanish", "English", "Welsh", "Irish"])
+def test_evaluation_dataset_language(language: str | None) -> None:
+    """EvaluationDataset.language round-trips the supplied value (including None)."""
+    dataset = EvaluationDataset(
+        name="Test Dataset",
+        text_level=TextLevel.sentence,
+        texts=[],
+        language=language,
+    )
+    assert dataset.language == language
+
+
+@pytest.mark.parametrize("language_a,language_b", [
+    ("Spanish", "English"),
+    ("Spanish", None),
+    (None, "English"),
+])
+def test_evaluation_dataset_language_in_equality(
+    language_a: str | None,
+    language_b: str | None,
+    evaluation_texts_data: EvaluationTextsData,
+) -> None:
+    """Two EvaluationDatasets with different language values are not equal."""
+    texts = [EvaluationTexts(**evaluation_texts_data)]
+    dataset_a = EvaluationDataset(
+        name="Test Dataset", text_level=TextLevel.sentence, texts=texts, language=language_a
+    )
+    dataset_b = EvaluationDataset(
+        name="Test Dataset", text_level=TextLevel.sentence, texts=texts, language=language_b
+    )
+    assert dataset_a != dataset_b
 
 
 def test_evaluation_dataset_valid_initialization(evaluation_texts_data: EvaluationTextsData) -> None:
@@ -306,7 +340,7 @@ def test_text_tokens_equal_mixed_matching(evaluation_texts_data: EvaluationTexts
         text_level=TextLevel.sentence,
         texts=texts1
     )
-    
+
     # Create a copy with different tokens for the second text (very similar but not the same)
     different_texts_data = copy.deepcopy(evaluation_texts_data)
     different_texts_data["tokens"] = ["This", "is", "a", "test", "sentences", "."]
@@ -320,3 +354,303 @@ def test_text_tokens_equal_mixed_matching(evaluation_texts_data: EvaluationTexts
         texts=texts2
     )
     assert dataset1.text_tokens_equal(dataset2) is False
+
+
+# --- stats() tests ---
+
+def _make_dataset(*texts: EvaluationTexts) -> EvaluationDataset:
+    return EvaluationDataset(name="Test", text_level=TextLevel.sentence, texts=list(texts))
+
+
+def _make_text(
+    tokens: list[str],
+    semantic_tags: list[list[str]] | None = None,
+    mwe_indexes: list[frozenset[int]] | None = None,
+) -> EvaluationTexts:
+    return EvaluationTexts(
+        text=" ".join(tokens),
+        tokens=tokens,
+        lemmas=None,
+        pos_tags=None,
+        semantic_tags=semantic_tags,
+        mwe_indexes=mwe_indexes,
+    )
+
+
+def test_stats_empty_dataset() -> None:
+    """Empty dataset returns zero texts/tokens and None for unannotated fields."""
+    stats = _make_dataset().stats()
+    assert stats == DatasetStats(
+        num_texts=0,
+        num_tokens=0,
+        num_semantic_tags=None,
+        num_labelled_tokens=None,
+        num_compound_semantic_tags=None,
+        unique_semantic_tags=None,
+        num_mwes=None,
+    )
+
+
+def test_stats_no_annotations() -> None:
+    """Dataset with no semantic_tags or mwe_indexes returns None for those fields."""
+    dataset = _make_dataset(
+        _make_text(["Hello", "world"]),
+        _make_text(["Foo", "bar", "baz"]),
+    )
+    stats = dataset.stats()
+    assert stats.num_texts == 2
+    assert stats.num_tokens == 5
+    assert stats.num_semantic_tags is None
+    assert stats.num_labelled_tokens is None
+    assert stats.num_compound_semantic_tags is None
+    assert stats.unique_semantic_tags is None
+    assert stats.num_mwes is None
+
+
+def test_stats_token_count_multiple_texts(evaluation_texts_data: EvaluationTextsData) -> None:
+    """num_tokens sums tokens across all texts."""
+    dataset = _make_dataset(
+        EvaluationTexts(**evaluation_texts_data),
+        EvaluationTexts(**evaluation_texts_data),
+    )
+    assert dataset.stats().num_tokens == 12  # 6 tokens × 2 texts
+
+
+def test_stats_semantic_tags_simple() -> None:
+    """num_semantic_tags counts individual tag strings, not tokens."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[["A1"], ["B2"], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 3
+    assert stats.num_labelled_tokens == 3
+    assert stats.num_compound_semantic_tags == 0
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_semantic_tags_multiple_per_token() -> None:
+    """Tokens with multiple candidate tags are each counted individually."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[["A1", "B2"], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 3
+    assert stats.num_labelled_tokens == 2
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_compound_semantic_tags() -> None:
+    """Tags containing '/' are counted as compound tags."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[["A1/B2"], ["C3"], ["D4/E5/F6"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 3
+    assert stats.num_labelled_tokens == 3
+    assert stats.num_compound_semantic_tags == 2
+
+
+def test_stats_unique_semantic_tags_deduplication() -> None:
+    """unique_semantic_tags deduplicates the same tag appearing across multiple texts."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[["A1"], ["B2"]]),
+        _make_text(["c", "d"], semantic_tags=[["A1"], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 4  # total tag strings, including duplicates
+    assert stats.num_labelled_tokens == 4
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_labelled_tokens_partial() -> None:
+    """num_labelled_tokens counts only tokens with at least one tag, not those with empty lists."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[["A1"], [], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_labelled_tokens == 2
+    assert stats.num_semantic_tags == 2
+
+
+def test_stats_mwe_count_distinct_per_text() -> None:
+    """num_mwes counts distinct MWE IDs per text and sums across texts."""
+    dataset = _make_dataset(
+        _make_text(
+            ["a", "b", "c", "d"],
+            mwe_indexes=[frozenset(), frozenset({1}), frozenset({1}), frozenset({2})],
+        ),
+        _make_text(
+            ["e", "f", "g"],
+            mwe_indexes=[frozenset({1}), frozenset({1}), frozenset({1})],
+        ),
+    )
+    # text 1 has MWE IDs {1, 2} → 2; text 2 has MWE IDs {1} → 1; total = 3
+    assert dataset.stats().num_mwes == 3
+
+
+def test_stats_mwe_all_single_tokens() -> None:
+    """Tokens not part of any MWE (empty frozensets) yield num_mwes=0."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], mwe_indexes=[frozenset(), frozenset(), frozenset()]),
+    )
+    assert dataset.stats().num_mwes == 0
+
+
+# --- merge() tests ---
+
+def test_merge_two_datasets() -> None:
+    """Merging two datasets concatenates their texts and uses the supplied name/level/language."""
+    text1 = _make_text(["Hello", "world"])
+    text2 = _make_text(["Foo", "bar"])
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, language="English", texts=[text1])
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, language="English", texts=[text2])
+    merged = EvaluationDataset.merge("merged", TextLevel.sentence, "English", ds1, ds2)
+    assert merged.name == "merged"
+    assert merged.text_level == TextLevel.sentence
+    assert merged.language == "English"
+    assert merged.texts == [text1, text2]
+    assert merged.labels_removed is None
+
+
+def test_merge_three_datasets() -> None:
+    """Merging three datasets concatenates all texts in input order."""
+    texts = [_make_text([f"tok{i}"]) for i in range(3)]
+    datasets = [
+        EvaluationDataset(name=f"ds{i}", text_level=TextLevel.sentence, texts=[texts[i]])
+        for i in range(3)
+    ]
+    merged = EvaluationDataset.merge("merged", TextLevel.paragraph, None, *datasets)
+    assert merged.texts == texts
+    assert len(merged) == 3
+
+
+def test_merge_single_dataset() -> None:
+    """Merging a single dataset succeeds and produces an equivalent dataset under the new name."""
+    text = _make_text(["Hello"])
+    ds = EvaluationDataset(name="original", text_level=TextLevel.sentence, texts=[text])
+    merged = EvaluationDataset.merge("copy", TextLevel.sentence, None, ds)
+    assert merged.name == "copy"
+    assert merged.texts == [text]
+
+
+def test_merge_different_text_level_and_language() -> None:
+    """The caller-supplied text_level and language override whatever source datasets have."""
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, language="English", texts=[])
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.paragraph, language="Spanish", texts=[])
+    merged = EvaluationDataset.merge("merged", TextLevel.document, "Welsh", ds1, ds2)
+    assert merged.text_level == TextLevel.document
+    assert merged.language == "Welsh"
+
+
+def test_merge_no_datasets_raises() -> None:
+    """Calling merge with no source datasets raises ValueError."""
+    with pytest.raises(ValueError):
+        EvaluationDataset.merge("merged", TextLevel.sentence, None)
+
+
+@pytest.mark.parametrize("labels_a,labels_b", [
+    ({"Z1"}, None),
+    (None, {"Z1"}),
+    ({"Z1"}, {"Z2"}),
+])
+def test_merge_differing_labels_removed_raises(
+    labels_a: set[str] | None,
+    labels_b: set[str] | None,
+) -> None:
+    """Merging datasets with different labels_removed values raises ValueError."""
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, texts=[], labels_removed=labels_a)
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, texts=[], labels_removed=labels_b)
+    with pytest.raises(ValueError):
+        EvaluationDataset.merge("merged", TextLevel.sentence, None, ds1, ds2)
+
+
+def test_merge_labels_removed_both_none() -> None:
+    """When all datasets have labels_removed=None the merged result also has None."""
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, texts=[])
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, texts=[])
+    merged = EvaluationDataset.merge("merged", TextLevel.sentence, None, ds1, ds2)
+    assert merged.labels_removed is None
+
+
+def test_merge_labels_removed_identical_sets() -> None:
+    """When all datasets share the same labels_removed set the merged result inherits it."""
+    labels: set[str] = {"Z1", "Z2"}
+    ds1 = EvaluationDataset(name="A", text_level=TextLevel.sentence, texts=[], labels_removed=labels)
+    ds2 = EvaluationDataset(name="B", text_level=TextLevel.sentence, texts=[], labels_removed=labels.copy())
+    merged = EvaluationDataset.merge("merged", TextLevel.sentence, None, ds1, ds2)
+    assert merged.labels_removed == labels
+
+
+def test_stats_unique_semantic_tags_splits_compound_tags() -> None:
+    """Compound tags (containing '/') are split so unique_semantic_tags holds individual tags only."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[["A1/B2"], ["C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_unique_semantic_tags_compound_deduplication() -> None:
+    """Individual tags that appear both standalone and inside a compound tag are deduplicated."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[["A1/B2"], ["A1"], ["B2/C3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2", "C3"})
+
+
+def test_stats_unique_semantic_tags_triple_compound() -> None:
+    """Tags with two slashes (three parts) are fully expanded."""
+    dataset = _make_dataset(
+        _make_text(["a"], semantic_tags=[["X1/Y2/Z3"]]),
+    )
+    stats = dataset.stats()
+    assert stats.unique_semantic_tags == frozenset({"X1", "Y2", "Z3"})
+
+
+def test_stats_empty_string_tags_excluded() -> None:
+    """Empty strings in semantic tag lists are not counted in any tag statistic."""
+    dataset = _make_dataset(
+        _make_text(["a", "b", "c"], semantic_tags=[[""], ["A1"], ["", "B2"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 2           # only "A1" and "B2"
+    assert stats.num_labelled_tokens == 2         # "b" (A1) and "c" (B2); "a" has only ""
+    assert stats.unique_semantic_tags == frozenset({"A1", "B2"})
+    assert stats.num_compound_semantic_tags == 0
+
+
+def test_stats_whitespace_only_tags_excluded() -> None:
+    """Whitespace-only strings in semantic tag lists are treated the same as empty strings."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[["   "], ["A1"]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags == 1
+    assert stats.num_labelled_tokens == 1
+    assert stats.unique_semantic_tags == frozenset({"A1"})
+
+
+def test_stats_all_empty_string_tags_returns_none() -> None:
+    """When every tag in the dataset is an empty string the stats treat it as unannotated."""
+    dataset = _make_dataset(
+        _make_text(["a", "b"], semantic_tags=[[""], [""]]),
+    )
+    stats = dataset.stats()
+    assert stats.num_semantic_tags is None
+    assert stats.num_labelled_tokens is None
+    assert stats.unique_semantic_tags is None
+    assert stats.num_compound_semantic_tags is None
+
+
+def test_stats_uses_fixture_data(evaluation_texts_data: EvaluationTextsData) -> None:
+    """Sanity-check stats against the shared fixture with known values."""
+    dataset = _make_dataset(EvaluationTexts(**evaluation_texts_data))
+    stats = dataset.stats()
+    assert stats.num_texts == 1
+    assert stats.num_tokens == 6
+    assert stats.num_semantic_tags == 6   # one tag per token
+    assert stats.num_labelled_tokens == 6
+    assert stats.num_compound_semantic_tags == 0
+    assert stats.unique_semantic_tags == frozenset({"Z1", "Z2", "Z3", "Z4", "Z5", "Z6"})
+    assert stats.num_mwes == 6  # each token is its own MWE (IDs 1–6)

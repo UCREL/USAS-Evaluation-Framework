@@ -71,6 +71,35 @@ class EvaluationTexts(BaseModel):
         return self
 
 
+class DatasetStats(BaseModel):
+    """
+    Statistics about an EvaluationDataset.
+
+    Attributes:
+        num_texts (int): Number of texts in the dataset.
+        num_tokens (int): Total number of tokens across all texts.
+        num_semantic_tags (int | None): Total number of individual semantic tag strings
+            assigned across all tokens. None if no texts have semantic tags.
+        num_labelled_tokens (int | None): Number of tokens that have at least one semantic
+            tag assigned. None if no texts have semantic tags.
+        num_compound_semantic_tags (int | None): Number of semantic tag strings containing
+            a '/' (e.g. 'B2/A1.1.1'). None if no texts have semantic tags.
+        unique_semantic_tags (frozenset[str] | None): The set of distinct semantic tag strings
+            that appear in the dataset, this only includes single semantic tags (e.g. 'B2')
+            and not compound tags (e.g. 'B2/A1.1.1') in the case of compound tags the
+            individual semantic tags are included. None if no texts have semantic tags.
+        num_mwes (int | None): Number of distinct Multi Word Expressions across all texts.
+            None if no texts have MWE indexes.
+    """
+    num_texts: int
+    num_tokens: int
+    num_semantic_tags: int | None
+    num_labelled_tokens: int | None
+    num_compound_semantic_tags: int | None
+    unique_semantic_tags: frozenset[str] | None
+    num_mwes: int | None
+
+
 class EvaluationDataset(BaseModel):
     """
     A representation of a dataset, it can be used to hold either gold/true
@@ -87,6 +116,7 @@ class EvaluationDataset(BaseModel):
     """
     name: str
     text_level: TextLevel
+    language: str | None = None
     labels_removed: set[str] | None = None
     texts: list[EvaluationTexts]
 
@@ -121,5 +151,113 @@ class EvaluationDataset(BaseModel):
                 return False
 
         return True
-    
+
+    @classmethod
+    def merge(
+        cls,
+        name: str,
+        text_level: "TextLevel",
+        language: "str | None",
+        *datasets: "EvaluationDataset",
+    ) -> "EvaluationDataset":
+        """
+        Merges one or more EvaluationDatasets into a new dataset.
+
+        The caller supplies the name, text_level, and language for the result, so
+        datasets with differing values for those fields can be combined freely.
+        All source datasets must have identical labels_removed values.
+
+        Args:
+            name: The name for the merged dataset.
+            text_level: The TextLevel for the merged dataset.
+            language: The language for the merged dataset (can be None).
+            *datasets: One or more EvaluationDataset instances to merge.
+
+        Returns:
+            A new EvaluationDataset containing all texts from the source datasets
+            in the order they were supplied.
+
+        Raises:
+            ValueError: If no datasets are provided.
+            ValueError: If datasets have differing labels_removed values.
+        """
+        if not datasets:
+            raise ValueError("At least one dataset must be provided to merge.")
+
+        first_labels_removed = datasets[0].labels_removed
+        for dataset in datasets[1:]:
+            if dataset.labels_removed != first_labels_removed:
+                raise ValueError(
+                    f"All datasets must have the same labels_removed value, "
+                    f"but got {first_labels_removed!r} and {dataset.labels_removed!r}."
+                )
+
+        merged_texts = [text for dataset in datasets for text in dataset.texts]
+
+        return cls(
+            name=name,
+            text_level=text_level,
+            language=language,
+            labels_removed=first_labels_removed,
+            texts=merged_texts,
+        )
+
+    def stats(self: "EvaluationDataset") -> DatasetStats:
+        """
+        Returns statistics about the dataset.
+
+        Returns:
+            A DatasetStats object containing counts of texts, tokens, semantic tags,
+            compound semantic tags, unique semantic tags, and MWEs.
+        """
+        num_tokens = sum(len(t.tokens) for t in self.texts)
+
+        all_tags = [
+            tag
+            for t in self.texts
+            if t.semantic_tags is not None
+            for tag_list in t.semantic_tags
+            for tag in tag_list
+            if tag.strip()
+        ]
+        if all_tags:
+            num_semantic_tags: int | None = len(all_tags)
+            num_labelled_tokens: int | None = sum(
+                1
+                for t in self.texts
+                if t.semantic_tags is not None
+                for tag_list in t.semantic_tags
+                if any(tag.strip() for tag in tag_list)
+            )
+            num_compound_semantic_tags: int | None = sum(1 for tag in all_tags if "/" in tag)
+            unique_semantic_tags: frozenset[str] | None = frozenset(
+                part
+                for tag in all_tags
+                for part in tag.split("/")
+                if part.strip()
+            )
+        else:
+            num_semantic_tags = None
+            num_labelled_tokens = None
+            num_compound_semantic_tags = None
+            unique_semantic_tags = None
+
+        if any(t.mwe_indexes is not None for t in self.texts):
+            num_mwes: int | None = sum(
+                len({idx for fs in t.mwe_indexes for idx in fs})
+                for t in self.texts
+                if t.mwe_indexes is not None
+            )
+        else:
+            num_mwes = None
+
+        return DatasetStats(
+            num_texts=len(self),
+            num_tokens=num_tokens,
+            num_semantic_tags=num_semantic_tags,
+            num_labelled_tokens=num_labelled_tokens,
+            num_compound_semantic_tags=num_compound_semantic_tags,
+            unique_semantic_tags=unique_semantic_tags,
+            num_mwes=num_mwes,
+        )
 

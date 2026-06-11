@@ -1,0 +1,2 @@
+id,sentence id,token id,token,lemma,POS,predicted USAS,predicted MWE,corrected USAS,corrected MWE,Comments
+spanish|test|0|0,0.0,0.0,terapia,terapia,NOUN,X4.2,,B3/A5 ; F1,,

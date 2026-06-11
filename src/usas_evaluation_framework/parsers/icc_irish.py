@@ -36,11 +36,13 @@ class ICCIrishParser(BaseParser):
     def parse(dataset_path: Path,
               label_validation: set[str] | None = None,
               label_filter: set[str] | None = None,
+              dataset_name: str | None = "ICCIrish",
+              language: str | None = "Irish",
               ) -> EvaluationDataset:
         """
         Parses the ICC Irish corpus into the Evaluation Dataset format, for
         easy evaluation of USAS WSD models.
-        
+
         If the label filter is used then the semantic label for that token will be
         an empty string, this empty string will not be raised as a validation error
         through label validation if this is not None.
@@ -63,7 +65,7 @@ class ICCIrishParser(BaseParser):
 
         NOTE: we do not parse the lemma, UPOS, or PAROLE tag information, this is a TODO for
         future work.
-        
+
         Args:
             dataset_path: Path to the ICC Irish corpus, which should be in TSV format.
             label_validation: A set of labels that the semantic/dataset labels should
@@ -71,6 +73,8 @@ class ICCIrishParser(BaseParser):
                 is performed.
             label_filter: A set of labels from the dataset that should be filtered out.
                 Defaults to `None` in which case no filtering is performed.
+            dataset_name: Name for the returned dataset. Defaults to ``'ICCIrish'``.
+            language: Language of the corpus. Defaults to ``'Irish'``.
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `ICCIrish` and the text level is set to
@@ -177,7 +181,10 @@ class ICCIrishParser(BaseParser):
                     f"Error expected token is a tag: {token}"
                 )
 
-        dataset_name = "ICCIrish"
+        if dataset_name is None:
+            dataset_name = "ICCIrish"
+        if language is None:
+            language = "Irish"
         text_level = TextLevel.paragraph
 
         logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
@@ -277,4 +284,5 @@ class ICCIrishParser(BaseParser):
         return EvaluationDataset(name=dataset_name,
                                  text_level=text_level,
                                  labels_removed=label_filter,
-                                 texts=evaluation_texts)
+                                 texts=evaluation_texts,
+                                 language=language)

@@ -253,7 +253,9 @@ class EnglishBenedict(BaseParser):
     @staticmethod
     def parse(dataset_path: Path,
               label_validation: set[str] | None = None,
-              label_filter: set[str] | None = None
+              label_filter: set[str] | None = None,
+              dataset_name: str | None = "Benedict English",
+              language: str | None = "English",
               ) -> EvaluationDataset:
         """
         Parses the Benedict English corpus into the Evaluation Dataset format, for
@@ -281,6 +283,8 @@ class EnglishBenedict(BaseParser):
                 is performed.
             label_filter: A set of labels from the dataset that should be filtered out.
                 Defaults to `None` in which case no filtering is performed.
+            dataset_name: Name for the returned dataset. Defaults to ``'Benedict English'``.
+            language: Language of the corpus. Defaults to ``'English'``.
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `Benedict English` and the text level is set to
@@ -290,7 +294,11 @@ class EnglishBenedict(BaseParser):
             ValueError: If it cannot parse the data due to formatting or a
                 label cannot be validated when label validation is used.
         """
-        dataset_name = "Benedict English"
+        if dataset_name is None:
+            dataset_name = "Benedict English"
+        if language is None:
+            language = "English"
+
         text_level = TextLevel.sentence
 
         logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
@@ -362,7 +370,8 @@ class EnglishBenedict(BaseParser):
             name=dataset_name,
             text_level=text_level,
             labels_removed=label_filter,
-            texts=evaluation_texts
+            texts=evaluation_texts,
+            language=language,
         )
 
 class FinnishBenedict(BaseParser):
@@ -515,7 +524,10 @@ class FinnishBenedict(BaseParser):
     @staticmethod
     def parse(dataset_path: Path,
               label_validation: set[str] | None = None,
-              label_filter: set[str] | None = None) -> EvaluationDataset:
+              label_filter: set[str] | None = None,
+              dataset_name: str | None = "Benedict Finnish",
+              language: str | None = "Finnish",
+              ) -> EvaluationDataset:
         """
         Parses the Benedict Finnish corpus into the Evaluation Dataset format, for
         easy evaluation of USAS WSD models.
@@ -542,6 +554,8 @@ class FinnishBenedict(BaseParser):
                 is performed.
             label_filter: A set of labels from the dataset that should be filtered out.
                 Defaults to `None` in which case no filtering is performed.
+            dataset_name: Name for the returned dataset. Defaults to ``'Benedict Finnish'``.
+            language: Language of the corpus. Defaults to ``'Finnish'``.
         Returns:
             EvaluationDataset: The parsed and formatted dataset. The name of the
                 dataset is set to `Benedict Finnish` and the text level is set to
@@ -551,7 +565,11 @@ class FinnishBenedict(BaseParser):
             ValueError: If it cannot parse the data due to formatting or a
                 label cannot be validated when label validation is used.
         """
-        dataset_name = "Benedict Finnish"
+        if dataset_name is None:
+            dataset_name = "Benedict Finnish"
+        if language is None:
+            language = "Finnish"
+
         text_level = TextLevel.sentence
 
         logger.info(f"Parsing the {dataset_name} dataset found at: {dataset_path}")
@@ -629,5 +647,6 @@ class FinnishBenedict(BaseParser):
             name=dataset_name,
             text_level=text_level,
             labels_removed=label_filter,
-            texts=evaluation_texts
+            texts=evaluation_texts,
+            language=language,
         )
