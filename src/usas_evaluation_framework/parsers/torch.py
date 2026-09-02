@@ -64,7 +64,8 @@ class TorchParser(BaseParser):
             label_validation: A set of labels that the semantic/dataset labels should
                 be validated against. Defaults to `None` in which case no validation
                 is performed. NOTE: label validation is not performed on USAS tags
-                that will not be returned, i.e. all USAS tags after the first `;`.
+                that will not be returned, i.e. all USAS tags after the first `;`,
+                and any label that is filtered out via `label_filter`.
             label_filter: A set of labels from the dataset that should be filtered out.
                 Defaults to `None` in which case no filtering is performed.
             dataset_name: Name for the returned dataset. Defaults to ``'Torch'``.
@@ -144,21 +145,20 @@ class TorchParser(BaseParser):
                     f"Error expected only one label group: {label_groups}"
                 )
             label_group = label_groups[0]
-            
-            label_tag_string_list = []
-            for _label_tag in label_group.tags:
-                
-                if _label_tag.tag != "PUNCT" and label_validation is not None:
-                    if _label_tag.tag not in label_validation:
+
+            label_tag_string_list = [_label_tag.tag for _label_tag in label_group.tags]
+            label_tag = "/".join(label_tag_string_list)
+
+            if label_filter is not None and label_tag in label_filter:
+                return ""
+
+            if label_validation is not None:
+                for _label_tag in label_group.tags:
+                    if _label_tag.tag != "PUNCT" and _label_tag.tag not in label_validation:
                         raise ValueError(
                             f"Error expected label: {_label_tag.tag} to be in label validation set: {label_validation}"
                         )
-                label_tag_string_list.append(_label_tag.tag)
-            label_tag = "/".join(label_tag_string_list)
-            
-            if label_filter is not None:
-                if label_tag in label_filter:
-                    label_tag = ""
+
             return label_tag
 
         def validate_token(token: str) -> None:
