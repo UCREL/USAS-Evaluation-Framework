@@ -24,6 +24,11 @@ class TestNAACL2015PortugueseUSAS:
 
     def test_parse_full_dataset(self, get_test_directory: Path) -> None:
         data_file = get_test_directory / "naacl_2015_portuguese_corpus.csv"
+        if not data_file.exists():
+            pytest.skip("Skipping tests! The NAACL 2015 Portuguese data is not in the "
+                        f"expected location: {data_file} To get the data request "
+                        "it from the authors of the PyMUSAS paper (Paul Rayson and/or Andrew Moore).")
+
         usas_mapper = load_usas_mapper(None, None)
         valid_usas_tags = set(usas_mapper.keys())
 

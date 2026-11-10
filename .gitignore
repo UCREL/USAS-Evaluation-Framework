@@ -10,4 +10,6 @@ dist
 tests/data/parsers/icc_irish/ICC-GA-WR0-021-tuairisc.tsv
 tests/data/parsers/icc_irish/ICC-GA-WPH-003-george_orwell.tsv
 tests/data/parsers/icc_irish/ICC-GA-WPH-001-the_wire.tsv
+tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv
+tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv
 Data

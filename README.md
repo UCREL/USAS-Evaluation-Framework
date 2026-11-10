@@ -57,7 +57,7 @@ To run the tests (uses pytest and coverage) and generate a coverage report:
 make test
 ```
 
-To test the parsing of the Irish ICC dataset, i.e. to fully test the `usas_evaluation_framework.parsers.icc_irish.ICCIrishParser.parse` method fully it requires downloading the Irish ICC human annotated dataset files too: `tests/data/parsers/icc_irish`, e.g. `tests/data/parsers/icc_irish/ICC-GA-WPH-001-the_wire.tsv`.
+The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 dataset parsing tests for the full dataset corpora parsing will be skipped if you do not have the full datasets downloaded and saved to the correct file locations. These datasets are not open, to obtain these datasets request them from either Paul Rayson or Andrew Moore (they are free but requires you to agree to not re-distribute them).
 
 ## Evaluation metrics and splits
 
@@ -249,7 +249,13 @@ The following data files, that we use for testing, are licensed under [Creative 
 * [./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv](./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv)
 * [./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv](./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv)
 
-The following data files currently have no or more specifically unknown license:
-* [./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv](./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv) 
-* [./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv](./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv) 
-* [./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv](./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv) 
+The following data files, that we use for testing, are license under both [Creative Commons Attribution Non-Commercial Share Alike 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en) and [Creative Commons Attribution Share Alike 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
+* [./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv](./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv)
+
+**The NAACL 2015 Chinese and Portuguese dataset can be obtained via an email request for the data to either Paul Rayson or Andrew Moore, the data is free but you must agree to a custom non-commercial and no redistribution license**
+
+Non-commercial academic and education purposes only, full license that you must agree to [The Lancaster Corpus of Mandarin Chinese (LCMC) End User License](https://www.lancaster.ac.uk/fass/projects/corpus/LCMC/lcmc/lcmc_license.htm) as the original text has come from the [LCMC](https://aclanthology.org/L04-1117/):
+* [./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv](./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv)
+
+The following data files currently have no or more specifically unknown license, the original texts have come from the [Lácio-Ref dataset](https://ucrel.lancs.ac.uk/publications/CL2003/papers/aluisio.pdf).
+* [./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv](./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv)

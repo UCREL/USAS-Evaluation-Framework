@@ -279,6 +279,11 @@ class TestNAACL2015USAS:
         get_test_directory: Path,  # noqa: F811
     ) -> None:
         data_file = get_test_directory / "naacl_2015_chinese_corpus.csv"
+        if not data_file.exists():
+            pytest.skip("Skipping tests! The NAACL 2015 Chinese data is not in the "
+                        f"expected location: {data_file} To get the data request "
+                        "it from the authors of the PyMUSAS paper (Paul Rayson and/or Andrew Moore).")
+
         usas_mapper = load_usas_mapper(None, None)
         valid_usas_tags = set(usas_mapper.keys())
         tags_to_filter: set[str] = set()

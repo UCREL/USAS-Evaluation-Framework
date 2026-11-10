@@ -182,8 +182,13 @@ class TestICCIrishParser:
         with pytest.raises(ValueError):
             ICCIrishParser.parse(incorrect_mwe_format_file)
 
-    @pytest.mark.skipif(not downloaded_irish_datasets(), reason="Irish datasets not downloaded")
+
     def test_parse_full_dataset(self, get_test_icc_irish_directory: Path) -> None:
+        if not downloaded_irish_datasets():
+            pytest.skip("Skipping tests! The Irish datasets are not in the "
+                        f"expected location: {get_test_icc_irish_directory} To get the data request "
+                        "it from the authors of the PyMUSAS paper (Paul Rayson and/or Andrew Moore).")
+
         data_files = [
             get_test_icc_irish_directory / "ICC-GA-WPH-001-the_wire.tsv",
             get_test_icc_irish_directory / "ICC-GA-WPH-003-george_orwell.tsv",
