@@ -123,7 +123,7 @@ The datasets that **do not**:
 
 ### Wikipedia Medical 2026 Excel data to CSV
 
-**Note** to use this script you need to instal the `excel-conversion` extra: `uv pip install ".[excel-conversion]"`
+**Note** to use this script you need to install the `excel-conversion` extra: `uv pip install ".[excel-conversion]"`
 
 If you want to convert the annotated Wikipedia Medical 2026 Excel data to CSV, this script will do so; it assumes that one folder of excel files (each folder we assumed to only contain one language at time of processing this data) is given as input and the output is a single CSV file containing all of the Excel file data;
 
