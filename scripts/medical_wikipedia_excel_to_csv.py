@@ -1,4 +1,5 @@
-"""Script to parse all Excel files in a folder into a single CSV file.
+"""
+Script to parse all Excel files in a folder into a single CSV file.
 
 Expected input columns (Excel files)
 --------------------------------------
@@ -46,7 +47,8 @@ app = typer.Typer(help="Parse all Excel files in a folder into a single CSV file
 
 
 def _fix_punct_to_z9(df: pd.DataFrame) -> tuple[pd.DataFrame, int]:
-    """Replace PUNCT-derived tags in the corrected USAS column with Z9.
+    """
+    Replace PUNCT-derived tags in the corrected USAS column with Z9.
 
     Conditions (per token row):
     - ``corrected USAS`` equals ``'PUNCT'``, or
@@ -105,7 +107,8 @@ def _print_stats(df: pd.DataFrame) -> None:
 
 
 def _find_excel_files(folder: Path, recursive: bool) -> list[Path]:
-    """Find all Excel files in a folder.
+    """
+    Find all Excel files in a folder.
 
     Args:
         folder: Path to the folder to search.
@@ -173,7 +176,8 @@ def main(
         ),
     ] = False,
 ) -> None:
-    """Parse all Excel files in FOLDER into a single CSV file.
+    """
+    Parse all Excel files in FOLDER into a single CSV file.
 
     Args:
         folder: Folder containing Excel files to parse.

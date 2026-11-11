@@ -114,7 +114,8 @@ class TestWikipediaUSAS:
     def test_parse_multi_corrected_usas_uses_first_tag(
         self, get_test_directory: Path
     ) -> None:
-        """When corrected USAS contains multiple ';'-separated tags (e.g. 'B3/A5 ; F1'),
+        """
+        When corrected USAS contains multiple ';'-separated tags (e.g. 'B3/A5 ; F1'),
         only the first tag ('B3/A5') is used as the resolved semantic tag."""
         dataset = WikipediaUSAS.parse(
             get_test_directory / "wikipedia_multi_corrected_usas.csv"

@@ -1,9 +1,14 @@
-"""Example Google style docstrings.
+"""
+Example Google style docstrings.
 This was adapted from: https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html
 
 This module demonstrates documentation as specified by the `Google Python
 Style Guide`_. Docstrings may extend over multiple lines. Sections are created
 with a section header and a colon followed by a block of indented text.
+
+In a multi-line docstring the summary starts on the line after the opening
+quotes, not on the same line as them (pydocstyle rule D213). A docstring that
+fits on one line stays on one line.
 
 Example:
     Examples can be given using either the ``Example`` or ``Examples``
@@ -45,7 +50,8 @@ uses the ``Attributes`` section of the module docstring, as shown for
 
 
 def function_with_pep484_type_annotations(param1: int, param2: str) -> bool:
-    """Example function with PEP 484 type annotations.
+    """
+    Example function with PEP 484 type annotations.
 
     Args:
         param1: The first parameter.
@@ -63,7 +69,8 @@ def module_level_function(param1: int,
                           param2: str | None = None,
                           *args: int,
                           **kwargs: str) -> bool:
-    """This is an example of a module level function.
+    """
+    This is an example of a module level function.
 
     Function parameters should be documented in the ``Args`` section. The name
     of each parameter and its description is required.
@@ -127,7 +134,8 @@ def module_level_function(param1: int,
 
 
 def example_generator(n: int) -> Iterator[int]:
-    """Generators have a ``Yields`` section instead of a ``Returns`` section.
+    """
+    Generators have a ``Yields`` section instead of a ``Returns`` section.
 
     Args:
         n: The upper limit of the range to generate, from 0 to `n` - 1.
@@ -148,7 +156,8 @@ def example_generator(n: int) -> Iterator[int]:
 
 
 def describe_tag(tag: str) -> str:
-    """Use match-case, rather than if/elif/else, when branching on a value.
+    """
+    Use match-case, rather than if/elif/else, when branching on a value.
 
     match-case suits comparing a value against literal values or
     structural patterns, as each case reads as one of the possible values.
@@ -182,7 +191,8 @@ def describe_tag(tag: str) -> str:
 
 
 def confidence_level(score: float) -> str:
-    """Use if/elif/else when match-case would be harder to read.
+    """
+    Use if/elif/else when match-case would be harder to read.
 
     match-case cannot express range comparisons such as ``score >= 0.9``
     directly, so every case would need a guard (``case _ if score >= 0.9:``).
@@ -223,7 +233,8 @@ def confidence_level(score: float) -> str:
 
 
 class ExampleError(Exception):
-    """Exceptions are documented in the same way as classes.
+    """
+    Exceptions are documented in the same way as classes.
 
     The __init__ method may be documented as a docstring on the __init__
     method itself.
@@ -235,7 +246,8 @@ class ExampleError(Exception):
     """
 
     def __init__(self, msg: str, code: int = 0) -> None:
-        """Initialise the exception with a message and an error code.
+        """
+        Initialise the exception with a message and an error code.
 
         Note:
             Do not include the `self` parameter in the ``Args`` section.
@@ -249,7 +261,8 @@ class ExampleError(Exception):
 
 
 class ExampleClass:
-    """The summary line for a class docstring should fit on one line.
+    """
+    The summary line for a class docstring should fit on one line.
 
     If the class has public attributes, they may be documented here
     in an ``Attributes`` section and follow the same formatting as a
@@ -280,7 +293,8 @@ class ExampleClass:
                  param1: str,
                  param2: int | None = None,
                  param3: list[str] | None = None) -> None:
-        """Example of docstring on the __init__ method.
+        """
+        Example of docstring on the __init__ method.
 
         The __init__ method may be documented in either the class level
         docstring, or as a docstring on the __init__ method itself.
@@ -315,7 +329,8 @@ class ExampleClass:
 
     @property
     def readwrite_property(self) -> list[str]:
-        """Properties with both a getter and setter
+        """
+        Properties with both a getter and setter
         should only be documented in their getter method.
 
         If the setter method contains notable behavior, it should be
@@ -328,7 +343,8 @@ class ExampleClass:
         self._readwrite_property = value
 
     def example_method(self, param1: bool, param2: bool) -> bool:
-        """Class methods are similar to regular functions.
+        """
+        Class methods are similar to regular functions.
 
         Note:
             Do not include the `self` parameter in the ``Args`` section.
@@ -344,7 +360,8 @@ class ExampleClass:
         return True
 
     def __special__(self) -> None:
-        """By default special members with docstrings are not included.
+        """
+        By default special members with docstrings are not included.
 
         Special members are any methods or attributes that start with and
         end with a double underscore. Any special member with a docstring
@@ -363,7 +380,8 @@ class ExampleClass:
         pass
 
     def _private(self) -> None:
-        """By default private members are not included.
+        """
+        By default private members are not included.
 
         Private members are any methods or attributes that start with an
         underscore and are *not* special. By default they are not included

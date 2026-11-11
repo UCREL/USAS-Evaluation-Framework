@@ -90,7 +90,8 @@ def main(
         typer.Option("--language", "-l", help="Language of the data (chinese or italian)."),
     ] = Language.chinese,
 ) -> None:
-    """Build a sentence-structured CSV from a folder of annotated Excel files.
+    """
+    Build a sentence-structured CSV from a folder of annotated Excel files.
 
     Each Excel file must contain columns: token, predicted_usas, corrected_usas.
     For Italian data, a 'mwe' column is also required.

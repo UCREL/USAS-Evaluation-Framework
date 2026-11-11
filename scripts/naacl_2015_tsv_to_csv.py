@@ -77,7 +77,8 @@ def main(
         typer.Option("--output", "-o", help="Path for the output CSV file."),
     ] = Path("output.csv"),
 ) -> None:
-    """Build a sentence-structured CSV from a folder of tab-separated text files.
+    """
+    Build a sentence-structured CSV from a folder of tab-separated text files.
 
     Each line in a text file may have 1–3 tab-separated values:
 
