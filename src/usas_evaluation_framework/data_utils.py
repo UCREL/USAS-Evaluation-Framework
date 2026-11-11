@@ -163,20 +163,15 @@ def parse_usas_token_group(usas_tag_group_text: str) -> list[USASTagGroup]:
                 regex, which is `[A-Z](\d+)((\.\d+)+)?` or `PUNCT`.
         """
 
-        tag_match = TAG_RE.match(usas_tag_text)
-        punct_match = PUNCT_RE.match(usas_tag_text)
-        tag = ""
-
-        if tag_match:
-            tag = tag_match.group()
-            usas_tag_text = TAG_RE.sub("", usas_tag_text)
-        elif punct_match:
-            tag = punct_match.group()
-            usas_tag_text = PUNCT_RE.sub("", usas_tag_text)
-        else:
-            raise ValueError(
-                f"Cannot find the tag for this USAS tag text: {usas_tag_text}"
-            )
+        match TAG_RE.match(usas_tag_text) or PUNCT_RE.match(usas_tag_text):
+            case None:
+                raise ValueError(
+                    f"Cannot find the tag for this USAS tag text: {usas_tag_text}"
+                )
+            case tag_match:
+                tag = tag_match.group()
+                # Both regexes are anchored to the start, so strip the matched prefix.
+                usas_tag_text = usas_tag_text[tag_match.end():]
 
         number_positive_markers = 0
         positive_marker_match = POSITIVE_MARKERS_RE.search(usas_tag_text)
@@ -258,6 +253,7 @@ def load_usas_mapper(usas_tag_descriptions_file: Path | None,
         dict[str, str]: A dictionary of USAS tags and their descriptions.
     
     Raises:
+        TypeError: If the `usas_tag_descriptions_file` is not a `Path` or `None`.
         FileNotFoundError: If the `usas_tag_descriptions_file` is not found.
         ValueError: If the `usas_tag_descriptions_file` is not a file.
     """
@@ -286,20 +282,21 @@ def load_usas_mapper(usas_tag_descriptions_file: Path | None,
         Returns:
             dict[str, str]: A dictionary of USAS tags and their descriptions.
         """
-        if "title" in usas_tag_dict and "description" in usas_tag_dict:
-            title_description = f"title: {usas_tag_dict['title']} description: {usas_tag_dict['description']}"
-            if usas_tag_name in collected_tag_descriptions:
-                raise KeyError(f"Duplicate usas tag name found: {usas_tag_name} "
-                               "when reading the following data: "
-                               f"{usas_tag_dict}, currently found usas tags: "
-                               f"{collected_tag_descriptions}")
-            collected_tag_descriptions[usas_tag_name] = title_description.strip()
-        elif "title" in usas_tag_dict:
-            raise KeyError("No description key found when it is expected for: "
-                           f"{usas_tag_name} {usas_tag_dict}")
-        elif "description" in usas_tag_dict:
-            raise KeyError("No title key found when it is expected for: "
-                           f"{usas_tag_name} {usas_tag_dict}")
+        match ("title" in usas_tag_dict, "description" in usas_tag_dict):
+            case (True, True):
+                title_description = f"title: {usas_tag_dict['title']} description: {usas_tag_dict['description']}"
+                if usas_tag_name in collected_tag_descriptions:
+                    raise KeyError(f"Duplicate usas tag name found: {usas_tag_name} "
+                                   "when reading the following data: "
+                                   f"{usas_tag_dict}, currently found usas tags: "
+                                   f"{collected_tag_descriptions}")
+                collected_tag_descriptions[usas_tag_name] = title_description.strip()
+            case (True, False):
+                raise KeyError("No description key found when it is expected for: "
+                               f"{usas_tag_name} {usas_tag_dict}")
+            case (False, True):
+                raise KeyError("No title key found when it is expected for: "
+                               f"{usas_tag_name} {usas_tag_dict}")
 
         keys_to_ignore = set(["title", "description"])
         for child_usas_tag_name, child_usas_tag_dict in usas_tag_dict.items():
@@ -309,17 +306,20 @@ def load_usas_mapper(usas_tag_descriptions_file: Path | None,
                                                                                         collected_tag_descriptions)
         return collected_tag_descriptions
 
-    usas_tag_descriptions_file_path: Path = Path()
-    if usas_tag_descriptions_file is None:
-        usas_tag_descriptions_file_str = str(files("usas_evaluation_framework").joinpath("data/usas/usas_mapper.yaml"))
-        usas_tag_descriptions_file_path = Path(usas_tag_descriptions_file_str)
-    else:
-        usas_tag_descriptions_file_path = usas_tag_descriptions_file
+    match usas_tag_descriptions_file:
+        case None:
+            usas_tag_descriptions_file_str = str(files("usas_evaluation_framework").joinpath("data/usas/usas_mapper.yaml"))
+            usas_tag_descriptions_file_path = Path(usas_tag_descriptions_file_str)
+        case Path():
+            usas_tag_descriptions_file_path = usas_tag_descriptions_file
+        case _:
+            raise TypeError("Expected a Path or None, got: "
+                            f"{type(usas_tag_descriptions_file)}")
 
-    if usas_tag_descriptions_file_path.exists() is False:
+    if not usas_tag_descriptions_file_path.exists():
         raise FileNotFoundError(f"USAS tag descriptions file not found at: "
                                 f"{usas_tag_descriptions_file_path}")
-    elif usas_tag_descriptions_file_path.is_file() is False:
+    if not usas_tag_descriptions_file_path.is_file():
         raise ValueError(f"USAS tag descriptions file is not a file: "
                          f"{usas_tag_descriptions_file_path}")
 

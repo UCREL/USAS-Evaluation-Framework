@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Type
 
 import pytest
 
@@ -67,14 +66,14 @@ class TestLanguageSpecificWikipediaUSAS:
 
     @pytest.mark.parametrize("parser_cls,language,_sd,_cf,_s,_t,_st,_mt", LANGUAGE_PARAMS)
     def test_is_wikipedia_usas_subclass(
-        self, parser_cls: Type[WikipediaUSAS], language: str,
+        self, parser_cls: type[WikipediaUSAS], language: str,
         _sd, _cf, _s, _t, _st, _mt,
     ) -> None:
         assert issubclass(parser_cls, WikipediaUSAS)
 
     @pytest.mark.parametrize("parser_cls,language,_sd,_cf,_s,_t,_st,_mt", LANGUAGE_PARAMS)
     def test_default_dataset_name(
-        self, parser_cls: Type[WikipediaUSAS], language: str,
+        self, parser_cls: type[WikipediaUSAS], language: str,
         _sd, _cf, _s, _t, _st, _mt,
         wikipedia_dir: Path,
     ) -> None:
@@ -83,7 +82,7 @@ class TestLanguageSpecificWikipediaUSAS:
 
     @pytest.mark.parametrize("parser_cls,language,_sd,_cf,_s,_t,_st,_mt", LANGUAGE_PARAMS)
     def test_default_language(
-        self, parser_cls: Type[WikipediaUSAS], language: str,
+        self, parser_cls: type[WikipediaUSAS], language: str,
         _sd, _cf, _s, _t, _st, _mt,
         wikipedia_dir: Path,
     ) -> None:
@@ -92,7 +91,7 @@ class TestLanguageSpecificWikipediaUSAS:
 
     @pytest.mark.parametrize("parser_cls,language,_sd,_cf,_s,_t,_st,_mt", LANGUAGE_PARAMS)
     def test_defaults_can_be_overridden(
-        self, parser_cls: Type[WikipediaUSAS], language: str,
+        self, parser_cls: type[WikipediaUSAS], language: str,
         _sd, _cf, _s, _t, _st, _mt,
         wikipedia_dir: Path,
     ) -> None:
@@ -115,7 +114,7 @@ class TestLanguageSpecificWikipediaUSAS:
     )
     def test_parse_full_dataset(
         self,
-        parser_cls: Type[WikipediaUSAS],
+        parser_cls: type[WikipediaUSAS],
         language: str,
         corpus_subdir: str,
         corpus_filename: str,

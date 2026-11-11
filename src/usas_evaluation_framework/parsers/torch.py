@@ -120,14 +120,14 @@ class TorchParser(BaseParser):
         )
 
         def label_string_to_labels(label_string: str) -> list[str]:
-            label_string = label_string
-            labels: list[str] | None = None
-            if "；" in label_string:
-                labels = label_string.split("；")
-            elif "," in label_string:
-                labels = label_string.split(",")
-            else:
-                labels = label_string.split()
+            labels: list[str]
+            match label_string:
+                case _ if "；" in label_string:
+                    labels = label_string.split("；")
+                case _ if "," in label_string:
+                    labels = label_string.split(",")
+                case _:
+                    labels = label_string.split()
             cleaned_labels = []
             for label in labels:
                 label = label.strip()

@@ -71,14 +71,16 @@ class WikipediaUSAS(BaseParser):
         Raises:
             ValueError: If the resolved raw tag cannot be parsed as a USAS tag.
         """
-        if corrected_usas:
-            raw_tag = corrected_usas.split(';')[0].strip()
-        elif pos == 'PUNCT':
-            return 'PUNCT'
-        elif predicted_usas:
-            raw_tag = predicted_usas.split(';')[0].strip()
-        else:
-            return ''
+        # The corrected tag takes priority, then punctuation, then the predicted tag.
+        match (corrected_usas, pos, predicted_usas):
+            case ('', 'PUNCT', _):
+                return 'PUNCT'
+            case ('', _, ''):
+                return ''
+            case ('', _, _):
+                raw_tag = predicted_usas.split(';')[0].strip()
+            case _:
+                raw_tag = corrected_usas.split(';')[0].strip()
 
         if not raw_tag:
             return ''
@@ -253,13 +255,14 @@ class WikipediaUSAS(BaseParser):
                     )
                 sentence_key = '|'.join(parts[:3])
 
-                # The elif occurs when the data starts a new file in the dataset
-                if current_sentence_key is None:
-                    current_sentence_key = sentence_key
-                elif current_sentence_key != sentence_key:
-                    flush(sentence_rows)
-                    sentence_rows = []
-                    current_sentence_key = sentence_key
+                # The second case occurs when the data starts a new sentence in the dataset
+                match current_sentence_key:
+                    case None:
+                        current_sentence_key = sentence_key
+                    case _ if current_sentence_key != sentence_key:
+                        flush(sentence_rows)
+                        sentence_rows = []
+                        current_sentence_key = sentence_key
 
                 sentence_rows.append(row)
 

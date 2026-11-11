@@ -219,7 +219,7 @@ class ICCIrishParser(BaseParser):
                 raise ValueError(
                     f"Could not read field names from the {dataset_name} dataset"
                 )
-            elif not required_fields.issubset(set(fields)):
+            if not required_fields.issubset(set(fields)):
                 raise ValueError(
                     f"Missing required fields from the {dataset_name} dataset: {required_fields.difference(set(fields))}"
                 )

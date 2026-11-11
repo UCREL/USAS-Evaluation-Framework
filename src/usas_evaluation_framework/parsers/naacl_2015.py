@@ -231,12 +231,13 @@ class NAACL2015USAS(BaseParser):
                     )
                 sentence_key = '|'.join(parts[:2])
 
-                if current_sentence_key is None:
-                    current_sentence_key = sentence_key
-                elif current_sentence_key != sentence_key:
-                    flush(sentence_rows)
-                    sentence_rows = []
-                    current_sentence_key = sentence_key
+                match current_sentence_key:
+                    case None:
+                        current_sentence_key = sentence_key
+                    case _ if current_sentence_key != sentence_key:
+                        flush(sentence_rows)
+                        sentence_rows = []
+                        current_sentence_key = sentence_key
 
                 sentence_rows.append(row)
 

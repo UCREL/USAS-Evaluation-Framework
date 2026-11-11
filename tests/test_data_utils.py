@@ -206,14 +206,15 @@ def test_load_usas_mapper(usas_tag_description_file_str: str | None,
     assert isinstance(usas_mapper, dict)
     assert len(usas_mapper) > 0
 
-    if tags_to_filter_out is None and usas_tag_description_file is None:
-        assert len(usas_mapper) == 222
-        assert "Z99" in usas_mapper
-    elif tags_to_filter_out is not None and usas_tag_description_file is None:
-        assert len(usas_mapper) == 221
-        assert "Z99" not in usas_mapper
-    elif usas_tag_description_file is not None:
-        assert len(usas_mapper) == 1
+    match (tags_to_filter_out, usas_tag_description_file):
+        case (None, None):
+            assert len(usas_mapper) == 222
+            assert "Z99" in usas_mapper
+        case (_, None):
+            assert len(usas_mapper) == 221
+            assert "Z99" not in usas_mapper
+        case _:
+            assert len(usas_mapper) == 1
     
     assert "A1.1.1" in usas_mapper
     if usas_tag_description_file is None:

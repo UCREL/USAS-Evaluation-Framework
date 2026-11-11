@@ -73,10 +73,13 @@ class EnglishBenedict(BaseParser):
             ValueError: If the text string is not valid.
             ValueError: If the USAS label is not valid
         Examples:
-            >>> EnglishBenedict.validate_text_string('Turkish_F2/O4.5[i86.2.1 grind_F2/O4.5[i86.2.2 -_- extremely_A13.3 finely_O4.5 ground_A1.1.1 ,_PUNC dust-like_O4.1')
-            ('Turkish_F2/O4.5[i86.2.1 grind_F2/O4.5[i86.2.2 -_- extremely_A13.3 finely_O4.5 ground_A1.1.1 ,_PUNC dust-like_O4.1',
-             ['Turkish', 'grind', '-', 'extremely', 'finely', 'ground', ',', 'dust-like'],
-             ['F2/O4.5', 'F2/O4.5', 'PUNCT', 'A13.3', 'O4.5', 'A1.1.1', 'PUNCT', 'O4.1'])
+            >>> text = ("Turkish_F2/O4.5[i86.2.1 grind_F2/O4.5[i86.2.2 -_- "
+            ...         "extremely_A13.3 finely_O4.5 ground_A1.1.1 ,_PUNC dust-like_O4.1")
+            >>> _, tokens, usas_tags = EnglishBenedict.validate_text_string_format(text)
+            >>> tokens
+            ['Turkish', 'grind', '-', 'extremely', 'finely', 'ground', ',', 'dust-like']
+            >>> usas_tags
+            ['F2/O4.5', 'F2/O4.5', 'PUNCT', 'A13.3', 'O4.5', 'A1.1.1', 'PUNCT', 'O4.1']
         """
         if not text.strip():
             raise ValueError(f"Empty or whitespace-only text string: '{text}'")
@@ -167,10 +170,11 @@ class EnglishBenedict(BaseParser):
             ValueError: If a token has an incomplete MWE format (starts with `[i` but doesn't match the expected pattern).
 
         Examples:
-            >>> get_mwe_indexes("Turkish_F2/O4.5[i86.2.1 grind_F2/O4.5[i86.2.2 
-                -_- extremely_A13.3 finely_O4.5 ground_A1.1.1 ,_PUNC dust-like_O4.1")
-            [frozenset({1}), frozenset({1}), frozenset({}), frozenset({}), frozenset({}), frozenset({}), frozenset({}), frozenset({}) ]
-
+            >>> text = ("Turkish_F2/O4.5[i86.2.1 grind_F2/O4.5[i86.2.2 -_- "
+            ...         "extremely_A13.3 finely_O4.5 ground_A1.1.1 ,_PUNC dust-like_O4.1")
+            >>> EnglishBenedict.get_mwe_indexes(text)
+            [frozenset({1}), frozenset({1}), frozenset(), frozenset(), frozenset(),
+             frozenset(), frozenset(), frozenset()]
         """
         if not text.strip():
             return []
@@ -429,13 +433,13 @@ class FinnishBenedict(BaseParser):
             ValueError: If the text string is not valid.
             ValueError: If the USAS label is not valid.
         Examples:
-            >>> FinnishBenedict.validate_text_string('Vac_F2/O2_i pot_F2/O2_i on_A3+')
+            >>> FinnishBenedict.validate_text_string_format('Vac_F2/O2_i pot_F2/O2_i on_A3+')
             EvaluationTexts(text='Vac_F2/O2_i pot_F2/O2_i on_A3+',
                             tokens=['Vac', 'pot', 'on'],
                             lemmas=None,
                             pos_tags=None,
-                            semantic_tags=['F2/O2', 'F2/O2', 'A3'],
-                            mwe_indexes=[frozenset({2})])
+                            semantic_tags=[['F2/O2'], ['F2/O2'], ['A3']],
+                            mwe_indexes=[frozenset({1}), frozenset({1}), frozenset()])
         """
         special_punctuation = set({"-", ".", ",", "!", ":", "(", ")", '"', "?"})
         text = text.strip()
