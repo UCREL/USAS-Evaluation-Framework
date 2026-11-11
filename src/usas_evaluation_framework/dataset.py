@@ -146,7 +146,7 @@ class EvaluationDataset(BaseModel):
             return False
 
         # Compare each text's tokens at the same index
-        for self_text, other_text in zip(self.texts, other.texts):
+        for self_text, other_text in zip(self.texts, other.texts, strict=True):
             if self_text.tokens != other_text.tokens:
                 return False
 
