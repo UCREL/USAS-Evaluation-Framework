@@ -72,8 +72,9 @@ dev = [
 
 
 [tool.ruff.lint]
-# Enable the isort rules.
-extend-select = ["I"]
+# Enable the isort rules, and D213 so that the summary of a multi-line
+# docstring starts on the line after the opening quotes.
+extend-select = ["I", "D213"]
 
 #[tool.ruff.lint.isort]
 #known-third-party = ["src", "tests"]

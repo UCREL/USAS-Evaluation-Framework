@@ -125,7 +125,7 @@ def module_level_function(param1: int,
         >>> module_level_function(1, "1")
         Traceback (most recent call last):
             ...
-        ValueError: param2 may not be the string form of param1
+        ValueError: param2 cannot be the string form of param1
 
     """
     if param2 == str(param1):
