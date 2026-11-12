@@ -8,133 +8,54 @@ from usas_evaluation_framework.dataset import (
     EvaluationTexts,
     TextLevel,
 )
-from usas_evaluation_framework.metrics.top_n_accuracy import top_n_accuracy
+from usas_evaluation_framework.metrics.top_n_accuracy import (
+    top_n_accuracy,
+    validate_top_n_inputs,
+)
 
 
+@pytest.mark.parametrize("n", [0, -1])
 @pytest.mark.parametrize("average", ["micro", "macro"])
-def test_validate_inputs_invalid_n(average: Literal["micro", "macro"]):
+def test_validate_top_n_inputs_invalid_n(n: int, average: Literal["micro", "macro"]):
     """Test with n <= 0."""
-    true_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    pred_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    
-    y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text])
-    y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
-    
     with pytest.raises(ValueError, match="n must be a positive integer"):
-        top_n_accuracy(y_true, y_pred, n=0, average=average)
+        validate_top_n_inputs(n, average)
 
 
-def test_validate_inputs_invalid_average():
+def test_validate_top_n_inputs_invalid_average():
     """Test with average not in ['micro', 'macro']."""
-    true_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    pred_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    
-    y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text])
-    y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
-    
     with pytest.raises(ValueError, match="average must be either 'micro' or 'macro'"):
-        top_n_accuracy(y_true, y_pred, n=1, average="invalid")  # ty: ignore[invalid-argument-type]
+        validate_top_n_inputs(1, "invalid")  # ty: ignore[invalid-argument-type]
 
+
+@pytest.mark.parametrize("n", [1, 5])
 @pytest.mark.parametrize("average", ["micro", "macro"])
-def test_validate_inputs_mismatched_datasets(average: Literal["micro", "macro"]):
-    """Test with datasets that have different numbers of texts or tokens."""
-    true_text1 = EvaluationTexts(
-        text="test1",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    true_text2 = EvaluationTexts(
-        text="test2",
-        tokens=["token2"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag2"]]
-    )
-    pred_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    
-    y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text1, true_text2])
-    y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
-    
-    with pytest.raises(ValueError, match="y_true and y_pred must have the same number of texts"):
-        top_n_accuracy(y_true, y_pred, n=1, average=average)
-
-@pytest.mark.parametrize("average", ["micro", "macro"])
-def test_validate_inputs_different_tokens(average: Literal["micro", "macro"]):
-    """Test with average not in ['micro', 'macro']."""
-    true_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    pred_text = EvaluationTexts(
-        text="test",
-        tokens=["token2"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=[["tag1"]]
-    )
-    
-    y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text])
-    y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
-    
-    with pytest.raises(ValueError, match="y_true and y_pred must have the same tokens in the same order"):
-        top_n_accuracy(y_true, y_pred, n=1, average=average)
+def test_validate_top_n_inputs_valid(n: int, average: Literal["micro", "macro"]):
+    """Test that valid inputs do not raise."""
+    validate_top_n_inputs(n, average)
 
 
-@pytest.mark.parametrize("true_missing_semantic_tags", [True, False])
-@pytest.mark.parametrize("average", ["micro", "macro"])
-def test_validate_inputs_missing_semantic_tags(average: Literal["micro", "macro"],
-                                               true_missing_semantic_tags: bool):
-    """Test with datasets where semantic tags are None."""
-    true_semantic_tags = None
-    pred_semantic_tags = None
-    if true_missing_semantic_tags:
-        pred_semantic_tags = [["tag1"]]
-    else:
-        true_semantic_tags = [["tag1"]]
+@pytest.mark.parametrize(
+    ("n", "average", "pred_tokens", "true_semantic_tags", "expected_error"),
+    [
+        (0, "micro", ["token1"], [["tag1"]], "n must be a positive integer"),
+        (1, "invalid", ["token1"], [["tag1"]], "average must be either 'micro' or 'macro'"),
+        (1, "micro", ["token2"], [["tag1"]], "y_true and y_pred must have the same tokens in the same order"),
+        (1, "macro", ["token1"], None, "y_true text 0 does not have semantic_tags"),
+        (1, "macro", ["token1"], [[""]], "All of the true semantic tags are either empty strings or are empty lists"),
+    ],
+)
+def test_top_n_accuracy_raises(n: int,
+                               average: Literal["micro", "macro"],
+                               pred_tokens: list[str],
+                               true_semantic_tags: list[list[str]] | None,
+                               expected_error: str):
+    """
+    Test that top_n_accuracy applies all of its validation.
+
+    The validation functions themselves are tested in detail in their own tests,
+    this checks that `top_n_accuracy` calls each of them.
+    """
     true_text = EvaluationTexts(
         text="test",
         tokens=["token1"],
@@ -145,54 +66,18 @@ def test_validate_inputs_missing_semantic_tags(average: Literal["micro", "macro"
     )
     pred_text = EvaluationTexts(
         text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=pred_semantic_tags
-    )
-    
-    y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text])
-    y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
-    
-    if true_missing_semantic_tags:
-        with pytest.raises(ValueError, match="y_true text 0 does not have semantic_tags"):
-            top_n_accuracy(y_true, y_pred, n=1, average=average)
-    else:
-        with pytest.raises(ValueError, match="y_pred text 0 does not have semantic_tags"):
-            top_n_accuracy(y_true, y_pred, n=1, average=average)
-
-@pytest.mark.parametrize("average", ["micro", "macro"])
-@pytest.mark.parametrize("is_empty_string", [False, True])
-def test_collect_and_filter_tags_empty_true_labels(average: Literal["micro", "macro"],
-                                                   is_empty_string: bool):
-    """Test with datasets where true tags are empty."""
-    semantic_tags = [[]]
-    if is_empty_string:
-        semantic_tags = [[""]]
-    true_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
-        lemmas=None,
-        pos_tags=None,
-        mwe_indexes=None,
-        semantic_tags=semantic_tags
-    )
-    pred_text = EvaluationTexts(
-        text="test",
-        tokens=["token1"],
+        tokens=pred_tokens,
         lemmas=None,
         pos_tags=None,
         mwe_indexes=None,
         semantic_tags=[["tag1"]]
     )
-    
+
     y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text])
     y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
-    
-    with pytest.raises(ValueError, match="All of the true semantic tags are either empty strings or are empty lists"):
-        top_n_accuracy(y_true, y_pred, n=1, average=average)
-        
+
+    with pytest.raises(ValueError, match=expected_error):
+        top_n_accuracy(y_true, y_pred, n=n, average=average)
 
 
 @pytest.mark.parametrize("average", ["micro", "macro"])
