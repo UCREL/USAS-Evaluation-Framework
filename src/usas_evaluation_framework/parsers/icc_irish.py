@@ -21,13 +21,14 @@ class ICCIrishParser(BaseParser):
     This corpus does contain / support MWEs.
 
     The corpus should be in TSV format with the following columns:
+
     - TOKEN: The actual word/token text
     - UPOS: The Universal Dependency POS tag
     - MWE: Semantic tag(s) in USAS format, this format can contain
-        more than one USAS tag of which we expect them to be separated by semi-colon
-        followed by an optional space `; `.
+      more than one USAS tag of which we expect them to be separated by semi-colon
+      followed by an optional space ``"; "``.
     - USAS: A boolean indicating if the token is a sentence break, if True
-        then the next token in the CSV is the start of a new sentence.
+      then the next token in the CSV is the start of a new sentence.
 
     The main parsing method is `parse`
     """

@@ -4,20 +4,27 @@ USAS Evaluation Framework documentation
 Evaluation metrics and datasets for USAS semantic tagging.
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
    :caption: Overview:
 
    overview/installation
    overview/quick_guide
 
 .. toctree::
-   :maxdepth: 2
+   :hidden:
    :caption: API Reference:
 
    api/dataset
    api/data_utils
    api/parsers
    api/metrics
+
+.. toctree::
+   :hidden:
+   :caption: Development:
+
+   License <https://github.com/UCREL/USAS-Evaluation-Framework/blob/main/LICENSE>
+   GitHub Repository <https://github.com/UCREL/USAS-Evaluation-Framework>
 
 Team
 ----
@@ -34,5 +41,5 @@ Licensed under `Apache 2.0 <https://www.apache.org/licenses/LICENSE-2.0>`_.
 Indices and tables
 ------------------
 
-* :ref:`genindex`
 * :ref:`modindex`
+* :ref:`genindex`

@@ -20,7 +20,7 @@ remove-built-docs:
 .PHONY: docs
 docs: remove-built-docs
 	@echo "Building the documentation into docs/build"
-	@uv run --group docs sphinx-build -b html docs/source docs/build
+	@uv run --group docs sphinx-build -W --keep-going -b html docs/source docs/build
 
 .PHONY: docs-serve
 docs-serve: remove-built-docs

@@ -1,6 +1,13 @@
 """Sphinx configuration for the USAS Evaluation Framework documentation."""
 
-import logging
+from enum import Enum
+from typing import Any
+
+from sphinx.application import Sphinx
+
+# Private module, but this is the sentinel autodoc passes for annotation-only
+# attributes (pydantic fields, TypedDict keys). Re-check on Sphinx upgrades.
+from sphinx.ext.autodoc._sentinels import INSTANCE_ATTR
 
 import usas_evaluation_framework
 
@@ -55,19 +62,37 @@ intersphinx_mapping = {
 }
 
 
-class FilterSphinxAutodocTypehintsFilter(logging.Filter):
-    """Hide noisy forward-reference warnings raised for pydantic models."""
+# Hide noisy sphinx_autodoc_typehints warnings raised for pydantic models (e.g.
+# unresolvable forward references inside pydantic's own ``Field``). Unlike a
+# logging filter, ``suppress_warnings`` also stops them counting towards the
+# build's warning total.
+suppress_warnings = [
+    "sphinx_autodoc_typehints.forward_reference",
+    "sphinx_autodoc_typehints.guarded_import",
+]
 
-    def filter(self, record: logging.LogRecord) -> bool:
-        message = record.getMessage()
-        return not any(
-            text in message
-            for text in ("Cannot resolve forward reference", "Failed guarded type import")
-        )
+
+def skip_attributes_documented_by_napoleon(
+    app: Sphinx, what: str, name: str, obj: Any, skip: bool, options: Any
+) -> bool | None:
+    """
+    Skip autodoc's own entries for fields already documented by napoleon.
+
+    Napoleon turns each class's Google-style ``Attributes:`` section into an
+    ``.. attribute::`` entry with its type and description. Autodoc would also
+    document the same pydantic fields, TypedDict keys and Enum members, without
+    a description, giving duplicate entries and "duplicate object description"
+    warnings. So every such member must be listed in its class's ``Attributes:``
+    section, or it will not appear in the documentation.
+
+    Returns:
+        bool | None: True to skip the member, None to leave autodoc's decision.
+    """
+    if what == "class" and (obj is INSTANCE_ATTR or isinstance(obj, Enum)):
+        return True
+    return None
 
 
-# Logger filters do not apply to records propagated from child loggers (e.g.
-# ``sphinx.sphinx_autodoc_typehints``), so attach the filter to the handlers
-# Sphinx installs on its ``sphinx`` logger, which every child record reaches.
-for _handler in logging.getLogger("sphinx").handlers:
-    _handler.addFilter(FilterSphinxAutodocTypehintsFilter())
+def setup(app: Sphinx) -> None:
+    """Register the documentation's event handlers with Sphinx."""
+    app.connect("autodoc-skip-member", skip_attributes_documented_by_napoleon)

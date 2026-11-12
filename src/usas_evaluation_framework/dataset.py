@@ -109,6 +109,8 @@ class EvaluationDataset(BaseModel):
     Attributes:
         name (str): The name of the dataset
         text_level (TextLevel): The text level of the `texts`, e.g. sentence, paragraph, or document.
+        language (str | None): The language of the dataset. Default is `None`
+            indicating the language is not specified.
         labels_removed (set[str] | None): The labels that were removed from the dataset. For example
             a specific semantic tag or semantic tags. Default is `None` indicating no labels were removed.
         texts (list[EvaluationTexts]): The texts of the dataset, this contains

@@ -78,14 +78,6 @@ def module_level_function(param1: int,
     If *args or **kwargs are accepted,
     they should be listed as ``*args`` and ``**kwargs``.
 
-    The format for a parameter is::
-        name: description
-            The description may span multiple lines. Following
-            lines should be indented.
-
-            Multiple paragraphs are supported in parameter
-            descriptions.
-
     Args:
         param1: The first parameter.
         param2: The second parameter. Defaults to None.

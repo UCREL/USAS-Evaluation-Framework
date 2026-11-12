@@ -406,23 +406,26 @@ class FinnishBenedict(BaseParser):
         The whole text string is validated to ensure it is in this
         '<Token>_<USAS-Label>(_i)?' format.
         It returns the following information within the data structure `EvaluationTexts`:
+
         * the text string
         * the tokens.
         * the USAS labels.
         * the MWE indexes.
 
         This validation also handles edge cases with punctuation;
+
         * If the text element only contains the following it will have the
-            USAS label `PUNCT`:
-            * `-`
-            * `.`
-            * `,`
-            * `!`
-            * `:`
-            * `(`
-            * `)`
-            * `?`
-            * `"`
+          USAS label `PUNCT`:
+
+          * `-`
+          * `.`
+          * `,`
+          * `!`
+          * `:`
+          * `(`
+          * `)`
+          * `?`
+          * `"`
 
         Args:
             text: The text to validate, e.g. `Vac_F2/O2_i pot_F2/O2_i on_A3+`

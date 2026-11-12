@@ -14,6 +14,7 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
 - `src/usas_evaluation_framework/metrics/` holds the evaluation metrics.
 - `scripts/` holds Typer CLIs that convert annotated Excel/TSV files to CSV. They need the `excel-conversion` extra, and the README explains how to use them.
 - `notebooks/` holds notebooks that evaluate PyMUSAS models on the Hugging Face `ucrelnlp/USAS-WSD` dataset and explore dataset statistics. They need the `notebooks` extra.
+- `docs/source/` holds the Sphinx site (`conf.py`, `index.rst`, MyST Markdown pages in `overview/`, and API pages in `api/`). The API pages list each module with its own `automodule` directive, so when you add a module (for example a new parser or metric), also add it to the matching `docs/source/api/*.rst` file. `docs/build/` is gitignored build output.
 
 ## Domain Conventions
 
@@ -47,9 +48,10 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
   - `uv add` / `uv remove` to manage dependencies. For developer dependencies add `--dev`, e.g. `uv add --dev package`.
   - `uv run script.py` to run a script within the uv environment.
 - Use `make` to run linting and tests (the targets are in `makefile`):
-  - `make lint` first **auto-fixes files in place** with ruff (`--fix-only`), then runs `ruff check` and `ty check` over `src`, `tests`, `scripts` and `coding_style_format_example.py`.
+  - `make lint` first **auto-fixes files in place** with ruff (`--fix-only`), then runs `ruff check` and `ty check` over `src`, `tests`, `scripts`, `coding_style_format_example.py` and `docs/source/conf.py`.
   - `make test` runs pytest under coverage. Pytest runs `tests/` and the doctests in `src/` and `coding_style_format_example.py` (`--doctest-modules` with `NORMALIZE_WHITESPACE`).
-- Document Python code with Google-style docstrings, and write all docstring examples in doctest style. They are executed by `make test`, so they must pass. See [coding_style_format_example.py](./coding_style_format_example.py) for an example of this format.
+  - `make docs` builds the HTML documentation into `docs/build` (it deletes any previous build first). It runs with `-W`, so any Sphinx warning fails the build, and it needs network access for the intersphinx inventories. `make docs-serve` serves it with live reload at http://127.0.0.1:8000 and rebuilds when `src` changes. Both use the `docs` dependency group.
+- Document Python code with Google-style docstrings, and write all docstring examples in doctest style. They are executed by `make test`, so they must pass. Sphinx also renders these docstrings into the API pages, so formatting mistakes show up on the documentation site as well as in the doctests. Docstrings are reStructuredText: put a blank line before a list, use double backticks for literals containing spaces (``` ``"; "`` ```), and write maths with `.. math::` / `:math:` rather than `$$` or `\( \)`. List every Pydantic field, TypedDict key and Enum member in its class's `Attributes:` section: `docs/source/conf.py` skips autodoc's own entries for these to avoid duplicates, so an unlisted one is missing from the docs. See [coding_style_format_example.py](./coding_style_format_example.py) for an example of this format.
 - Testing:
   - Tests mirror the `src` layout: `tests/parsers/`, `tests/metrics/`.
   - There is no `conftest.py`. Shared fixtures such as `get_test_data_directory` live in `tests/utils_test.py` and are imported explicitly.

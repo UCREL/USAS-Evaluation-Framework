@@ -19,15 +19,16 @@ def top_n_accuracy(y_true: EvaluationDataset,
     for each `true` semantic tag. True semantic tags that are an empty string are
     ignored.
 
-    $$
-    \text{Top-n Accuracy} = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \mathbb{I}(\text{correct answer} \in \text{top-}n(\hat{y}_{j,i}))
-    $$
+    .. math::
+
+        \text{Top-n Accuracy} = \frac{1}{|Q|} \sum_{i=1}^{|Q|} \mathbb{I}(\text{correct answer} \in \text{top-}n(\hat{y}_{j,i}))
 
     Where:
-    - \( |Q| \) is the total number of true semantic tags for all tokens.
-    - \( \hat{y}_{j,i} \) represents the predicted scores for all semantic tags for the \(i\)-th token in the \(j\)-th text.
-    - \( \text{top-}n(\hat{y}_i) \) denotes the set of top-\(n\) predicted semantic tags for the \(i\)-th token in the \(j\)-th text.
-    - \( \mathbb{I}(\cdot) \) is the indicator function, which equals 1 if the correct answer is in the top-nnn predictions and 0 otherwise.
+
+    - :math:`|Q|` is the total number of true semantic tags for all tokens.
+    - :math:`\hat{y}_{j,i}` represents the predicted scores for all semantic tags for the :math:`i`-th token in the :math:`j`-th text.
+    - :math:`\text{top-}n(\hat{y}_{j,i})` denotes the set of top-:math:`n` predicted semantic tags for the :math:`i`-th token in the :math:`j`-th text.
+    - :math:`\mathbb{I}(\cdot)` is the indicator function, which equals 1 if the correct answer is in the top-:math:`n` predictions and 0 otherwise.
 
     Args:
         y_true: The true labels for the dataset.
