@@ -9,7 +9,8 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
 ## Layout
 
 - `src/usas_evaluation_framework/dataset.py` holds the Pydantic v2 data models: `EvaluationTexts` (one text) and `EvaluationDataset` (a collection, with `merge()` and `stats()`).
-- `src/usas_evaluation_framework/data_utils.py` parses USAS tags (`parse_usas_token_group`) and loads the packaged tag map at `data/usas/usas_mapper.yaml` (`load_usas_mapper`).
+- USAS tag parsing (`parse_usas_token_group`), the USAS tag map (`load_usas_mapper`), the `USASTag`/`USASTagGroup` models and MWE index helpers come from the [USAS-Validator](https://github.com/UCREL/USAS-Validator) package (`usas_validator.utils`, `usas_validator.usas_tag`). Don't reimplement them here. Always call `parse_usas_token_group(..., strict=True)`, because the default `strict=False` silently drops invalid tags instead of raising `ValueError`, and the parsers' validation relies on that error.
+- `src/usas_evaluation_framework/data_utils.py` holds small general helpers (`create_inner_list`).
 - `src/usas_evaluation_framework/parsers/` has one parser per corpus, each subclassing `BaseParser` (`parsers/base.py`). `parse(dataset_path, label_validation, label_filter, dataset_name, language)` is a static method that returns an `EvaluationDataset`. New corpora should follow this pattern.
 - `src/usas_evaluation_framework/metrics/` holds the evaluation metrics.
 - `scripts/` holds Typer CLIs that convert annotated Excel/TSV files to CSV. They need the `excel-conversion` extra, and the README explains how to use them.

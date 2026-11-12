@@ -86,9 +86,6 @@ Metrics scores for the 21 top level categories
 
 #### Named Entities
 
-## Notes
-
-In the future we should be able to replace [./src/usas_evaluation_framework/data_utils.py](./src/usas_evaluation_framework/data_utils.py) with [https://github.com/UCREL/USAS-Validator](https://github.com/UCREL/USAS-Validator)
 
 ## Annotated Evaluation Data
 

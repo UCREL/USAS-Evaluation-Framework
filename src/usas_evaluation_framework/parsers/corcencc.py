@@ -1,6 +1,8 @@
 import logging
 from pathlib import Path
 
+from usas_validator import utils as usas_utils
+
 from usas_evaluation_framework import data_utils
 from usas_evaluation_framework.dataset import (
     EvaluationDataset,
@@ -88,7 +90,7 @@ class CorcenccParser(BaseParser):
                 label cannot be validated when label validation is used.
         """
         def validate_label(label: str) -> str:
-            label_groups = data_utils.parse_usas_token_group(label)
+            label_groups = usas_utils.parse_usas_token_group(label, strict=True)
             if len(label_groups) != 1:
                 raise ValueError(
                     f"Error expected only one label group: {label_groups}"
@@ -121,7 +123,7 @@ class CorcenccParser(BaseParser):
             # Validate token is not a USAS tag
             token_is_a_tag = True
             try:
-                data_utils.parse_usas_token_group(token)
+                usas_utils.parse_usas_token_group(token, strict=True)
             except ValueError:
                 token_is_a_tag = False
             if token_is_a_tag:

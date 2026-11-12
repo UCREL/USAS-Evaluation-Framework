@@ -2,9 +2,9 @@ import copy
 from pathlib import Path
 
 import pytest
+from usas_validator.utils import load_usas_mapper
 
 from tests.utils_test import get_test_data_directory  # noqa: F401
-from usas_evaluation_framework.data_utils import load_usas_mapper
 from usas_evaluation_framework.dataset import (
     EvaluationDataset,
     EvaluationTexts,

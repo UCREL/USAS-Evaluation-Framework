@@ -4795,7 +4795,7 @@ source = { editable = "." }
 dependencies = [
     { name = "datasets" },
     { name = "pydantic" },
-    { name = "pyyaml" },
+    { name = "usas-validator" },
 ]
 
 [package.optional-dependencies]
@@ -4850,8 +4850,8 @@ requires-dist = [
     { name = "pip", marker = "extra == 'notebooks'", specifier = ">=26.0.1" },
     { name = "pydantic", specifier = ">=2.0,<3.0" },
     { name = "pymusas", extras = ["neural"], marker = "extra == 'notebooks'", specifier = ">=0.4.0" },
-    { name = "pyyaml", specifier = ">=6.0,<7.0" },
     { name = "spacy", marker = "extra == 'notebooks'", specifier = ">=3.8.11" },
+    { name = "usas-validator", specifier = ">=0.1.1" },
     { name = "xlrd", marker = "extra == 'excel-conversion'", specifier = ">=2.0.2" },
 ]
 provides-extras = ["notebooks", "excel-conversion"]
@@ -4871,6 +4871,19 @@ docs = [
     { name = "sphinx-autodoc-typehints", specifier = ">=3.0.1" },
     { name = "sphinx-copybutton", specifier = ">=0.5.2" },
     { name = "sphinx-rtd-theme", specifier = ">=3.1.0" },
+]
+
+[[package]]
+name = "usas-validator"
+version = "0.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pydantic" },
+    { name = "pyyaml" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/4b/e5/7d41f60d59c75e0567c16553cda5dcd6f4081ccb0cca893a88e4b805067e/usas_validator-0.1.1.tar.gz", hash = "sha256:c7d99f888b2db597f7699ba6413c72358fb1d6b610a023ce35bebc8c7ff81642", size = 21400, upload-time = "2026-09-23T10:14:58.261Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/98/54/587127a678472bbd0ca3f9f1f24909578b297c109b750f14c6765d110600/usas_validator-0.1.1-py3-none-any.whl", hash = "sha256:8de6fb258fbde4ddd0b717c2e83267bb1aa67ce1be665559d3720d0099a21c80", size = 23209, upload-time = "2026-09-23T10:14:57.01Z" },
 ]
 
 [[package]]

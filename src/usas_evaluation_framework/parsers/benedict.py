@@ -3,10 +3,9 @@ import re
 from pathlib import Path
 from typing import TypedDict
 
-from usas_evaluation_framework.data_utils import (
-    create_inner_list,
-    parse_usas_token_group,
-)
+from usas_validator.utils import parse_usas_token_group
+
+from usas_evaluation_framework.data_utils import create_inner_list
 from usas_evaluation_framework.dataset import (
     EvaluationDataset,
     EvaluationTexts,
@@ -53,7 +52,7 @@ class EnglishBenedict(BaseParser):
         """
         Given a text whereby when split by whitespace each text element
         has the following format '<Token>_<USAS-Label><MWE>?' whereby the USAS-Label
-        should be validated by `parse_usas_token_group`, whereby the MWE is optional
+        should be validated by :func:`usas_validator.utils.parse_usas_token_group`, whereby the MWE is optional
         and will be validated later by `get_mwe_indexes`. This validator ensures
         that the text string as a whole is valid according to the token text and
         USAS label format. It returns; the text string, the tokens,
@@ -126,7 +125,7 @@ class EnglishBenedict(BaseParser):
                 if not usas_tag_string:
                     raise ValueError(f"USAS tag is empty in token: {token} for text: {text}")
                 try:
-                    usas_tag_groups = parse_usas_token_group(usas_tag_string)
+                    usas_tag_groups = parse_usas_token_group(usas_tag_string, strict=True)
                     # We only want the first USAS tag group as there should only be one USAS tag
                     # group by definition. We then want each tag from that first group.
                     # There can be multiple tags because of multi tag membership, e.g.
@@ -329,7 +328,7 @@ class EnglishBenedict(BaseParser):
                 for token in tokens:
                     token_is_a_tag = True
                     try:
-                        parse_usas_token_group(token)
+                        parse_usas_token_group(token, strict=True)
                     except ValueError:
                         token_is_a_tag = False
                     if token_is_a_tag:
@@ -401,7 +400,7 @@ class FinnishBenedict(BaseParser):
         """
         Given a text whereby when split by whitespace each text element
         has the following format '<Token>_<USAS-Label>(_i)?' whereby the USAS-Label
-        should be validated by `parse_usas_token_group`, the optional `_i`
+        should be validated by :func:`usas_validator.utils.parse_usas_token_group`, the optional `_i`
         indicates if the token is part of a Multi Word Expression.
         The whole text string is validated to ensure it is in this
         '<Token>_<USAS-Label>(_i)?' format.
@@ -501,7 +500,7 @@ class FinnishBenedict(BaseParser):
             try:
                 usas_tag = usas_tag_string
                 if usas_tag_string != "PUNCT":
-                    usas_tag_groups = parse_usas_token_group(usas_tag_string)
+                    usas_tag_groups = parse_usas_token_group(usas_tag_string, strict=True)
                     # We only want the first USAS tag group as there should only be one USAS tag
                     # group by definition. We then want each tag from that first group.
                     # There can be multiple tags because of multi tag membership, e.g.
@@ -612,7 +611,7 @@ class FinnishBenedict(BaseParser):
                     # Validate token is not a USAS tag
                     token_is_a_tag = True
                     try:
-                        parse_usas_token_group(token)
+                        parse_usas_token_group(token, strict=True)
                     except ValueError:
                         token_is_a_tag = False
                     if token_is_a_tag:

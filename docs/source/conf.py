@@ -58,7 +58,8 @@ source_suffix = {
 # external docs unresolved (these warnings fail the build only with ``-W``).
 intersphinx_mapping = {
     "python": ("https://docs.python.org/3", None),
-    "pydantic": ("https://docs.pydantic.dev/latest", None),
+    "pydantic": ("https://pydantic.dev/docs/validation/latest", None),
+    "usas_validator": ("https://ucrel.github.io/USAS-Validator", None),
 }
 
 

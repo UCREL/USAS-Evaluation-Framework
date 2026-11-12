@@ -2,10 +2,9 @@ import csv
 import logging
 from pathlib import Path
 
-from usas_evaluation_framework.data_utils import (
-    create_inner_list,
-    parse_usas_token_group,
-)
+from usas_validator.utils import parse_usas_token_group
+
+from usas_evaluation_framework.data_utils import create_inner_list
 from usas_evaluation_framework.dataset import (
     EvaluationDataset,
     EvaluationTexts,
@@ -64,7 +63,7 @@ class NAACL2015USAS(BaseParser):
             return ''
 
         try:
-            groups = parse_usas_token_group(raw_tag)
+            groups = parse_usas_token_group(raw_tag, strict=True)
             return '/'.join(t.tag for t in groups[0].tags)
         except ValueError as e:
             raise ValueError(f"Invalid USAS tag '{raw_tag}'") from e
