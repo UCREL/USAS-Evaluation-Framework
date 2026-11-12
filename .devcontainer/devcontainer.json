@@ -25,11 +25,12 @@
 					   "github.vscode-github-actions",
 					   "mechatroner.rainbow-csv",
 					   "ms-azuretools.vscode-docker",
-                       "ms-azuretools.vscode-containers"],
+                       "ms-azuretools.vscode-containers",
+					   "trond-snekvik.simple-rst"],
 		"settings": {
 			"python-envs.defaultEnvManager": "ms-python.python:venv"
 		}
 		}
   	},
-	"postStartCommand": "uv sync --all-extras"
+	"postStartCommand": "uv sync --all-extras --all-groups"
 }

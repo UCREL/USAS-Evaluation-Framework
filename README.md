@@ -33,10 +33,10 @@ To run locally first ensure you have the following tools installted locally:
   * Mac: [Xcode command line tools](https://mac.install.guide/commandlinetools/4) includes `make` else you can use [brew.](https://formulae.brew.sh/formula/make)
   * Windows: Various solutions proposed in this [blog post](https://earthly.dev/blog/makefiles-on-windows/) on how to install on Windows, inclduing `Cygwin`, and `Windows Subsystem for Linux`.
 
-When developing on the project you will want to install the Python package locally in editable format with all the extra requirements, this can be done like so:
+When developing on the project you will want to install the Python package locally in editable format with all the extra requirements and dependency groups (`dev` and `docs`), this can be done like so:
 
 ```bash
-uv sync --all-extras
+uv sync --all-extras --all-groups
 ```
 
 ### Linting

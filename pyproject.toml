@@ -69,6 +69,14 @@ dev = [
     "ty>=0.0.13",
     "torch",  # resolved via pytorch-cpu source for local/CI use
 ]
+docs = [
+    "myst-parser>=4.0.1",
+    "sphinx>=8.1.3",
+    "sphinx-autobuild>=2024.10.3",
+    "sphinx-autodoc-typehints>=3.0.1",
+    "sphinx-copybutton>=0.5.2",
+    "sphinx-rtd-theme>=3.1.0",
+]
 
 
 [tool.ruff.lint]

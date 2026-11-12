@@ -43,7 +43,7 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
 ## Development
 
 - Use `uv` for all commands. Never run bare `python` or `pip` commands; always go through `uv` to avoid environment drift. For example, use `uv add package` and `uv run script.py` rather than `pip install package` or `python script.py`. Useful commands:
-  - `uv sync --all-extras` to set up the full environment. The dev group is installed by default.
+  - `uv sync --all-extras --all-groups` to set up the full environment. Only the dev group is installed by default, so `--all-groups` is needed for the docs group. `uv sync` is exact and removes anything not requested.
   - `uv add` / `uv remove` to manage dependencies. For developer dependencies add `--dev`, e.g. `uv add --dev package`.
   - `uv run script.py` to run a script within the uv environment.
 - Use `make` to run linting and tests (the targets are in `makefile`):
