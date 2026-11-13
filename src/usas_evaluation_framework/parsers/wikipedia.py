@@ -40,8 +40,14 @@ class WikipediaUSAS(BaseParser):
     for each token is determined as follows:
 
     1. If ``corrected USAS`` is non-empty, the first ``;``-separated tag is used.
-    2. Else if the POS tag is ``PUNCT``, the USAS tag ``PUNCT`` is assigned.
-    3. Otherwise the first ``;``-separated tag from ``predicted USAS`` is used.
+    2. Otherwise the first ``;``-separated tag from ``predicted USAS`` is used,
+       as an empty ``corrected USAS`` means the annotator accepted the
+       predicted tag.
+    3. If both are empty the token has no human checked tag, and a
+       ``ValueError`` is raised unless ``allow_empty_tags`` is ``True``.
+
+    No tag is inferred from the POS tag, so punctuation tokens must have a
+    human checked ``Z9`` tag like every other token.
 
     MWE group resolution: ``corrected MWE`` is used when non-empty; otherwise no
     MWE grouping is applied (``predicted MWE`` is ignored).  MWE group identifiers
@@ -55,7 +61,10 @@ class WikipediaUSAS(BaseParser):
     """
 
     @staticmethod
-    def _resolve_usas_tag(predicted_usas: str, corrected_usas: str, pos: str) -> str:
+    def _resolve_usas_tag(predicted_usas: str,
+                          corrected_usas: str,
+                          pos: str,
+                          allow_empty_tags: bool = False) -> str:
         """
         Resolve and normalise the USAS tag for a single token.
 
@@ -63,26 +72,50 @@ class WikipediaUSAS(BaseParser):
             predicted_usas: Raw predicted USAS field (may contain multiple
                 ``;``-separated tags).
             corrected_usas: Raw corrected USAS field (single tag or empty).
-            pos: POS tag for the token.
+            pos: POS tag for the token, only used to give a more helpful
+                error message.
+            allow_empty_tags: Whether a token with no tag in either field
+                returns ``''`` rather than raising a ``ValueError``.
+                Defaults to ``False``.
         Returns:
-            Normalised USAS tag string, ``'PUNCT'`` for punctuation tokens, or
-            ``''`` when no tag can be determined.
+            Normalised USAS tag string, or ``''`` when no tag has been given
+            and ``allow_empty_tags`` is ``True``.
         Raises:
-            ValueError: If the resolved raw tag cannot be parsed as a USAS tag.
+            ValueError: If the resolved raw tag cannot be parsed as a USAS tag,
+                or if no tag has been given and ``allow_empty_tags`` is ``False``.
+
+        Examples:
+            >>> from usas_evaluation_framework.parsers.wikipedia import WikipediaUSAS
+            >>> WikipediaUSAS._resolve_usas_tag("Z9", "", "PUNCT")
+            'Z9'
+            >>> WikipediaUSAS._resolve_usas_tag("A1; B2", "F2/O2", "NOUN")
+            'F2/O2'
+            >>> WikipediaUSAS._resolve_usas_tag("", "", "PUNCT", allow_empty_tags=True)
+            ''
         """
-        # The corrected tag takes priority, then punctuation, then the predicted tag.
-        match (corrected_usas, pos, predicted_usas):
-            case ('', 'PUNCT', _):
-                return 'PUNCT'
-            case ('', _, ''):
-                return ''
-            case ('', _, _):
+        # The corrected tag takes priority, then the predicted tag.
+        match (corrected_usas, predicted_usas):
+            case ('', ''):
+                raw_tag = ''
+            case ('', _):
                 raw_tag = predicted_usas.split(';')[0].strip()
             case _:
                 raw_tag = corrected_usas.split(';')[0].strip()
 
-        if not raw_tag:
-            return ''
+        match (raw_tag, allow_empty_tags, pos):
+            case ('', True, _):
+                return ''
+            case ('', False, 'PUNCT'):
+                raise ValueError(
+                    "No human checked USAS tag, both `corrected USAS` and "
+                    "`predicted USAS` are empty. As the POS tag is `PUNCT` "
+                    "we would expect the USAS tag to be `Z9`"
+                )
+            case ('', False, _):
+                raise ValueError(
+                    "No human checked USAS tag, both `corrected USAS` and "
+                    "`predicted USAS` are empty"
+                )
 
         try:
             groups = parse_usas_token_group(raw_tag, strict=True)
@@ -97,16 +130,18 @@ class WikipediaUSAS(BaseParser):
         label_filter: set[str] | None = None,
         dataset_name: str | None = "Wikipedia USAS",
         language: str | None = None,
+        allow_empty_tags: bool = False,
     ) -> EvaluationDataset:
         """
         Parse a Wikipedia USAS corpus into the Evaluation Dataset format.
 
-        If a token does not have a corrected USAS tag, the first ``;``-separated,
-        but does have a POS tag of ``PUNCT``, then ``PUNCT`` is used. ``PUNCT``
-        is always included in the label validation set.
+        Every token must have a human checked USAS tag, i.e. a ``corrected
+        USAS`` tag or an accepted ``predicted USAS`` tag. A token with neither
+        raises a ``ValueError`` unless ``allow_empty_tags`` is ``True``, in
+        which case its tag is ``''``. No tag is inferred from the POS tag.
 
-        Empty tags (produced by label filtering), which can include ``PUNCT``,
-        are not checked against ``label_validation``.
+        Empty tags (produced by label filtering or ``allow_empty_tags``) are
+        not checked against ``label_validation``.
 
         For multi-tag labels such as ``L1/F1``, the complete multi-tag string
         must appear in ``label_filter`` for the token to be filtered out.
@@ -114,7 +149,7 @@ class WikipediaUSAS(BaseParser):
         Args:
             dataset_path: Path to the Wikipedia USAS CSV file.
             label_validation: Optional set of valid semantic labels.  When
-                supplied, every resolved tag (excluding ``PUNCT`` and ``''``) is
+                supplied, every resolved tag (excluding ``''``) is
                 checked against this set.
             label_filter: Optional set of labels to suppress.  Matching tokens
                 receive an empty-string tag.
@@ -122,13 +157,18 @@ class WikipediaUSAS(BaseParser):
                 Defaults to ``'Wikipedia USAS'``.
             language: Language of the corpus (e.g. ``'Spanish'``).
                 Defaults to ``None``.
+            allow_empty_tags: Whether tokens with no USAS tag in either the
+                ``corrected USAS`` or ``predicted USAS`` field are allowed,
+                in which case their tag is ``''``. Defaults to ``False``, so
+                every token must have a human checked tag.
         Returns:
             EvaluationDataset: Parsed dataset at sentence-level granularity.
             Tokens, lemmas, POS tags, semantic tags, and MWE indexes are all
             populated.
         Raises:
-            ValueError: If a token cannot be parsed or a tag fails label
-                validation.
+            ValueError: If a token cannot be parsed, a tag fails label
+                validation, or a token has no USAS tag and ``allow_empty_tags``
+                is ``False``.
         """
         if dataset_name is None:
             dataset_name = "Wikipedia USAS"
@@ -168,11 +208,11 @@ class WikipediaUSAS(BaseParser):
 
                 try:
                     usas_tag = WikipediaUSAS._resolve_usas_tag(
-                        predicted_usas, corrected_usas, pos
+                        predicted_usas, corrected_usas, pos, allow_empty_tags
                     )
                 except ValueError as e:
                     raise ValueError(
-                        f"Error resolving USAS tag for token '{token}': {e}"
+                        f"Error resolving USAS tag for token '{token}' (id: '{row[0]}'): {e}"
                     ) from e
 
                 if corrected_mwe:
@@ -206,7 +246,7 @@ class WikipediaUSAS(BaseParser):
             if label_validation is not None:
                 for usas_tag in usas_tags:
                     match usas_tag:
-                        case 'PUNCT' | '':
+                        case '':
                             continue
                     for sub_tag in usas_tag.split('/'):
                         if sub_tag not in label_validation:

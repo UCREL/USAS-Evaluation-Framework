@@ -71,11 +71,11 @@ class TestICCIrishParser:
     @pytest.fixture(params=[None, set(["Q4.3"])])
     def small_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
         semantic_tags: list[list[list[str]]] = [
-            [["Z5"], ["Q4.3/N4"], ["Q4.3"], ["Z8"], ["Z0"], ["Z0"], ["PUNCT"]]
+            [["Z5"], ["Q4.3/N4"], ["Q4.3"], ["Z8"], ["Z0"], ["Z0"], ["Z9"]]
         ]
         if request.param is not None:
             semantic_tags: list[list[list[str]]] = [
-            [["Z5"], ["Q4.3/N4"], [""], ["Z8"], ["Z0"], ["Z0"], ["PUNCT"]]
+            [["Z5"], ["Q4.3/N4"], [""], ["Z8"], ["Z0"], ["Z0"], ["Z9"]]
         ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -117,7 +117,7 @@ class TestICCIrishParser:
     @pytest.fixture(params=[False, True])
     def small_label_validation_and_error(self, request: pytest.FixtureRequest) -> tuple[set[str], bool]:
         all_labels = set([
-            "Q4.3", "Z5", "N4", "Z8", "Z0", "Z0"
+            "Q4.3", "Z5", "N4", "Z8", "Z0", "Z9"
         ])
         if request.param:
             return all_labels, False
@@ -201,7 +201,7 @@ class TestICCIrishParser:
         ]
         semantic_tag_counts = [
             194,
-            322,
+            321,
             102
         ]
         multi_tag_counts = [
@@ -228,7 +228,7 @@ class TestICCIrishParser:
                 for semantic_tag_list in text.semantic_tags:
                     assert len(semantic_tag_list) == 1
                     semantic_tag = semantic_tag_list[0]
-                    if semantic_tag != "PUNCT" and semantic_tag:
+                    if semantic_tag != "Z9" and semantic_tag:
                         semantic_tags += 1
                     if "/" in semantic_tag:
                         multi_tag += 1

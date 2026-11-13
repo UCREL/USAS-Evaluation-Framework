@@ -42,13 +42,13 @@ class TestCorcenccParser:
     @pytest.fixture(params=[None, set(["A5.4"])])
     def small_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
         semantic_tags: list[list[list[str]]] = [
-            [["A5.4"], ["Z5"], ["A5.1"], ["Q2.1"], ["PUNCT"]],
-            [["X6"], ["N5.1/A5.4"], ["Z5"], ["PUNCT"]]
+            [["A5.4"], ["Z5"], ["A5.1"], ["Q2.1"], ["Z9"]],
+            [["X6"], ["N5.1/A5.4"], ["Z5"], ["Z9"]]
         ]
         if request.param is not None:
             semantic_tags: list[list[list[str]]] = [
-            [[""], ["Z5"], ["A5.1"], ["Q2.1"], ["PUNCT"]],
-            [["X6"], ["N5.1/A5.4"], ["Z5"], ["PUNCT"]]
+            [[""], ["Z5"], ["A5.1"], ["Q2.1"], ["Z9"]],
+            [["X6"], ["N5.1/A5.4"], ["Z5"], ["Z9"]]
         ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -98,7 +98,7 @@ class TestCorcenccParser:
     @pytest.fixture(params=[False, True])
     def small_label_validation_and_error(self, request: pytest.FixtureRequest) -> tuple[set[str], bool]:
         all_labels = set([
-            "A5.4", "Z5", "A5.1", "Q2.1", "X6", "N5.1" 
+            "A5.4", "Z5", "A5.1", "Q2.1", "X6", "N5.1", "Z9"
         ])
         if request.param:
             return all_labels, False
@@ -156,7 +156,7 @@ class TestCorcenccParser:
             for semantic_tag_list in text.semantic_tags:
                 assert len(semantic_tag_list) == 1
                 semantic_tag = semantic_tag_list[0]
-                if semantic_tag != "PUNCT" and semantic_tag:
+                if semantic_tag != "Z9" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:
                     multi_tag += 1

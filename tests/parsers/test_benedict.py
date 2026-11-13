@@ -134,14 +134,14 @@ class TestEnglishBenedict:
         test_string = ("-_- ._. a_! ._PUNC another_,")
         expected_output = ("-_- ._. a_! ._PUNC another_,",
                            ["-", ".", "a", ".", "another"],
-                           ["PUNCT", "PUNCT", "PUNCT", "PUNCT", "PUNCT"])
+                           ["Z9", "Z9", "Z9", "Z9", "Z9"])
         assert EnglishBenedict.validate_text_string_format(test_string) == expected_output
 
         # The USAS tags that should be converted with MWE information
         test_string = ("Vac_F2/O2[i136.3.1 !_![i136.3.2 is_A3+ by_A13.3[i136.3.3 far_A13.3")
         expected_output = ("Vac_F2/O2[i136.3.1 !_![i136.3.2 is_A3+ by_A13.3[i136.3.3 far_A13.3",
                            ["Vac", "!", "is", "by", "far"],
-                           ["F2/O2", "PUNCT", "A3", "A13.3", "A13.3"])
+                           ["F2/O2", "Z9", "A3", "A13.3", "A13.3"])
         assert EnglishBenedict.validate_text_string_format(test_string) == expected_output
 
     def test_validate_text_string_format_incorrect_format(self) -> None:
@@ -213,15 +213,15 @@ class TestEnglishBenedict:
         semantic_tags: list[list[list[str]]] = [
             [["F2"]],
             [["Z5"], ["T1.1.1"], ["Z5"], ["F2"]],
-            [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.3"], ["O4.5"], ["A1.1.1"], ["PUNCT"], ["O4.1"]],
-            [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["Z5"], ["O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.4"], ["O4.1"], ["O1.1"]]
+            [["F2/O4.5"], ["F2/O4.5"], ["Z9"], ["A13.3"], ["O4.5"], ["A1.1.1"], ["Z9"], ["O4.1"]],
+            [["F2/O4.5"], ["F2/O4.5"], ["Z9"], ["Z5"], ["O4.5"], ["F2/O4.5"], ["Z9"], ["A13.4"], ["O4.1"], ["O1.1"]]
         ]
         if request.param is not None:
             semantic_tags: list[list[list[str]]] = [
                 [[""]],
                 [["Z5"], ["T1.1.1"], ["Z5"], [""]],
-                [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.3"], ["O4.5"], ["A1.1.1"], ["PUNCT"], ["O4.1"]],
-                [["F2/O4.5"], ["F2/O4.5"], ["PUNCT"], ["Z5"], ["O4.5"], ["F2/O4.5"], ["PUNCT"], ["A13.4"], ["O4.1"], ["O1.1"]]
+                [["F2/O4.5"], ["F2/O4.5"], ["Z9"], ["A13.3"], ["O4.5"], ["A1.1.1"], ["Z9"], ["O4.1"]],
+                [["F2/O4.5"], ["F2/O4.5"], ["Z9"], ["Z5"], ["O4.5"], ["F2/O4.5"], ["Z9"], ["A13.4"], ["O4.1"], ["O1.1"]]
             ]
         
         evaluation_texts: list[EvaluationTexts] = [
@@ -288,7 +288,7 @@ class TestEnglishBenedict:
     @pytest.fixture(params=[False, True])
     def small_label_validation_and_error(self, request: pytest.FixtureRequest) -> tuple[set[str], bool]:
         all_labels = set([
-            "Z5", "F2", "T1.1.1", "O4.5", "A13.3", "A1.1.1", "O4.1", "A13.4", "O1.1" 
+            "Z5", "F2", "T1.1.1", "O4.5", "A13.3", "A1.1.1", "O4.1", "A13.4", "O1.1", "Z9"
         ])
         if request.param:
             return all_labels, False
@@ -337,7 +337,7 @@ class TestEnglishBenedict:
             for semantic_tag_list in text.semantic_tags:
                 assert len(semantic_tag_list) == 1
                 semantic_tag = semantic_tag_list[0]
-                if semantic_tag != "PUNCT" and semantic_tag:
+                if semantic_tag != "Z9" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:
                     multi_tag += 1
@@ -384,7 +384,7 @@ class TestFinnishBenedict:
         test_string = ('- , ! : ( ) ? " .')
         expected_output = EvaluationTexts(text='- , ! : ( ) ? " .',
                            tokens=['-', ',', '!', ':', '(', ')', '?', '"', '.'],
-                           semantic_tags=[["PUNCT"]] * 9,
+                           semantic_tags=[["Z9"]] * 9,
                            mwe_indexes=[frozenset({})] * 9,
                            lemmas=None,
                            pos_tags=None)
@@ -461,14 +461,14 @@ class TestFinnishBenedict:
     @pytest.fixture(params=[None, set(["F2"])])
     def small_finnish_example_expected_data_with_label_filter(self, request: pytest.FixtureRequest) -> tuple[EvaluationDataset, None | set[str]]:
         semantic_tags: list[list[list[str]]] = [
-            [["A1.5.2"], ["PUNCT"]],
+            [["A1.5.2"], ["Z9"]],
             [["N3.1/F2/O4.3"]],
             [["F2/L3"], ["F2/L3"]],
             [["F2"]]
         ]
         if request.param is not None:
             semantic_tags: list[list[list[str]]] = [
-                [["A1.5.2"], ["PUNCT"]],
+                [["A1.5.2"], ["Z9"]],
                 [["N3.1/F2/O4.3"]],
                 [["F2/L3"], ["F2/L3"]],
                 [[""]]
@@ -538,7 +538,7 @@ class TestFinnishBenedict:
     @pytest.fixture(params=[False, True])
     def small_label_validation_and_error(self, request: pytest.FixtureRequest) -> tuple[set[str], bool]:
         all_labels = set([
-            "A1.5.2", "N3.1", "F2", "O4.3", "L3"
+            "A1.5.2", "N3.1", "F2", "O4.3", "L3", "Z9"
         ])
         if request.param:
             return all_labels, False
@@ -586,7 +586,7 @@ class TestFinnishBenedict:
             for semantic_tag_list in text.semantic_tags:
                 assert len(semantic_tag_list) == 1
                 semantic_tag = semantic_tag_list[0]
-                if semantic_tag != "PUNCT" and semantic_tag:
+                if semantic_tag != "Z9" and semantic_tag:
                     semantic_tags += 1
                 if "/" in semantic_tag:
                     multi_tag += 1

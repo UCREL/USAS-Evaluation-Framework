@@ -107,6 +107,11 @@ command_line = "-m pytest"
 [tool.coverage.report]
 show_missing = true
 
+[tool.uv]
+# Install the docs group by default so that a plain `uv sync` keeps Sphinx,
+# which `ty check` needs to resolve the imports in docs/source/conf.py.
+default-groups = ["dev", "docs"]
+
 [tool.uv.sources]
 en-core-web-trf = { url = "https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.8.0/en_core_web_trf-3.8.0.tar.gz" }
 torch = { index = "pytorch" }

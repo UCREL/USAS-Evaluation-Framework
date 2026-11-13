@@ -60,7 +60,7 @@ class EnglishBenedict(BaseParser):
 
         The USAS labels returned take into account the required conversion of
         `PUNC`, `-`, `.`, `,`, and `!` within the USAS label section of the text
-        string to the USAS label `PUNCT`.
+        string to the USAS label `Z9`.
 
         Args:
             text: The text to validate, e.g. `Turkish_F2/O4.5[i86.2.1 grind_F2/O4.5[i86.2.2 
@@ -78,7 +78,7 @@ class EnglishBenedict(BaseParser):
             >>> tokens
             ['Turkish', 'grind', '-', 'extremely', 'finely', 'ground', ',', 'dust-like']
             >>> usas_tags
-            ['F2/O4.5', 'F2/O4.5', 'PUNCT', 'A13.3', 'O4.5', 'A1.1.1', 'PUNCT', 'O4.1']
+            ['F2/O4.5', 'F2/O4.5', 'Z9', 'A13.3', 'O4.5', 'A1.1.1', 'Z9', 'O4.1']
         """
         if not text.strip():
             raise ValueError(f"Empty or whitespace-only text string: '{text}'")
@@ -116,10 +116,10 @@ class EnglishBenedict(BaseParser):
             
             usas_tag_string = usas_mwe_info if mwe_start == -1 else usas_mwe_info[:mwe_start]
             
-            # Check if USAS tag string is one of the special PUNCT USAS tags to be converted
+            # Check if USAS tag string is one of the special Z9 USAS tags to be converted
             # We need to do this BEFORE validation since these are not valid USAS tags
             if usas_tag_string in special_punct_USAS_tags:
-                usas_tags.append('PUNCT')
+                usas_tags.append('Z9')
             else:
                 # Validate USAS tag
                 if not usas_tag_string:
@@ -265,11 +265,8 @@ class EnglishBenedict(BaseParser):
         easy evaluation of USAS WSD models.
 
         All semantic tags / USAS tags that are `,`, `.`, `-`, `!`, or `PUNC` are
-        converted to the USAS tag `PUNCT`.
+        converted to the USAS tag `Z9`.
 
-        The label validation does not need to include the `PUNCT` label as this is
-        always validated and is expected to be a valid semantic tag.
-        
         If the label filter is used then the semantic label for that token will be
         an empty string, this empty string will not be raised as a validation error
         through label validation if this is not None.
@@ -349,7 +346,7 @@ class EnglishBenedict(BaseParser):
                 if label_validation is not None:
                     for usas_tag in usas_tags:
                         match usas_tag:
-                            case "PUNCT" | "":
+                            case "":
                                 continue
                         for usas_sub_tag in usas_tag.split("/"):
                             if usas_sub_tag not in label_validation:
@@ -414,7 +411,7 @@ class FinnishBenedict(BaseParser):
         This validation also handles edge cases with punctuation;
 
         * If the text element only contains the following it will have the
-          USAS label `PUNCT`:
+          USAS label `Z9`:
 
           * `-`
           * `.`
@@ -462,7 +459,7 @@ class FinnishBenedict(BaseParser):
                 case 1:
                     token = segmented_token_usas_mwe[0]
                     if token in special_punctuation:
-                        usas_tag_string = "PUNCT"
+                        usas_tag_string = "Z9"
                     else:
                         raise ValueError(
                             f"Error the text string is not valid: `{text}` "
@@ -499,7 +496,7 @@ class FinnishBenedict(BaseParser):
                 )
             try:
                 usas_tag = usas_tag_string
-                if usas_tag_string != "PUNCT":
+                if usas_tag_string != "Z9":
                     usas_tag_groups = parse_usas_token_group(usas_tag_string, strict=True)
                     # We only want the first USAS tag group as there should only be one USAS tag
                     # group by definition. We then want each tag from that first group.
@@ -539,11 +536,8 @@ class FinnishBenedict(BaseParser):
         easy evaluation of USAS WSD models.
 
         All tokens that are "-", ".", ",", "!", ":", "(", ")", '"', "?" will be
-        kept as the tokens and given the USAS tag `PUNCT`.
+        kept as the tokens and given the USAS tag `Z9`.
 
-        The label validation does not need to include the `PUNCT` label as this is
-        always validated and is expected to be a valid semantic tag.
-        
         If the label filter is used then the semantic label for that token will be
         an empty string, this empty string will not be raised as a validation error
         through label validation if this is not None.
@@ -626,7 +620,7 @@ class FinnishBenedict(BaseParser):
                     # label validation
                     if label_validation is not None:
                         match usas_tag:
-                            case "PUNCT" | "":
+                            case "":
                                 pass
                             case _:
                                 for usas_sub_tag in usas_tag.split("/"):

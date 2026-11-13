@@ -1,0 +1,3 @@
+id,sentence id,token id,token,lemma,POS,predicted USAS,predicted MWE,corrected USAS,corrected MWE,Comments
+english|test|0|0,0.0,0.0,Cancer,cancer,NOUN,B2,,,,
+english|test|0|1,0.0,1.0,factors,factor,NOUN,,,,,

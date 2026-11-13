@@ -141,6 +141,39 @@ class TestWikipediaUSAS:
                 get_test_directory / "wikipedia_text_as_label.csv"
             )
 
+    @pytest.mark.parametrize(
+        "file_name,error_match",
+        [
+            ("wikipedia_no_tag.csv", "No human checked USAS tag"),
+            ("wikipedia_punct_no_tag.csv", "we would expect the USAS tag to be `Z9`"),
+        ],
+    )
+    def test_parse_no_tag_raises(
+        self, get_test_directory: Path, file_name: str, error_match: str
+    ) -> None:
+        """A token with empty corrected and predicted USAS raises ValueError by default."""
+        with pytest.raises(ValueError, match=error_match):
+            WikipediaUSAS.parse(get_test_directory / file_name)
+
+    @pytest.mark.parametrize(
+        "file_name,expected_last_token",
+        [
+            ("wikipedia_no_tag.csv", "factors"),
+            ("wikipedia_punct_no_tag.csv", "."),
+        ],
+    )
+    def test_parse_no_tag_allow_empty_tags(
+        self, get_test_directory: Path, file_name: str, expected_last_token: str
+    ) -> None:
+        """With allow_empty_tags=True a token with no USAS tag gets the empty tag."""
+        dataset = WikipediaUSAS.parse(
+            get_test_directory / file_name, allow_empty_tags=True
+        )
+        assert len(dataset.texts) == 1
+        text = dataset.texts[0]
+        assert text.tokens == ["Cancer", expected_last_token]
+        assert text.semantic_tags == [["B2"], [""]]
+
     def test_parse_invalid_id_format(self, get_test_directory: Path) -> None:
         """A token ID that does not match <language>|<article>|<sentence_id>|<token_id> raises ValueError."""
         with pytest.raises(ValueError, match="does not match expected format"):
@@ -166,30 +199,30 @@ class TestWikipediaUSAS:
           - es      : corrected A3
           - una     : predicted Z5
           - tecnica : predicted X4.2
-          - .       : PUNCT (via POS)
+          - .       : Z9 (via POS)
 
         Sentence 1 — "En general , conduce a la muerte ."
           - En/general: corrected A4.2, no MWE (predicted_mwe ignored; corrected_mwe empty)
-          - ,          : PUNCT
+          - ,          : Z9
           - conduce    : corrected A2.2
           - a/la       : predicted Z5
           - muerte     : corrected L1
-          - .          : PUNCT
+          - .          : Z9
 
         Sentence 2 — "vasos sanguineos y mata de hambre ."
           - vasos/sanguineos : corrected B3, MWE from corrected (corrected_mwe=1)
           - y                : corrected Z5
           - mata/de/hambre   : corrected L1/F1 multi-tag, MWE from corrected (corrected_mwe=2)
-          - .                : PUNCT
+          - .                : Z9
         """
         label_filter: set[str] | None = request.param
 
-        s0_tags = [["Z5"], ["B3"], ["A3"], ["Z5"], ["X4.2"], ["PUNCT"]]
-        s2_tags = [["B3"], ["B3"], ["Z5"], ["L1/F1"], ["L1/F1"], ["L1/F1"], ["PUNCT"]]
+        s0_tags = [["Z5"], ["B3"], ["A3"], ["Z5"], ["X4.2"], ["Z9"]]
+        s2_tags = [["B3"], ["B3"], ["Z5"], ["L1/F1"], ["L1/F1"], ["L1/F1"], ["Z9"]]
 
         if label_filter is not None:
-            s0_tags = [["Z5"], [""], ["A3"], ["Z5"], ["X4.2"], ["PUNCT"]]
-            s2_tags = [[""], [""], ["Z5"], ["L1/F1"], ["L1/F1"], ["L1/F1"], ["PUNCT"]]
+            s0_tags = [["Z5"], [""], ["A3"], ["Z5"], ["X4.2"], ["Z9"]]
+            s2_tags = [[""], [""], ["Z5"], ["L1/F1"], ["L1/F1"], ["L1/F1"], ["Z9"]]
 
         texts = [
             EvaluationTexts(
@@ -206,8 +239,8 @@ class TestWikipediaUSAS:
                 lemmas=["en", "general", ",", "conducir", "a", "el", "muerte", "."],
                 pos_tags=["ADP", "NOUN", "PUNCT", "VERB", "ADP", "DET", "NOUN", "PUNCT"],
                 semantic_tags=[
-                    ["A4.2"], ["A4.2"], ["PUNCT"],
-                    ["A2.2"], ["Z5"], ["Z5"], ["L1"], ["PUNCT"],
+                    ["A4.2"], ["A4.2"], ["Z9"],
+                    ["A2.2"], ["Z5"], ["Z5"], ["L1"], ["Z9"],
                 ],
                 mwe_indexes=[frozenset()] * 8,
             ),
@@ -292,7 +325,7 @@ class TestWikipediaUSAS:
         self, request: pytest.FixtureRequest
     ) -> tuple[set[str], bool]:
         """All labels present → no error; remove A4.2 → error (sentence 1)."""
-        all_labels = {"Z5", "B3", "A3", "X4.2", "A4.2", "A2.2", "L1", "F1"}
+        all_labels = {"Z5", "B3", "A3", "X4.2", "A4.2", "A2.2", "L1", "F1", "Z9"}
         if request.param:
             return all_labels, False
         else:

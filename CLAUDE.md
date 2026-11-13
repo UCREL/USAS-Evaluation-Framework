@@ -23,7 +23,7 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
 - An empty string `""` as a tag means "no label". Metrics such as `top_n_accuracy` ignore it.
 - Parsers apply label filtering **before** label validation. A filtered tag becomes `""`, so validation skips it.
 - Filtering matches the whole tag string, so filtering `F2` does not remove `F2/O2`.
-- `PUNCT` always passes validation. Punctuation is moving to `Z9`, and `PUNCT` is the legacy name (see the README).
+- `Z9` (punctuation) is validated like any other tag, so `label_validation` must include it. Parsers must not exempt it from validation. `PUNCT` is the legacy USAS tag name and should no longer be produced by parsers; `PUNCT` as a POS/UPOS value is a different tagset and is unaffected (see the README).
 - Validation raises `ValueError` for any tag not in `label_validation`.
 - Parsed datasets record `labels_removed=label_filter`. `EvaluationDataset.merge()` requires every dataset to have the same `labels_removed`.
 - Some parsers hard-code fixes for known annotation errors at specific row indexes (for example `parsers/torch.py`). Keep these fixes.
@@ -45,7 +45,7 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
 ## Development
 
 - Use `uv` for all commands. Never run bare `python` or `pip` commands; always go through `uv` to avoid environment drift. For example, use `uv add package` and `uv run script.py` rather than `pip install package` or `python script.py`. Useful commands:
-  - `uv sync --all-extras --all-groups` to set up the full environment. Only the dev group is installed by default, so `--all-groups` is needed for the docs group. `uv sync` is exact and removes anything not requested.
+  - `uv sync --all-extras` to set up the full environment. Both the `dev` and `docs` groups are default groups (`[tool.uv] default-groups` in `pyproject.toml`), so they are installed without `--all-groups`. The `docs` group is a default because `make lint` type-checks `docs/source/conf.py`, which imports Sphinx. `uv sync` is exact and removes anything not requested, so don't pass `--no-default-groups` or `--no-group docs` unless you mean to drop them.
   - `uv add` / `uv remove` to manage dependencies. For developer dependencies add `--dev`, e.g. `uv add --dev package`.
   - `uv run script.py` to run a script within the uv environment.
 - Use `make` to run linting and tests (the targets are in `makefile`):

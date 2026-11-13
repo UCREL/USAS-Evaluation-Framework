@@ -53,14 +53,11 @@ class TorchParser(BaseParser):
         filter then it will not affect the multi-tag label `F2/O2` only `F2`
         labels will be filtered out.
 
-        The label validation does not need to include the `PUNCT` label as this is
-        always validated and is expected to be a valid semantic tag.
-
         NOTE: when parsing the ToRCH corpus many rules are used to create a USAS
         validated dataset. Some of the token semantic tags are removed as they
         are not valid tags and are replaced with an empty string or if possible
         with a valid tag. In addition if there are no corrected USAS tags and the
-        predicted USAS tags are `PUNCT` then the semantic tags will also be `PUNCT`.
+        predicted USAS tags are `Z9` then the semantic tags will also be `Z9`.
 
         Args:
             dataset_path: Path to the ToRCH corpus, should be in CSV format.
@@ -157,7 +154,7 @@ class TorchParser(BaseParser):
 
             if label_validation is not None:
                 for _label_tag in label_group.tags:
-                    if _label_tag.tag != "PUNCT" and _label_tag.tag not in label_validation:
+                    if _label_tag.tag not in label_validation:
                         raise ValueError(
                             f"Error expected label: {_label_tag.tag} to be in label validation set: {label_validation}"
                         )
@@ -226,7 +223,7 @@ class TorchParser(BaseParser):
                 if corrected_usas_string == "":
                     if "Predicted-USAS" in dataset_row:
                         predicted_usas_string = cast(str, dataset_row["Predicted-USAS"].strip())
-                        if predicted_usas_string == "PUNCT":
+                        if predicted_usas_string == "Z9":
                             corrected_usas_string = predicted_usas_string
                 
                 # Rules to overcome annotation issues

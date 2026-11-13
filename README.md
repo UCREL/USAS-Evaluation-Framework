@@ -33,10 +33,10 @@ To run locally first ensure you have the following tools installted locally:
   * Mac: [Xcode command line tools](https://mac.install.guide/commandlinetools/4) includes `make` else you can use [brew.](https://formulae.brew.sh/formula/make)
   * Windows: Various solutions proposed in this [blog post](https://earthly.dev/blog/makefiles-on-windows/) on how to install on Windows, inclduing `Cygwin`, and `Windows Subsystem for Linux`.
 
-When developing on the project you will want to install the Python package locally in editable format with all the extra requirements and dependency groups (`dev` and `docs`), this can be done like so:
+When developing on the project you will want to install the Python package locally in editable format with all the extra requirements and dependency groups (`dev` and `docs`). Both dependency groups are installed by default, so this can be done like so:
 
 ```bash
-uv sync --all-extras --all-groups
+uv sync --all-extras
 ```
 
 ### Linting
@@ -58,6 +58,38 @@ make test
 ```
 
 The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 dataset parsing tests for the full dataset corpora parsing will be skipped if you do not have the full datasets downloaded and saved to the correct file locations. These datasets are not open, to obtain these datasets request them from either Paul Rayson or Andrew Moore (they are free but requires you to agree to not re-distribute them).
+
+### Documentation Website
+
+#### Setup
+
+``` bash
+mkdir docs
+cd docs
+sphinx-quickstart
+```
+
+The documentation site is split into `source` and `build` directories whereby the `source` directory contains all of the files that will be used to generate the documentation and `build` contains all of the files that have been generated through the `sphinx-build` command that will be served as the documentation through a web server. 
+
+#### Development
+
+To create a local live documentation site at [http://127.0.0.1:8000](http://127.0.0.1:8000) with auto reload on edits/changes:
+
+``` bash
+make docs-serve
+```
+
+To build the documentation, this will build/create the documentation files to [./docs/build/](./docs/build/):
+
+``` bash
+make docs
+```
+
+To build the documentation for GitHub Pages:
+
+``` bash
+make docs-gh
+```
 
 ## Evaluation metrics and splits
 
@@ -102,18 +134,20 @@ The Punctuation label in USAS tagging is `Z9`, previously it was `PUNCT`, not al
 * Irish
 * NAACL 2015 Chinese, Portuguese, and Italian
 * CorCenCC Welsh
+* Chinese ToRCH
+
+`Z9` is treated like any other USAS tag when parsing, so if you pass a `label_validation` set to a parser it must include `Z9` (the default [USAS mapper](https://ucrel.github.io/USAS-Validator/api/utils.html#usas_validator.utils.load_usas_mapper) includes `Z9`), otherwise punctuation tokens raise a `ValueError`. To exclude punctuation from evaluation, add `Z9` to `label_filter`.
 
 <details>
 
 <summary>Additional information about Wikipedia datasets Punctuation assignment</summary>
 
-Wikipedia datasets when parsed assigned the `Z9` symbol to the USAS tag of a token when the POS tag is assigned a Punctuation tag and no gold/human checked USAS tag has been assigned to that token. In all cases for our evaluation datasets listed above all tokens have been gold/human checked.
+The Wikipedia parser does not infer `Z9` from the POS tag. Every token, including punctuation, must have a gold/human checked USAS tag, either in the `corrected USAS` column or as a `predicted USAS` tag the annotator accepted by leaving `corrected USAS` empty. A token with neither raises a `ValueError`, and if its POS tag is `PUNCT` the error says that `Z9` is the expected tag. To parse data that has not been fully checked, pass `allow_empty_tags=True` and those tokens get the empty tag `""`, which metrics ignore. In all cases for our evaluation datasets listed above all tokens have been gold/human checked, so `allow_empty_tags` is not needed for them.
 
 </details>
 
 The datasets that **do not**:
 
-* Chinese ToRCH (based on the POS tags labelling the token punctuation)
 * Benedict English and Finnish (based on known punctuation symbols and the semantic tag assigned as the punctuation tag)
 
 ## Scripts

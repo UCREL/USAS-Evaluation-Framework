@@ -17,7 +17,7 @@ LANGUAGE_PARAMS = [
     pytest.param(
         EnglishWikipediaUSAS, "English",
         "english_wikipedia", "english_wikipedia_corpus.csv",
-        166, 4036, 3505, 0,
+        166, 4036, 3506, 0,
         id="English",
     ),
     pytest.param(

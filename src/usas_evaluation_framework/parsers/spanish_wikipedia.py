@@ -21,6 +21,7 @@ class SpanishWikipediaUSAS(WikipediaUSAS):
         label_filter: set[str] | None = None,
         dataset_name: str | None = "Medical Wikipedia",
         language: str | None = "Spanish",
+        allow_empty_tags: bool = False,
     ) -> EvaluationDataset:
         return WikipediaUSAS.parse(
             dataset_path,
@@ -28,4 +29,5 @@ class SpanishWikipediaUSAS(WikipediaUSAS):
             label_filter=label_filter,
             dataset_name=dataset_name,
             language=language,
+            allow_empty_tags=allow_empty_tags,
         )

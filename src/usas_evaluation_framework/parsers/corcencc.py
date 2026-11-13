@@ -59,9 +59,6 @@ class CorcenccParser(BaseParser):
         filter then it will not affect the multi-tag label `F2/O2` only `F2`
         labels will be filtered out.
 
-        The label validation does not need to include the `PUNCT` label as this is
-        always validated and is expected to be a valid semantic tag.
-
         NOTE: when parsing the CorCenCC corpus many rules are used to create a USAS
         validated dataset. Some of the token semantic tags are removed as they
         are not valid tags and are replaced with an empty string or if possible
@@ -97,20 +94,19 @@ class CorcenccParser(BaseParser):
                 )
             label_group = label_groups[0]
             
-            label_tag_string_list = []
-            for _label_tag in label_group.tags:
-                
-                if _label_tag.tag != "PUNCT" and label_validation is not None:
+            label_tag_string_list = [_label_tag.tag for _label_tag in label_group.tags]
+            label_tag = "/".join(label_tag_string_list)
+
+            if label_filter is not None and label_tag in label_filter:
+                return ""
+
+            if label_validation is not None:
+                for _label_tag in label_group.tags:
                     if _label_tag.tag not in label_validation:
                         raise ValueError(
                             f"Error expected label: {_label_tag.tag} to be in label validation set: {label_validation}"
                         )
-                label_tag_string_list.append(_label_tag.tag)
-            label_tag = "/".join(label_tag_string_list)
-            
-            if label_filter is not None:
-                if label_tag in label_filter:
-                    label_tag = ""
+
             return label_tag
 
         def validate_token(token: str) -> None:
