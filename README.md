@@ -27,7 +27,7 @@ If you have any trouble see the [VSCode website.](https://code.visualstudio.com/
 ### Local
 
 To run locally first ensure you have the following tools installted locally:
-* [uv](https://docs.astral.sh/uv/getting-started/installation/) for Python packaging and development. (version `0.9.6`)
+* [uv](https://docs.astral.sh/uv/getting-started/installation/) for Python packaging and development. The Dev Container uses version `0.13.8`, but older versions from `0.9.6` onwards are also supported.
 * [make](https://www.gnu.org/software/make/) (OPTIONAL) for automation of tasks, not strictly required but makes life easier.
   * Ubuntu: `apt-get install make`
   * Mac: [Xcode command line tools](https://mac.install.guide/commandlinetools/4) includes `make` else you can use [brew.](https://formulae.brew.sh/formula/make)
