@@ -163,14 +163,10 @@ For [Claude Code](https://www.anthropic.com/claude-code), the [review-workflow s
 
 ### Metrics
 
-#### Top-N Accuracy
+Full definitions are in the [metrics API documentation](https://ucrel.github.io/USAS-Evaluation-Framework/api/metrics.html).
 
-* Micro
-* Macro
-
-#### Coverage
-
-This only applies to the rule based methods
+* **Top-N accuracy**: micro and macro averaged.
+* **Coverage** (planned): only applies to rule-based methods.
 
 ### Splits
 
