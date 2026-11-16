@@ -244,3 +244,48 @@ def test_macro_micro_different_results(average: Literal["micro", "macro"]):
     # Test with n=2 should be 1.0 no matter the average as all tokens are correct
     accuracy = top_n_accuracy(y_true, y_pred, n=2, average=average)
     assert accuracy == 1.0
+
+
+@pytest.mark.parametrize(
+    ("true_tag", "pred_tags", "n", "expected_accuracy"),
+    [
+        ("A1/B1", ["A1", "B1"], 2, 0.0),
+        ("A1/B1", ["B1/A1"], 1, 0.0),
+        ("A1", ["A1/B1"], 1, 0.0),
+        ("A1/B1", ["A1/B1"], 1, 1.0),
+        ("A1/B1", ["Z9", "A1/B1"], 1, 0.0),
+        ("A1/B1", ["Z9", "A1/B1"], 2, 1.0),
+    ],
+)
+@pytest.mark.parametrize("average", ["micro", "macro"])
+def test_slash_tags_require_exact_match(true_tag: str,
+                                        pred_tags: list[str],
+                                        n: int,
+                                        expected_accuracy: float,
+                                        average: Literal["micro", "macro"]):
+    """
+    Test that a slash (multi) tag is only correct when the prediction is the
+    exact same tag string, e.g. `A1/B1` is not matched by `A1`, `B1` or `B1/A1`.
+    """
+    true_text = EvaluationTexts(
+        text="test",
+        tokens=["token1"],
+        lemmas=None,
+        pos_tags=None,
+        mwe_indexes=None,
+        semantic_tags=[[true_tag]]
+    )
+    pred_text = EvaluationTexts(
+        text="test",
+        tokens=["token1"],
+        lemmas=None,
+        pos_tags=None,
+        mwe_indexes=None,
+        semantic_tags=[pred_tags]
+    )
+
+    y_true = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[true_text])
+    y_pred = EvaluationDataset(name="test", text_level=TextLevel.sentence, texts=[pred_text])
+
+    accuracy = top_n_accuracy(y_true, y_pred, n=n, average=average)
+    assert accuracy == expected_accuracy

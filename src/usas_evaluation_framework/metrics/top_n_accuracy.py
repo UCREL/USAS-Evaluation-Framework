@@ -17,7 +17,9 @@ def top_n_accuracy(y_true: EvaluationDataset,
     `true` dataset contains more than one semantic tag per token, i.e. more than
     one true semantic tag for the token, then the accuracy score will be calculated
     for each `true` semantic tag. True semantic tags that are an empty string are
-    ignored.
+    ignored. A predicted semantic tag is only correct if it exactly matches the
+    true semantic tag string, e.g. a true tag of ``A1/B1`` is only matched by a
+    predicted tag of ``A1/B1``, not by ``A1``, ``B1`` or ``B1/A1``.
 
     .. math::
 
