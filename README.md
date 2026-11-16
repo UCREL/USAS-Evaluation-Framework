@@ -61,7 +61,11 @@ The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 dataset parsing tests f
 
 ### Documentation Website
 
-#### Setup
+<details>
+
+<summary>Commands used to created the documentation site</summary>
+
+Only documented to preserve how the documentation site was first created/generated.
 
 ``` bash
 mkdir docs
@@ -69,9 +73,18 @@ cd docs
 sphinx-quickstart
 ```
 
-The documentation site is split into `source` and `build` directories whereby the `source` directory contains all of the files that will be used to generate the documentation and `build` contains all of the files that have been generated through the `sphinx-build` command that will be served as the documentation through a web server. 
+</details>
 
-#### Development
+#### Structure
+
+The documentation is a [Sphinx](https://www.sphinx-doc.org/) site. Its dependencies are in the `docs` dependency group, which `uv sync` installs by default. The site is split into two directories:
+
+* [./docs/source/](./docs/source/): the files used to generate the site. This includes the Sphinx configuration (`conf.py`), the home page (`index.rst`), the guide pages written in MyST Markdown (`overview/`) and the API reference pages (`api/`).
+* `./docs/build/`: the HTML that `sphinx-build` generates, ready to be served by a web server. It is build output and is not committed to git.
+
+The API reference pages are generated from the docstrings in `src`. Each module has its own `automodule` directive, so when you add a new module, for example a new parser or metric, also add it to the matching `docs/source/api/*.rst` file.
+
+#### Building and serving
 
 To create a local live documentation site at [http://127.0.0.1:8000](http://127.0.0.1:8000) with auto reload on edits/changes:
 
@@ -79,17 +92,22 @@ To create a local live documentation site at [http://127.0.0.1:8000](http://127.
 make docs-serve
 ```
 
-To build the documentation, this will build/create the documentation files to [./docs/build/](./docs/build/):
+To build the documentation, this will build/create the documentation files to [./docs/build/](./docs/build/). The build treats any Sphinx warning as an error, and it needs network access to fetch the intersphinx inventories:
 
 ``` bash
 make docs
 ```
 
-To build the documentation for GitHub Pages:
+By default `make docs` runs Sphinx with `uv run --group docs`. You can change this command with the `UV_RUN_DOCS` variable, for example if you have already installed only the docs dependencies and don't want `uv run` to install the default dependency groups:
 
 ``` bash
-make docs-gh
+uv sync --no-default-groups --group docs
+make docs UV_RUN_DOCS="uv run --no-sync"
 ```
+
+#### GitHub Pages
+
+The [Docs GitHub workflow](./.github/workflows/docs.yaml) builds the documentation in exactly this way. On pull requests it uploads the built site as a `docs-preview` artifact that you can download from the workflow run. On pushes to `main` it deploys the site to GitHub Pages.
 
 ## Evaluation metrics and splits
 

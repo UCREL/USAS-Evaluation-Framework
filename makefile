@@ -17,10 +17,15 @@ remove-built-docs:
 	@echo "Removing any pre-built documentation from ./docs/build"
 	@rm -rf docs/build
 
+# The command used to build the Sphinx documentation website.
+# The GitHub docs workflow overrides it with
+# "uv run --no-sync" after installing only the docs dependencies.
+UV_RUN_DOCS ?= uv run --group docs
+
 .PHONY: docs
 docs: remove-built-docs
 	@echo "Building the documentation into docs/build"
-	@uv run --group docs sphinx-build -W --keep-going -b html docs/source docs/build
+	@$(UV_RUN_DOCS) sphinx-build -W --keep-going -b html docs/source docs/build
 
 .PHONY: docs-serve
 docs-serve: remove-built-docs
