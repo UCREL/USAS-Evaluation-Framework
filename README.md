@@ -109,6 +109,56 @@ make docs UV_RUN_DOCS="uv run --no-sync"
 
 The [Docs GitHub workflow](./.github/workflows/docs.yaml) builds the documentation in exactly this way. On pull requests it uploads the built site as a `docs-preview` artifact that you can download from the workflow run. On pushes to `main` it deploys the site to GitHub Pages.
 
+### Reviewing GitHub workflows
+
+Workflows in [./.github/workflows/](./.github/workflows/) run with access to the repository and, for deploys, to GitHub Pages, so they are reviewed with a security focus. A review has two parts: automated checks, then a manual checklist for the things the tools can't judge.
+
+#### Automated checks
+
+``` bash
+make lint-workflows
+```
+
+This runs:
+
+* [actionlint](https://github.com/rhysd/actionlint): checks workflow syntax, `${{ }}` expressions, job dependencies and runner labels. It also runs [ShellCheck](https://www.shellcheck.net/) over the shell in `run:` steps.
+* [zizmor](https://docs.zizmor.sh/): a security audit, for example of unpinned actions, overly broad permissions, credentials left in the checkout, template injection and cache poisoning.
+
+The tools run as version-pinned [`uvx`](https://docs.astral.sh/uv/guides/tools/) tools, not as dev dependencies. They are standalone binaries that don't import this package, so keeping them out of `pyproject.toml` and `uv.lock` means they can never hold back the project's Python version or dependency resolution. Their versions are the `*_VERSION` variables in the [makefile](./makefile); to update a tool, change its variable. The first run downloads the tools, and later runs use uv's cache.
+
+**Cost and tokens.** The tools are free and open source and run locally. No GitHub token is needed: actionlint works offline, and zizmor runs its offline audits by default. zizmor has extra online audits (for example, that a pinned commit SHA really belongs to the action and matches its version comment, and known-vulnerable action versions) which run if `GH_TOKEN` is set. The GitHub API is free, with rate limits that one review comes nowhere near. If you use online mode:
+
+* Don't pass your `gh auth token`. It usually has broad `repo` and `workflow` scopes, which would trust the tool with write access to your repositories. Create a [fine-grained personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) with read-only access to public repositories and a short expiry instead.
+* Use a fine grained GitHub token and add it to the `.env` file in the project root, which is gitignored so it is never committed:
+
+  ``` bash
+  GH_TOKEN=<token>
+  ```
+
+  Then load it only for the command that needs it:
+
+  ``` bash
+  (set -a && . ./.env && make lint-workflows)
+  ```
+
+  `.` runs `.env` as shell code, and `set -a` exports every variable it sets, so `make` and zizmor can see `GH_TOKEN`. This means every variable listed in `.env` is passed to `make lint-workflows`, not just `GH_TOKEN`, and any commands in the file are run, so only source a `.env` you wrote yourself. The brackets run this in a subshell, so neither `GH_TOKEN` nor the `set -a` setting is left in your terminal afterwards. Delete the token from `.env` when it expires or you no longer need it, and never add it to an `export` in your shell profile.
+
+**Upstream actionlint vs the kjanat fork.** We use upstream [rhysd/actionlint](https://github.com/rhysd/actionlint) through the [`actionlint-py`](https://pypi.org/project/actionlint-py/) package. The [kjanat/actionlint](https://github.com/kjanat/actionlint) fork adds features (bundled ShellCheck, autofix, a language server, more cache checks), but it is unofficial, has a single maintainer, and its v2 was unreleased in November 2026. For a tool that reviews supply-chain risk, we prefer the widely used upstream. Upstream's latest release was v1.7.12 on 2026-03-30. If it has had no release for 12 months (none since 2027-03-30), or issues and pull requests go unanswered, re-evaluate the fork (PyPI package `actionlint-kjanat`): check its release history, its maintainers and whether v2 has shipped.
+
+#### Things the tools don't check
+
+zizmor already enforces the security basics: minimal permissions, actions pinned to commit SHAs, no credentials left in the checkout, no template injection, no cache poisoning and no dangerous triggers. Check these project-specific points by hand. The [Docs workflow](./.github/workflows/docs.yaml) follows all of them, so use it as a reference:
+
+* **Path filters**: `paths` lists every file the job reads, including the workflow file itself, so a relevant change always triggers a run.
+* **Deploy gating**: deploy jobs only run on `main` and never for `pull_request`, and `concurrency` never cancels a deploy part way.
+* **Version sync**: tool versions are pinned and match, for example uv `0.13.8` in the workflow and in [./.devcontainer/Dockerfile](./.devcontainer/Dockerfile), and dependencies are installed with `uv sync --locked`.
+* **Local parity**: steps call `make` targets, so CI builds the same way as a developer does locally.
+* **Limits**: every job has `timeout-minutes`, and uploads have a short `retention-days`.
+
+If a zizmor finding is a deliberate choice, suppress it with a `# zizmor: ignore[<rule>]` comment on that line, along with a comment explaining why.
+
+For [Claude Code](https://www.anthropic.com/claude-code), the [review-workflow skill](./.claude/skills/review-workflow/SKILL.md) follows this same process. Run it with `/review-workflow`.
+
 ## Evaluation metrics and splits
 
 ### Metrics

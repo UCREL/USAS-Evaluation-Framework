@@ -14,3 +14,4 @@ tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv
 tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv
 Data
 docs/build
+.env
