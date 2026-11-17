@@ -1,10 +1,38 @@
+# The files that are linted and type checked.
+LINT_PATHS := src tests coding_style_format_example.py scripts docs/source/conf.py
+
+# Ty type checks once for each of these Python versions: the oldest and newest
+# the project supports. The oldest finds features that are too new, and the
+# newest finds APIs that have since been removed. --python-version only changes
+# which type definitions ty uses, so no extra Python installs are needed. Keep
+# in sync with requires-python in pyproject.toml and the CI test matrix.
+TY_PYTHON_VERSIONS ?= 3.10 3.14
+
+# Type checking needs every import in the linted files to resolve, but that
+# doesn't need every extra:
+# - excel-conversion is needed, because the scripts import it.
+# - notebooks is not needed, because notebooks/ isn't linted.
+# The docs group, which docs/source/conf.py needs, is a default group, so uv
+# run includes it anyway. Keep in sync with the CI lint job's install step.
+UV_RUN_LINT := uv run --extra excel-conversion
+
+# Auto-fixes files in place with Ruff, then runs the same checks as CI.
 .PHONY: lint
 lint:
+	@echo "Auto-fixing with Ruff:"
+	@$(UV_RUN_LINT) ruff check --fix-only $(LINT_PATHS)
+	@$(MAKE) --no-print-directory lint-check
+
+# Checks only, without changing any files. The CI workflow uses this, because
+# auto-fixing first would hide fixable errors instead of failing on them.
+.PHONY: lint-check
+lint-check:
 	@echo "Linting with Ruff:"
-	@uv run ruff check --fix-only src tests coding_style_format_example.py scripts docs/source/conf.py
-	@uv run ruff check src tests coding_style_format_example.py scripts docs/source/conf.py
-	@echo "Type checking with Ty"
-	@uv run ty check src tests coding_style_format_example.py scripts docs/source/conf.py
+	@$(UV_RUN_LINT) ruff check $(LINT_PATHS)
+	@for version in $(TY_PYTHON_VERSIONS); do \
+		echo "Type checking with Ty for Python $$version:"; \
+		$(UV_RUN_LINT) ty check --python-version "$$version" $(LINT_PATHS) || exit 1; \
+	done
 
 # The GitHub workflow linters run as isolated, version-pinned uvx tools rather
 # than dev dependencies, so they never constrain the project's Python version
@@ -32,15 +60,10 @@ remove-built-docs:
 	@echo "Removing any pre-built documentation from ./docs/build"
 	@rm -rf docs/build
 
-# The command used to build the Sphinx documentation website.
-# The GitHub docs workflow overrides it with
-# "uv run --no-sync" after installing only the docs dependencies.
-UV_RUN_DOCS ?= uv run --group docs
-
 .PHONY: docs
 docs: remove-built-docs
 	@echo "Building the documentation into docs/build"
-	@$(UV_RUN_DOCS) sphinx-build -W --keep-going -b html docs/source docs/build
+	@uv run --group docs sphinx-build -W --keep-going -b html docs/source docs/build
 
 .PHONY: docs-serve
 docs-serve: remove-built-docs

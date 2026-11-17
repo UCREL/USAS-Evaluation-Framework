@@ -1,0 +1,130 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths: &ci-paths
+      - "src/**"
+      - "tests/**"
+      - "scripts/**"
+      - "coding_style_format_example.py"
+      - "docs/source/conf.py"
+      - "pyproject.toml"
+      - "uv.lock"
+      - ".python-version"
+      - "makefile"
+      - ".github/workflows/ci.yaml"
+  pull_request:
+    branches:
+      - main
+    paths: *ci-paths
+  workflow_dispatch:
+
+# No permissions by default; each job grants only what it needs.
+permissions: {}
+
+# One run at a time per branch or PR. New pushes to a PR cancel its running
+# checks. A run on main is never cancelled once it has started, but only one run
+# can wait behind it, so if several commits land on main quickly, a newer run
+# replaces the waiting one and only the latest of those commits gets checked.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    name: Lint and type check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    env:
+      # Stop `uv run` in the makefile from changing the environment installed
+      # below, so the job uses exactly the locked dependencies.
+      UV_NO_SYNC: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # uv reads the Python version from .python-version and installs it.
+      - name: Install uv
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          # Keep in sync with the uv version in .devcontainer/Dockerfile.
+          version: "0.13.8"
+          enable-cache: true
+          restore-cache: true
+          # Only main saves the cache, so pull requests don't use up cache storage.
+          save-cache: ${{ github.ref == 'refs/heads/main' }}
+          prune-cache: true
+          cache-dependency-glob: "uv.lock"
+          # The cache key doesn't include the job, so without a suffix this job,
+          # the Ubuntu/Python 3.13 test job and the docs build share one key.
+          cache-suffix: lint
+
+      # Type checking needs every import in the linted files to resolve, but
+      # that doesn't need every extra:
+      # - excel-conversion is needed, because the scripts import it.
+      # - notebooks is not needed, because notebooks/ isn't linted.
+      # The docs group, which docs/source/conf.py needs, is a default group, so
+      # uv sync includes it. Keep in sync with UV_RUN_LINT in the makefile.
+      - name: Install the project
+        run: uv sync --locked --extra excel-conversion
+
+      # lint-check doesn't auto-fix, so fixable errors fail the job.
+      - name: Lint and type check
+        run: make lint-check
+
+  test:
+    name: Test (Python ${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    strategy:
+      # Run every combination even if one fails, so all failures are reported.
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    defaults:
+      run:
+        # Use bash on every OS, including Windows, so the steps behave the same.
+        shell: bash
+    env:
+      # Stop `uv run` in the makefile from re-installing the default dependency
+      # groups, as only the dev group is installed below.
+      UV_NO_SYNC: "1"
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # python-version sets UV_PYTHON, so uv installs and uses that version
+      # instead of the one in .python-version.
+      - name: Install uv and Python ${{ matrix.python-version }}
+        uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          # Keep in sync with the uv version in .devcontainer/Dockerfile.
+          version: "0.13.8"
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+          restore-cache: true
+          # Only main saves the cache, so pull requests don't use up cache storage.
+          save-cache: ${{ github.ref == 'refs/heads/main' }}
+          prune-cache: true
+          cache-dependency-glob: "uv.lock"
+          # Keeps this job's cache separate from the lint and docs jobs' caches.
+          cache-suffix: test
+
+      # The tests and doctests only need the core dependencies and the dev
+      # group (pytest and coverage), not the extras or the docs group.
+      - name: Install the project and dev dependencies
+        run: uv sync --locked --no-default-groups --group dev
+
+      # Tests for corpora that can't be redistributed are skipped, because
+      # those files are gitignored.
+      - name: Run the tests with coverage
+        run: make test

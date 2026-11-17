@@ -49,6 +49,14 @@ To run the linting:
 make lint
 ```
 
+Ty type checks the code twice, once as the oldest supported Python version (3.10) and once as the newest (3.14). These are set by `TY_PYTHON_VERSIONS` in the [makefile](./makefile), which needs updating when the supported Python versions change.
+
+`make lint` auto-fixes what Ruff can fix in place before checking. To check without changing any files, as the [CI workflow](./.github/workflows/ci.yaml) does, run:
+
+``` bash
+make lint-check
+```
+
 ### Tests
 
 To run the tests (uses pytest and coverage) and generate a coverage report:
@@ -58,6 +66,8 @@ make test
 ```
 
 The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 dataset parsing tests for the full dataset corpora parsing will be skipped if you do not have the full datasets downloaded and saved to the correct file locations. These datasets are not open, to obtain these datasets request them from either Paul Rayson or Andrew Moore (they are free but requires you to agree to not re-distribute them).
+
+The [CI workflow](./.github/workflows/ci.yaml) runs `make lint-check`, and runs `make test` on Python 3.10 to 3.14 on Linux, macOS and Windows, for pushes and pull requests to `main`. The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 full corpora dataset parsing tests aren't in the committed repository, so their tests are always skipped in CI.
 
 ### Documentation Website
 
@@ -98,11 +108,11 @@ To build the documentation, this will build/create the documentation files to [.
 make docs
 ```
 
-By default `make docs` runs Sphinx with `uv run --group docs`. You can change this command with the `UV_RUN_DOCS` variable, for example if you have already installed only the docs dependencies and don't want `uv run` to install the default dependency groups:
+`make docs` runs Sphinx with `uv run --group docs`, which also installs the default dependency groups. If you have installed only the docs dependencies and want to keep it that way, set `UV_NO_SYNC=1` so `uv run` doesn't change the environment. The [docs workflow](./.github/workflows/docs.yaml) does this:
 
 ``` bash
 uv sync --no-default-groups --group docs
-make docs UV_RUN_DOCS="uv run --no-sync"
+UV_NO_SYNC=1 make docs
 ```
 
 #### GitHub Pages

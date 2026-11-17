@@ -16,7 +16,7 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
 - `scripts/` holds Typer CLIs that convert annotated Excel/TSV files to CSV. They need the `excel-conversion` extra, and the README explains how to use them.
 - `notebooks/` holds notebooks that evaluate PyMUSAS models on the Hugging Face `ucrelnlp/USAS-WSD` dataset and explore dataset statistics. They need the `notebooks` extra.
 - `docs/source/` holds the Sphinx site (`conf.py`, `index.rst`, MyST Markdown pages in `overview/`, and API pages in `api/`). The API pages list each module with its own `automodule` directive, so when you add a module (for example a new parser or metric), also add it to the matching `docs/source/api/*.rst` file. `docs/build/` is gitignored build output.
-- `.github/workflows/` holds the GitHub Actions workflows (currently `docs.yaml`, which builds the docs and deploys them to GitHub Pages). To review or change a workflow, use the `review-workflow` skill (`.claude/skills/review-workflow/`), which follows the README section "Reviewing GitHub workflows".
+- `.github/workflows/` holds the GitHub Actions workflows: `ci.yaml` runs `make lint-check` and runs `make test` on Python 3.10 to 3.14 on Linux, macOS and Windows, and `docs.yaml` builds the docs and deploys them to GitHub Pages. To review or change a workflow, use the `review-workflow` skill (`.claude/skills/review-workflow/`), which follows the README section "Reviewing GitHub workflows".
 
 ## Domain Conventions
 
@@ -50,7 +50,7 @@ An evaluation framework for USAS semantic tagging, from UCREL at Lancaster Unive
   - `uv add` / `uv remove` to manage dependencies. For developer dependencies add `--dev`, e.g. `uv add --dev package`.
   - `uv run script.py` to run a script within the uv environment.
 - Use `make` to run linting and tests (the targets are in `makefile`):
-  - `make lint` first **auto-fixes files in place** with ruff (`--fix-only`), then runs `ruff check` and `ty check` over `src`, `tests`, `scripts`, `coding_style_format_example.py` and `docs/source/conf.py`.
+  - `make lint` first **auto-fixes files in place** with ruff (`--fix-only`), then runs `ruff check` and `ty check` over `src`, `tests`, `scripts`, `coding_style_format_example.py` and `docs/source/conf.py`. `ty check` runs once for each version in the makefile's `TY_PYTHON_VERSIONS` (the oldest and newest supported, 3.10 and 3.14); when the supported Python versions change, update it along with `requires-python` and the CI test matrix. `make lint-check` runs the same checks without auto-fixing; CI uses it so fixable errors fail instead of being silently fixed.
   - `make test` runs pytest under coverage. Pytest runs `tests/` and the doctests in `src/` and `coding_style_format_example.py` (`--doctest-modules` with `NORMALIZE_WHITESPACE`).
   - `make docs` builds the HTML documentation into `docs/build` (it deletes any previous build first). It runs with `-W`, so any Sphinx warning fails the build, and it needs network access for the intersphinx inventories. `make docs-serve` serves it with live reload at http://127.0.0.1:8000 and rebuilds when `src` changes. Both use the `docs` dependency group.
   - `make lint-workflows` lints `.github/workflows/` with actionlint (plus ShellCheck) and audits it with zizmor. These run as version-pinned `uvx` tools (the `*_VERSION` variables in the makefile), not dev dependencies, so don't add them to `pyproject.toml`. It needs no GitHub token; never pass one unless the user supplies it.

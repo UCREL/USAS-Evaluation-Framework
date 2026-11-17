@@ -54,10 +54,14 @@ notebooks = [
     "pip>=26.0.1",
     "pymusas[neural]>=0.4.0",
     "spacy>=3.8.11",
+    # pymusas[neural] needs torch. Listing it here lets [tool.uv.sources]
+    # install the CPU build from the pytorch index.
+    "torch>=2.12.0",
 ]
 excel-conversion = [
     "openpyxl>=3.1.5",
     "pandas>=2.3.3",
+    "typer>=0.24.1",
     "xlrd>=2.0.2",
 ]
 
@@ -67,7 +71,6 @@ dev = [
     "pytest>=9.0.2",
     "ruff>=0.14.13",
     "ty>=0.0.13",
-    "torch",  # resolved via pytorch-cpu source for local/CI use
 ]
 docs = [
     "myst-parser>=4.0.1",

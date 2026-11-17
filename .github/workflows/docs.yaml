@@ -22,7 +22,10 @@ on:
 permissions: {}
 
 # One run at a time per branch or PR. New pushes to a PR cancel its running
-# build, while runs on main queue so a deploy is never cancelled part way.
+# build. A run on main is never cancelled once it has started, so a deploy is
+# never cancelled part way. Only one run can wait behind it, so if several
+# commits land on main quickly, a newer run replaces the waiting one. That is
+# fine here, because the waiting run would deploy older docs.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -33,6 +36,10 @@ jobs:
     timeout-minutes: 15
     permissions:
       contents: read
+    env:
+      # Stop `uv run` in the makefile from re-installing the default dependency
+      # groups, as only the docs group is installed below.
+      UV_NO_SYNC: "1"
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -50,6 +57,8 @@ jobs:
           save-cache: ${{ github.ref == 'refs/heads/main' }}
           prune-cache: true
           cache-dependency-glob: "uv.lock"
+          # Keeps this job's cache separate from the CI lint and test jobs' caches.
+          cache-suffix: docs
 
       # The docs only import the package, so install its core dependencies and
       # the docs group, without the extras or the dev group.
@@ -57,9 +66,8 @@ jobs:
         run: uv sync --locked --no-default-groups --group docs
 
       # Use the makefile's docs target so the Sphinx flags live in one place.
-      # --no-sync stops uv run re-installing the default dependency groups.
       - name: Build the Sphinx docs
-        run: make docs UV_RUN_DOCS="uv run --no-sync"
+        run: make docs
 
       # On pull requests, upload the built site so reviewers can download and
       # preview it from the workflow run's summary page.
