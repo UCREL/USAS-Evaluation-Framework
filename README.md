@@ -176,7 +176,8 @@ For [Claude Code](https://www.anthropic.com/claude-code), the [review-workflow s
 Full definitions are in the [metrics API documentation](https://ucrel.github.io/USAS-Evaluation-Framework/api/metrics.html).
 
 * **Top-N accuracy**: micro and macro averaged.
-* **Coverage** (planned): only applies to rule-based methods.
+* **Coverage**: the proportion of tokens that a tagger assigns at least one semantic tag to, optionally ignoring tags such as `Z99` (unmatched). Tokens that are not meaningful units, such as punctuation (`Z9`), can be excluded from the calculation entirely. Exclusion uses the tagger's own predicted tags. Mainly useful for rule-based methods.
+* **Type coverage**: same as coverage, but for unique words (word types), optionally lowercased. Binary: a word type is covered if at least one of its occurrences is tagged. Macro: each word type scores the proportion of its occurrences that are tagged, averaged over word types.
 
 ### Splits
 

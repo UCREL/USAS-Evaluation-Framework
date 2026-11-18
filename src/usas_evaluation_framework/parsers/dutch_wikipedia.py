@@ -6,7 +6,7 @@ from usas_evaluation_framework.parsers.wikipedia import WikipediaUSAS
 
 class DutchWikipediaUSAS(WikipediaUSAS):
     """
-    Convenience subclass of :class:`WikipediaUSAS` pre-configured for the
+    Convenience subclass of :class:`.WikipediaUSAS` pre-configured for the
     Dutch medical Wikipedia USAS corpus.
 
     Calling :meth:`parse` without ``dataset_name`` or ``language`` arguments

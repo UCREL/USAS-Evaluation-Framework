@@ -36,6 +36,11 @@ autodoc_default_options = {
     "exclude-members": "model_post_init, model_config",
 }
 autodoc_member_order = "bysource"
+
+# Warn about every cross-reference that cannot be resolved. Without this a
+# broken reference such as :attr:`DatasetStats.num_labelled_tokens` (missing its
+# leading dot) silently renders as plain text, even with ``-W``.
+nitpicky = True
 typehints_defaults = "comma"
 
 copybutton_prompt_text = r">>> |\.\.\. "

@@ -38,7 +38,7 @@ class NAACL2015USAS(BaseParser):
     2. Otherwise an empty string is assigned.
 
     When the ``mwe`` column is absent, ``mwe_indexes`` is ``None`` on every
-    returned :class:`EvaluationTexts`.  When the column is present,
+    returned :class:`.EvaluationTexts`.  When the column is present,
     ``mwe_indexes`` is a list of :class:`frozenset` — ``frozenset()`` for
     tokens not in any MWE, ``frozenset({n})`` for tokens in MWE group *n*.
 
@@ -81,7 +81,7 @@ class NAACL2015USAS(BaseParser):
 
         The CSV must contain columns ``id``, ``token``, and ``corrected_usas``.
         If an ``mwe`` column is also present, MWE information is read and
-        propagated to ``mwe_indexes`` on each :class:`EvaluationTexts`.
+        propagated to ``mwe_indexes`` on each :class:`.EvaluationTexts`.
 
         Empty tags are not checked against ``label_validation``.
 

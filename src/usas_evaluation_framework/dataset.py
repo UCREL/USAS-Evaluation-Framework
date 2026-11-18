@@ -2,6 +2,8 @@ from enum import Enum
 
 from pydantic import BaseModel, model_validator
 
+from usas_evaluation_framework.data_utils import is_labelled
+
 
 class TextLevel(str, Enum):
     """
@@ -81,7 +83,7 @@ class DatasetStats(BaseModel):
         num_semantic_tags (int | None): Total number of individual semantic tag strings
             assigned across all tokens. None if no texts have semantic tags.
         num_labelled_tokens (int | None): Number of tokens that have at least one semantic
-            tag assigned. None if no texts have semantic tags.
+            tag assigned, see :func:`.is_labelled`. None if no texts have semantic tags.
         num_compound_semantic_tags (int | None): Number of semantic tag strings containing
             a '/' (e.g. 'B2/A1.1.1'). None if no texts have semantic tags.
         unique_semantic_tags (frozenset[str] | None): The set of distinct semantic tag strings
@@ -229,7 +231,7 @@ class EvaluationDataset(BaseModel):
                 for t in self.texts
                 if t.semantic_tags is not None
                 for tag_list in t.semantic_tags
-                if any(tag.strip() for tag in tag_list)
+                if is_labelled(tag_list)
             )
             num_compound_semantic_tags: int | None = sum(1 for tag in all_tags if "/" in tag)
             unique_semantic_tags: frozenset[str] | None = frozenset(
