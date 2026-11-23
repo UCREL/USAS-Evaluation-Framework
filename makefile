@@ -10,11 +10,12 @@ TY_PYTHON_VERSIONS ?= 3.10 3.14
 
 # Type checking needs every import in the linted files to resolve, but that
 # doesn't need every extra:
-# - excel-conversion is needed, because the scripts import it.
+# - excel-conversion and huggingface-upload are needed, because the scripts
+#   import them.
 # - notebooks is not needed, because notebooks/ isn't linted.
 # The docs group, which docs/source/conf.py needs, is a default group, so uv
 # run includes it anyway. Keep in sync with the CI lint job's install step.
-UV_RUN_LINT := uv run --extra excel-conversion
+UV_RUN_LINT := uv run --extra excel-conversion --extra huggingface-upload
 
 # Auto-fixes files in place with Ruff, then runs the same checks as CI.
 .PHONY: lint

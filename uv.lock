@@ -4817,6 +4817,7 @@ excel-conversion = [
     { name = "xlrd" },
 ]
 huggingface-upload = [
+    { name = "datasets" },
     { name = "huggingface-hub" },
     { name = "python-dotenv" },
     { name = "requests" },
@@ -4859,6 +4860,7 @@ docs = [
 [package.metadata]
 requires-dist = [
     { name = "datasets", specifier = ">=4.5.0" },
+    { name = "datasets", marker = "extra == 'huggingface-upload'", specifier = ">=4.5.0" },
     { name = "datasets", marker = "extra == 'notebooks'", specifier = ">=4.5.0" },
     { name = "huggingface-hub", marker = "extra == 'huggingface-upload'", specifier = ">=0.36.2" },
     { name = "huggingface-hub", marker = "extra == 'notebooks'", specifier = ">=0.36.2" },

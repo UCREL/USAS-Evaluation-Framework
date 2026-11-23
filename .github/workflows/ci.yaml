@@ -66,12 +66,13 @@ jobs:
 
       # Type checking needs every import in the linted files to resolve, but
       # that doesn't need every extra:
-      # - excel-conversion is needed, because the scripts import it.
+      # - excel-conversion and huggingface-upload are needed, because the
+      #   scripts import them.
       # - notebooks is not needed, because notebooks/ isn't linted.
       # The docs group, which docs/source/conf.py needs, is a default group, so
       # uv sync includes it. Keep in sync with UV_RUN_LINT in the makefile.
       - name: Install the project
-        run: uv sync --locked --extra excel-conversion
+        run: uv sync --locked --extra excel-conversion --extra huggingface-upload
 
       # lint-check doesn't auto-fix, so fixable errors fail the job.
       - name: Lint and type check
