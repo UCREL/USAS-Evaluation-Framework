@@ -3128,6 +3128,15 @@ wheels = [
 ]
 
 [[package]]
+name = "python-dotenv"
+version = "1.2.4"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/74/26/2fbeedb218a787a5eea551c7532cac4e009f83d689dd2faa0d0353473f86/python_dotenv-1.2.4.tar.gz", hash = "sha256:f0d53e69935a851c0dcc78f3ab7aaccd8cabef0b92382b576b824212902873c0", size = 60824, upload-time = "2026-10-01T05:36:10Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/60/d1/38f3a3405989a89ac18390803e70c6ad7c7760da4f9b83cbeca0c44a0c72/python_dotenv-1.2.4-py3-none-any.whl", hash = "sha256:42269a8a5b3fd54ffa6f3d84b18abed50064717576b4ecf03dc4a55d8aa04fdc", size = 23266, upload-time = "2026-10-01T05:36:08.633Z" },
+]
+
+[[package]]
 name = "python-json-logger"
 version = "4.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -4807,6 +4816,12 @@ excel-conversion = [
     { name = "typer" },
     { name = "xlrd" },
 ]
+huggingface-upload = [
+    { name = "huggingface-hub" },
+    { name = "python-dotenv" },
+    { name = "requests" },
+    { name = "typer" },
+]
 notebooks = [
     { name = "datasets" },
     { name = "huggingface-hub" },
@@ -4845,6 +4860,7 @@ docs = [
 requires-dist = [
     { name = "datasets", specifier = ">=4.5.0" },
     { name = "datasets", marker = "extra == 'notebooks'", specifier = ">=4.5.0" },
+    { name = "huggingface-hub", marker = "extra == 'huggingface-upload'", specifier = ">=0.36.2" },
     { name = "huggingface-hub", marker = "extra == 'notebooks'", specifier = ">=0.36.2" },
     { name = "notebook", marker = "extra == 'notebooks'", specifier = ">=7.5.4" },
     { name = "openpyxl", marker = "extra == 'excel-conversion'", specifier = ">=3.1.5" },
@@ -4852,13 +4868,16 @@ requires-dist = [
     { name = "pip", marker = "extra == 'notebooks'", specifier = ">=26.0.1" },
     { name = "pydantic", specifier = ">=2.0,<3.0" },
     { name = "pymusas", extras = ["neural"], marker = "extra == 'notebooks'", specifier = ">=0.4.0" },
+    { name = "python-dotenv", marker = "extra == 'huggingface-upload'", specifier = ">=1.2.4" },
+    { name = "requests", marker = "extra == 'huggingface-upload'", specifier = ">=2.32.5" },
     { name = "spacy", marker = "extra == 'notebooks'", specifier = ">=3.8.11" },
     { name = "torch", marker = "extra == 'notebooks'", specifier = ">=2.12.0", index = "https://download.pytorch.org/whl/cpu" },
     { name = "typer", marker = "extra == 'excel-conversion'", specifier = ">=0.24.1" },
+    { name = "typer", marker = "extra == 'huggingface-upload'", specifier = ">=0.24.1" },
     { name = "usas-validator", specifier = ">=0.1.1" },
     { name = "xlrd", marker = "extra == 'excel-conversion'", specifier = ">=2.0.2" },
 ]
-provides-extras = ["notebooks", "excel-conversion"]
+provides-extras = ["notebooks", "excel-conversion", "huggingface-upload"]
 
 [package.metadata.requires-dev]
 dev = [

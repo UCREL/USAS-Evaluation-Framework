@@ -17,6 +17,8 @@ parsers
 
 .. automodule:: usas_evaluation_framework.parsers.icc_irish
 
+.. automodule:: usas_evaluation_framework.parsers.igbo_wikipedia
+
 .. automodule:: usas_evaluation_framework.parsers.naacl_2015
 
 .. automodule:: usas_evaluation_framework.parsers.spanish_wikipedia

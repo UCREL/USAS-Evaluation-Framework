@@ -15,3 +15,5 @@ tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv
 Data
 docs/build
 .env
+# Output of scripts/upload_to_huggingface.py --dry-run
+/dataset_card.md

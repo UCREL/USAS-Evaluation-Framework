@@ -8,6 +8,7 @@ from usas_evaluation_framework.parsers.danish_wikipedia import DanishWikipediaUS
 from usas_evaluation_framework.parsers.dutch_wikipedia import DutchWikipediaUSAS
 from usas_evaluation_framework.parsers.english_wikipedia import EnglishWikipediaUSAS
 from usas_evaluation_framework.parsers.hindi_wikipedia import HindiWikipediaUSAS
+from usas_evaluation_framework.parsers.igbo_wikipedia import IgboWikipediaUSAS
 from usas_evaluation_framework.parsers.spanish_wikipedia import SpanishWikipediaUSAS
 from usas_evaluation_framework.parsers.wikipedia import WikipediaUSAS
 
@@ -43,6 +44,12 @@ LANGUAGE_PARAMS = [
         "hindi_wikipedia", "hindi_wikipedia_corpus.csv",
         80, 2013, 1810, 2,
         id="Hindi"
+    ),
+    pytest.param(
+        IgboWikipediaUSAS, "Igbo",
+        "igbo_wikipedia", "igbo_wikipedia_corpus.csv",
+        65, 1487, 1308, 340,
+        id="Igbo"
     )
 ]
 

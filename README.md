@@ -65,7 +65,7 @@ To run the tests (uses pytest and coverage) and generate a coverage report:
 make test
 ```
 
-The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 dataset parsing tests for the full dataset corpora parsing will be skipped if you do not have the full datasets downloaded and saved to the correct file locations. These datasets are not open, to obtain these datasets request them from either Paul Rayson or Andrew Moore (they are free but requires you to agree to not re-distribute them).
+The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 dataset parsing tests for the full dataset corpora parsing will be skipped if you do not have the full datasets downloaded and saved to the correct file locations. These datasets are not open, to obtain these datasets request them from either Paul Rayson or Andrew Moore (they are free but requires you to agree to not re-distribute and may also require us to check with the original authors if we can release them.).
 
 The [CI workflow](./.github/workflows/ci.yaml) runs `make lint-check`, and runs `make test` on Python 3.10 to 3.14 on Linux, macOS and Windows, for pushes and pull requests to `main`. The Irish, Chinese NAACL 2015, and Portuguese NAACL 2015 full corpora dataset parsing tests aren't in the committed repository, so their tests are always skipped in CI.
 
@@ -168,6 +168,20 @@ zizmor already enforces the security basics: minimal permissions, actions pinned
 If a zizmor finding is a deliberate choice, suppress it with a `# zizmor: ignore[<rule>]` comment on that line, along with a comment explaining why.
 
 For [Claude Code](https://www.anthropic.com/claude-code), the [review-workflow skill](./.claude/skills/review-workflow/SKILL.md) follows this same process. Run it with `/review-workflow`.
+
+## Hugging Face Authentication
+
+Before processing or uploading to the Hugging Face Hub please authenticate using a token from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens) (remember to set the relevant access permissions);
+
+``` bash
+hf auth login
+```
+
+or by using a token that is set within the `.env` file in the project root (gitignored), read using [dotenv](https://github.com/theskumar/python-dotenv), e.g.
+
+```bash
+HF_TOKEN="HUGGINGFACE_TOKEN_KEY_VALUE"
+```
 
 ## Evaluation metrics and splits
 
@@ -367,15 +381,67 @@ An example that takes the original TSV files from NAACL 2015 Portuguese data and
 uv run scripts/naacl_2015_tsv_to_csv.py ./Data/naacl2015_portuguese_data -o ./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv
 ```
 
+### Upload datasets to the Hugging Face Hub
+
+**Note** to use this script you need to install the `huggingface-upload` extra: `uv sync --all-extras`.
+
+[./scripts/upload_to_huggingface.py](./scripts/upload_to_huggingface.py) parses one or more corpora with this library's parsers and uploads each one as its own subset (config) of a single Hugging Face dataset repository. Subsets are named `<language>_<corpus>`. Every subset has the same columns (`text`, `tokens`, `lemmas`, `pos_tags`, `semantic_tags`, `mwe_indexes`), one row per text, in a single `test` split. All tags are validated against the USAS tagset and none are filtered out. The script also generates and uploads a dataset card (`README.md`) that explains how each subset was parsed, how to load it back into this library, and where the raw data is.
+
+The token is read from the `HF_TOKEN` environment variable, or from `.env` (see [Hugging Face Authentication](#hugging-face-authentication)). It needs write permission for the target repository.
+
+| Subset | Parser | Raw data |
+|---|---|---|
+| `english_benedict` | `EnglishBenedict` | [benedict_english_corpus.txt](./tests/data/parsers/benedict/english/benedict_english_corpus.txt) |
+| `finnish_benedict` | `FinnishBenedict` | [benedict_finnish_corpus.txt](./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt) |
+| `welsh_corcencc` | `CorcenccParser` | [corcencc_corpus.txt](./tests/data/parsers/corcencc/corcencc_corpus.txt) |
+| `chinese_torch` | `TorchParser` | [torch_corpus.csv](./tests/data/parsers/torch/torch_corpus.csv) |
+| `italian_naacl_2015` | `NAACL2015USAS` | [naacl_2015_italian_corpus.csv](./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv) |
+| `english_medical_wikipedia` | `EnglishWikipediaUSAS` | [english_wikipedia_corpus.csv](./tests/data/parsers/english_wikipedia/english_wikipedia_corpus.csv) |
+| `spanish_medical_wikipedia` | `SpanishWikipediaUSAS` | [spanish_wikipedia_corpus.csv](./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv) |
+| `dutch_medical_wikipedia` | `DutchWikipediaUSAS` | [dutch_wikipedia_corpus.csv](./tests/data/parsers/dutch_wikipedia/dutch_wikipedia_corpus.csv) |
+| `danish_medical_wikipedia` | `DanishWikipediaUSAS` | [danish_wikipedia_corpus.csv](./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv) |
+| `hindi_medical_wikipedia` | `HindiWikipediaUSAS` | [hindi_wikipedia_corpus.csv](./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv) |
+| `igbo_medical_wikipedia` | `IgboWikipediaUSAS` | [igbo_wikipedia_corpus.csv](./tests/data/parsers/igbo_wikipedia/igbo_wikipedia_corpus.csv) |
+
+**The NAACL 2015 Chinese, NAACL 2015 Portuguese and ICC Irish corpora must not be uploaded.** They are not subsets, and the script refuses any path in `naacl_2015_chinese`, `naacl_2015_portuguese` or `icc_irish` (or an `ICC-GA-*` file). The dataset card lists them as available on request, with their statistics from [./notebooks/dataset_statistics.ipynb](./notebooks/dataset_statistics.ipynb).
+
+Check the parsed data and the generated card first with `--dry-run`, which uploads nothing. It builds the card the same way as an upload: it starts from the card already on the Hub, if it can read it (a private repository needs a token), and adds the given subsets to it. Otherwise it starts from an empty card, so no token is needed:
+
+``` bash
+uv run scripts/upload_to_huggingface.py ucrelnlp/USAS-Evaluation \
+  --dataset english_benedict=tests/data/parsers/benedict/english/benedict_english_corpus.txt \
+  --dataset finnish_benedict=tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt \
+  --dry-run --card-output dataset_card.md
+```
+
+* Remove `--dry-run` to upload.
+* `--dataset` can be repeated with the same subset to merge several files into it.
+* `--all` uploads every subset in the table above from its raw data file, wherever you run the script from. It cannot be combined with `--dataset`, and it stops if any of those files is missing:
+
+  ``` bash
+  uv run scripts/upload_to_huggingface.py ucrelnlp/USAS-Evaluation --all --dry-run
+  ```
+* The repository is created as private unless you pass `--no-private`. This only applies when the script creates the repository: the visibility of an existing repository is not changed (change it in the repository's settings on the Hub). Because uploading to an existing public repository would make the data public, the script refuses to do so with `--private` (the default), or when it cannot tell whether the repository is private. Pass `--no-private` to upload to a public repository.
+* The script stops with exit code 1 if the token is invalid or it cannot access the repository. The Hub reports a repository the token cannot read as not found, so a repository that is not found is only created when its namespace is the token's user or one of their organisations.
+
+`--dry-run` reports whether an upload would be refused. Running the script again adds or replaces the given subsets, keeps subsets uploaded earlier, and regenerates the card (for subsets uploaded in an earlier run, only the number of texts is shown).
+
+Run `uv run scripts/upload_to_huggingface.py --help` for all options.
+
 ## License
 
 The code is licensed under [Apache License Version 2.0](./LICENSE).
+
+<details>
+
+<summary>Test data file licenses</summary>
 
 The following data files, that we use for testing, are licensed under [Creative Commons Attribution Non Commercial Share Alike 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.en); 
 * [./tests/data/parsers/benedict/english/benedict_english_corpus.txt](./tests/data/parsers/benedict/english/benedict_english_corpus.txt)
 * [./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt](./tests/data/parsers/benedict/finnish/benedict_finnish_corpus.txt)
 * [./tests/data/parsers/torch/torch_corpus.csv](./tests/data/parsers/torch/torch_corpus.csv)
 * [./tests/data/parsers/corcencc/corcencc_corpus.txt](./tests/data/parsers/corcencc/corcencc_corpus.txt)
+* [./tests/data/parsers/igbo_wikipedia/igbo_wikipedia_corpus.csv](./tests/data/parsers/igbo_wikipedia/igbo_wikipedia_corpus.csv)
 
 The following data files, that we use for testing, are licensed under [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.en)
 * [./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv](./tests/data/parsers/spanish_wikipedia/spanish_wikipedia_corpus.csv)
@@ -384,16 +450,43 @@ The following data files, that we use for testing, are licensed under [Creative 
 * [./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv](./tests/data/parsers/danish_wikipedia/danish_wikipedia_corpus.csv)
 * [./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv](./tests/data/parsers/hindi_wikipedia/hindi_wikipedia_corpus.csv)
 
-The following data files, that we use for testing, are license under both [Creative Commons Attribution Non-Commercial Share Alike 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en) and [Creative Commons Attribution Share Alike 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
+The following data files, that we use for testing, are licensed under both [Creative Commons Attribution Non-Commercial Share Alike 3.0](https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en) and [Creative Commons Attribution Share Alike 3.0](https://creativecommons.org/licenses/by-sa/3.0/deed.en)
 * [./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv](./tests/data/parsers/naacl_2015_italian/naacl_2015_italian_corpus.csv)
 
-**The NAACL 2015 Chinese and Portuguese dataset can be obtained via an email request for the data to either Paul Rayson or Andrew Moore, the data is free but you must agree to a custom non-commercial and no redistribution license**
+**The NAACL 2015 Chinese and Portuguese and the Irish dataset can be obtained via an email request for the data to either Paul Rayson or Andrew Moore, the data is free but you must agree to a custom non-commercial, no redistribution license, and may also require us (Paul and Andrew) to check with the original authors if we can release them.**
 
 Non-commercial academic and education purposes only, full license that you must agree to [The Lancaster Corpus of Mandarin Chinese (LCMC) End User License](https://www.lancaster.ac.uk/fass/projects/corpus/LCMC/lcmc/lcmc_license.htm) as the original text has come from the [LCMC](https://aclanthology.org/L04-1117/):
 * [./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv](./tests/data/parsers/naacl_2015_chinese/naacl_2015_chinese_corpus.csv)
 
 The following data files currently have no or more specifically unknown license, the original texts have come from the [Lácio-Ref dataset](https://ucrel.lancs.ac.uk/publications/CL2003/papers/aluisio.pdf).
 * [./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv](./tests/data/parsers/naacl_2015_portuguese/naacl_2015_portuguese_corpus.csv)
+
+The Irish data files are available upon request.
+
+</details>
+
+
+## Acknowledgements and Citations
+
+We are very grateful to everyone who has created the evaluation datasets used in the forthcoming paper. Over the years many people have contributed to them, and they can be credited through the citations below:
+
+* Carmen Dayrell for manually checking the Portuguese NAACL 2015 evaluation data.
+* Daisy Lal for annotating the English and Hindi Wikipedia data.
+* Ignatius Ezeani for annotating the Igbo Wikipedia data.
+* Bettina Mølri Knudsen and Mette Holz Meinhardt Gregersen for annotating the Danish Wikipedia data.
+* Hugo Sanjurjo-Gonzalez for annotating the Spanish Wikipedia data.
+* Erik van Mulligen for annotating the Dutch Wikipedia data.
+* Tim Czerniak, Elaine Uí Dhonnchadha, and Gearóid Ó Donnchadha for annotating the Irish data.
+* Yan Yabo and Xiaobin Yang for annotating the ToRCH Chinese data.
+
+Cite the following papers for each evaluation dataset:
+
+* Wikipedia datasets: forthcoming paper.
+* NAACL 2015 Chinese, Italian and Portuguese: Piao et al. (2015). [Development of the Multilingual Semantic Annotation System](https://aclanthology.org/N15-1137/). In *Proceedings of NAACL-HLT 2015*.
+* ToRCH Chinese: Moore et al. (2026). [Creating a Hybrid Rule and Neural Network Based Semantic Tagger using Silver Standard Data: the PyMUSAS framework for Multilingual Semantic Annotation](https://aclanthology.org/2026.lrec-1.926/). In *Proceedings of LREC 2026*.
+* Irish: Czerniak and Uí Dhonnchadha (2024). [Towards Semantic Tagging for Irish](https://aclanthology.org/2024.lrec-main.1446/). In *Proceedings of LREC 2024*.
+* Welsh CorCenCC: Ezeani et al. (2019). [Leveraging Pre-Trained Embeddings for Welsh Taggers](https://aclanthology.org/W19-4332/). In *Proceedings of the 4th Workshop on Representation Learning for NLP (RepL4NLP)*.
+* Finnish and English Benedict: Löfberg et al. (2003). [Porting an English Semantic Tagger to the Finnish Language](https://ucrel.lancs.ac.uk/publications/CL2003/papers/lofberg.pdf). In *Proceedings of Corpus Linguistics 2003*.
 
 
 ## Claude settings
